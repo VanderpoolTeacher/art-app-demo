@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ArtMap — Discover the Art Around You</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --coral: #E63946;
+    --yellow: #F1FAEE;
+    --teal: #A8DADC;
+    --purple: #457B9D;
+    --blue: #457B9D;
+    --pink: #E63946;
+    --dark: #1D3557;
+    --darker: #132744;
+    --card-bg: #1D3557;
+    --card-hover: #254673;
+    --text: #F1FAEE;
+    --text-muted: #A8DADC;
+    --radius: 16px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--darker);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
+
+  /* ═══════════ HERO ═══════════ */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--darker) 0%, #1D3557 50%, var(--darker) 100%);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(168,218,220,0.15) 0%, transparent 70%);
+    top: -100px; left: -100px;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(230,57,70,0.12) 0%, transparent 70%);
+    bottom: -100px; right: -100px;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(30px, -30px); }
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(168,218,220,0.15);
+    border: 1px solid rgba(168,218,220,0.3);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    color: var(--teal);
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+    animation: fadeInUp 0.6s ease;
+  }
+
+  .hero-badge .dot {
+    width: 8px; height: 8px;
+    background: var(--teal);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+    animation: fadeInUp 0.8s ease;
+  }
+
+  .hero h1 .gradient-text {
+    background: linear-gradient(135deg, #E63946, #A8DADC, #457B9D);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero .tagline {
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    color: var(--text-muted);
+    margin-top: 1rem;
+    max-width: 600px;
+    position: relative;
+    z-index: 1;
+    animation: fadeInUp 1s ease;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-top: 3rem;
+    position: relative;
+    z-index: 1;
+    animation: fadeInUp 1.2s ease;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-stat {
+    text-align: center;
+  }
+
+  .hero-stat .number {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #A8DADC;
+  }
+
+  .hero-stat .label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    z-index: 1;
+    animation: bounce 2s infinite;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .scroll-hint .arrow {
+    width: 24px; height: 24px;
+    border-right: 2px solid var(--text-muted);
+    border-bottom: 2px solid var(--text-muted);
+    transform: rotate(45deg);
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ═══════════ NAV TABS ═══════════ */
+  .nav-container {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(19,39,68,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 0;
+  }
+
+  .nav-tabs {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .nav-tabs::-webkit-scrollbar { display: none; }
+
+  .nav-tab {
+    flex-shrink: 0;
+    padding: 1rem 1.4rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s;
+    white-space: nowrap;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .nav-tab:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+
+  .nav-tab.active {
+    color: var(--teal);
+    border-bottom-color: var(--teal);
+  }
+
+  /* ═══════════ SECTIONS ═══════════ */
+  .section {
+    display: none;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .section.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .section-header .icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .section-header h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-header p {
+    color: var(--text-muted);
+    max-width: 650px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+  }
+
+  .accent-coral { color: var(--coral); }
+  .accent-yellow { color: #F1FAEE; }
+  .accent-teal { color: var(--teal); }
+  .accent-purple { color: var(--purple); }
+  .accent-blue { color: var(--blue); }
+  .accent-pink { color: var(--coral); }
+
+  /* ═══════════ CARDS ═══════════ */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 2rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: all 0.3s;
+    cursor: default;
+  }
+
+  .card:hover {
+    background: var(--card-hover);
+    transform: translateY(-4px);
+    border-color: rgba(255,255,255,0.12);
+  }
+
+  .card .card-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  /* ═══════════ PROBLEM SECTION ═══════════ */
+  .problem-blocks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .problem-block {
+    background: linear-gradient(135deg, rgba(230,57,70,0.1), rgba(230,57,70,0.02));
+    border: 1px solid rgba(230,57,70,0.2);
+    border-radius: var(--radius);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .problem-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--coral);
+    border-radius: 4px 0 0 4px;
+  }
+
+  .problem-block h3 {
+    color: var(--coral);
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .problem-block p { color: var(--text-muted); font-size: 0.95rem; }
+
+  /* ═══════════ PERSONA CARDS ═══════════ */
+  .persona-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .persona-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 2rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: all 0.3s;
+  }
+
+  .persona-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,255,255,0.15);
+  }
+
+  .persona-avatar {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .persona-card h3 { font-size: 1.1rem; margin-bottom: 0.25rem; }
+  .persona-card .persona-role { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem; }
+
+  .persona-needs {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .persona-needs li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .persona-needs li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--teal);
+    font-weight: 700;
+  }
+
+  /* ═══════════ FEATURES TABLE ═══════════ */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .feature-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .feature-card:hover {
+    background: var(--card-hover);
+    transform: translateY(-3px);
+  }
+
+  .feature-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+  }
+
+  .feature-card h3 { font-size: 1.05rem; flex: 1; }
+
+  .priority-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 50px;
+    flex-shrink: 0;
+    margin-left: 12px;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .priority-badge.p0 { background: rgba(230,57,70,0.2); color: var(--coral); }
+  .priority-badge.p1 { background: rgba(69,123,157,0.25); color: var(--purple); }
+  .priority-badge.p2 { background: rgba(168,218,220,0.2); color: var(--teal); }
+  .priority-badge.p3 { background: rgba(29,53,87,0.4); color: #F1FAEE; }
+
+  .feature-card p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    flex: 1;
+  }
+
+  .feature-phase {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    opacity: 0.7;
+  }
+
+  /* ═══════════ TECH STACK ═══════════ */
+  .tech-layers {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .tech-layer {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 2rem;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .tech-layer-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1rem;
+  }
+
+  .tech-layer-header .layer-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+
+  .tech-layer-header h3 { font-size: 1.15rem; }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 1rem;
+  }
+
+  .tech-tag {
+    font-size: 0.8rem;
+    padding: 6px 14px;
+    border-radius: 50px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  /* ═══════════ TIMELINE ═══════════ */
+  .timeline {
+    position: relative;
+    margin-top: 2rem;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--teal), var(--purple), var(--coral));
+    border-radius: 3px;
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+    padding-left: 2rem;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -2rem;
+    top: 6px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 3px solid;
+    background: var(--darker);
+  }
+
+  .timeline-item h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+  .timeline-item .timeline-period {
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .timeline-item ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .timeline-item li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    padding-left: 1.2rem;
+    position: relative;
+  }
+
+  .timeline-item li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+  }
+
+  /* ═══════════ METRICS ═══════════ */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .metric-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+    transition: all 0.3s;
+  }
+
+  .metric-card:hover { transform: translateY(-3px); }
+
+  .metric-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .metric-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .metric-category {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border-radius: 50px;
+    display: inline-block;
+  }
+
+  /* ═══════════ MONETIZATION ═══════════ */
+  .revenue-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .revenue-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 2rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .revenue-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255,255,255,0.12);
+  }
+
+  .revenue-card .price {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0.75rem 0;
+  }
+
+  .revenue-card .timing {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    opacity: 0.7;
+  }
+
+  /* ═══════════ MODERATION ═══════════ */
+  .workflow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .workflow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .step-number {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  .workflow-step h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+  .workflow-step p { font-size: 0.9rem; color: var(--text-muted); }
+
+  /* ═══════════ RISKS ═══════════ */
+  .risk-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .risk-item {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .risk-item:hover { background: var(--card-hover); }
+
+  .risk-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .risk-header h3 { font-size: 1rem; flex: 1; }
+
+  .likelihood {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 50px;
+    flex-shrink: 0;
+    margin-left: 12px;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .likelihood.high { background: rgba(230,57,70,0.2); color: var(--coral); }
+  .likelihood.medium { background: rgba(69,123,157,0.25); color: var(--purple); }
+  .likelihood.low { background: rgba(168,218,220,0.2); color: var(--teal); }
+
+  .risk-mitigation {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, margin-top 0.3s ease;
+  }
+
+  .risk-item.open .risk-mitigation {
+    max-height: 200px;
+    margin-top: 1rem;
+  }
+
+  .risk-mitigation p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    padding: 1rem;
+    background: rgba(168,218,220,0.08);
+    border-radius: 10px;
+    border-left: 3px solid var(--teal);
+  }
+
+  .expand-icon {
+    transition: transform 0.3s;
+    color: var(--text-muted);
+    margin-left: 8px;
+  }
+
+  .risk-item.open .expand-icon { transform: rotate(180deg); }
+
+  /* ═══════════ VISION QUOTE ═══════════ */
+  .vision-block {
+    background: linear-gradient(135deg, rgba(168,218,220,0.1), rgba(69,123,157,0.1));
+    border: 1px solid rgba(168,218,220,0.2);
+    border-radius: var(--radius);
+    padding: 3rem;
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  .vision-block blockquote {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* ═══════════ GOALS TABLE ═══════════ */
+  .goals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .goal-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+    transition: all 0.3s;
+  }
+
+  .goal-card:hover { transform: translateY(-3px); }
+  .goal-card .goal-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+  .goal-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+  .goal-card p { font-size: 0.85rem; color: var(--text-muted); }
+  .goal-card .goal-metric {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.8rem;
+    margin-top: 0.75rem;
+    padding: 6px 12px;
+    border-radius: 50px;
+    display: inline-block;
+  }
+
+  /* ═══════════ DESIGN PRINCIPLES ═══════════ */
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .principle-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 2rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+    transition: all 0.3s;
+  }
+
+  .principle-card:hover { transform: translateY(-3px); }
+  .principle-card .principle-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .principle-card h3 { font-size: 1.15rem; margin-bottom: 0.75rem; }
+  .principle-card p { color: var(--text-muted); font-size: 0.9rem; }
+
+  /* ═══════════ FOOTER ═══════════ */
+  .footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* ═══════════ RESPONSIVE ═══════════ */
+  @media (max-width: 768px) {
+    .hero-stats { gap: 1.5rem; }
+    .section { padding: 2rem 1.25rem 3rem; }
+    .card-grid, .features-grid, .persona-cards, .revenue-cards, .principles-grid {
+      grid-template-columns: 1fr;
+    }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    .goals-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-badge"><span class="dot"></span> Launching Q4 2026</div>
+  <h1><span class="gradient-text">ArtMap</span></h1>
+  <p class="tagline">Discover the art around you. A living atlas of public art — where every mural, sculpture, and installation has a story.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="number">500K</div><div class="label">Artworks Indexed (Y1 Goal)</div></div>
+    <div class="hero-stat"><div class="number">13+</div><div class="label">Cities at Launch</div></div>
+    <div class="hero-stat"><div class="number">150K</div><div class="label">Monthly Active Users (Target)</div></div>
+  </div>
+  <div class="scroll-hint">
+    Explore the project
+    <div class="arrow"></div>
+  </div>
+</section>
+
+<!-- ═══════════ NAV ═══════════ -->
+<div class="nav-container">
+  <div class="nav-tabs" id="navTabs">
+    <div class="nav-tab active" data-tab="problem">The Problem</div>
+    <div class="nav-tab" data-tab="vision">Vision & Goals</div>
+    <div class="nav-tab" data-tab="users">Users</div>
+    <div class="nav-tab" data-tab="features">Features</div>
+    <div class="nav-tab" data-tab="tech">Tech Stack</div>
+    <div class="nav-tab" data-tab="design">Design</div>
+    <div class="nav-tab" data-tab="moderation">Trust & Safety</div>
+    <div class="nav-tab" data-tab="money">Business Model</div>
+    <div class="nav-tab" data-tab="roadmap">Roadmap</div>
+    <div class="nav-tab" data-tab="metrics">Metrics</div>
+    <div class="nav-tab" data-tab="risks">Risks</div>
+  </div>
+</div>
+
+<!-- ═══════════ PROBLEM ═══════════ -->
+<div class="section active" id="problem">
+  <div class="section-header">
+    <div class="icon">🔍</div>
+    <h2>The <span class="accent-coral">Problem</span></h2>
+    <p>Public art is one of the most accessible forms of creative expression — yet it remains largely invisible to the communities it serves.</p>
+  </div>
+  <div class="problem-blocks">
+    <div class="problem-block">
+      <h3>Discoverability</h3>
+      <p>No unified, searchable database of public art exists. Travelers and longtime residents alike rarely know what's around the corner.</p>
+    </div>
+    <div class="problem-block">
+      <h3>Missing Context</h3>
+      <p>Without knowing an artist's name, intent, or the cultural moment behind a piece, viewers experience art as decoration — not dialogue.</p>
+    </div>
+    <div class="problem-block">
+      <h3>Preservation</h3>
+      <p>Public artworks are ephemeral. Murals get painted over, sculptures demolished — with no digital record they ever existed.</p>
+    </div>
+  </div>
+  <div style="text-align:center; margin-top:2.5rem; color:var(--text-muted); font-size:0.95rem;">
+    Current solutions — scattered Instagram hashtags, city portals, niche walking apps — are fragmented and lack community participation.
+  </div>
+</div>
+
+<!-- ═══════════ VISION ═══════════ -->
+<div class="section" id="vision">
+  <div class="section-header">
+    <div class="icon">🌟</div>
+    <h2>Vision & <span class="accent-yellow">Goals</span></h2>
+  </div>
+  <div class="vision-block">
+    <blockquote>"To become the world's living atlas of public art — a platform where every mural, sculpture, and installation has a story, and every citizen is a curator."</blockquote>
+  </div>
+  <div class="goals-grid">
+    <div class="goal-card">
+      <div class="goal-icon">🗺️</div>
+      <h3>Discovery</h3>
+      <p>Help users find public art near them and worldwide</p>
+      <div class="goal-metric" style="background:rgba(168,218,220,0.15);color:var(--teal)">500K artworks indexed</div>
+    </div>
+    <div class="goal-card">
+      <div class="goal-icon">📚</div>
+      <h3>Education</h3>
+      <p>Rich cultural and historical context for every piece</p>
+      <div class="goal-metric" style="background:rgba(241,250,238,0.12);color:var(--yellow)">3+ facts per artwork</div>
+    </div>
+    <div class="goal-card">
+      <div class="goal-icon">👥</div>
+      <h3>Community</h3>
+      <p>Enable the public to contribute, verify, and expand the database</p>
+      <div class="goal-metric" style="background:rgba(69,123,157,0.15);color:var(--purple)">30% user-submitted</div>
+    </div>
+    <div class="goal-card">
+      <div class="goal-icon">🏛️</div>
+      <h3>Preservation</h3>
+      <p>Archive artworks that have been removed or deteriorated</p>
+      <div class="goal-metric" style="background:rgba(230,57,70,0.15);color:var(--coral)">Lost Art archive in 6mo</div>
+    </div>
+    <div class="goal-card">
+      <div class="goal-icon">💰</div>
+      <h3>Sustainability</h3>
+      <p>Ethical, non-intrusive monetization to sustain the platform</p>
+      <div class="goal-metric" style="background:rgba(69,123,157,0.15);color:var(--blue)">Break-even by Month 18</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ USERS ═══════════ -->
+<div class="section" id="users">
+  <div class="section-header">
+    <div class="icon">👤</div>
+    <h2>Who It's <span class="accent-teal">For</span></h2>
+    <p>Three core personas drive ArtMap's product decisions.</p>
+  </div>
+  <div class="persona-cards">
+    <div class="persona-card">
+      <div class="persona-avatar" style="background:rgba(168,218,220,0.15);color:var(--teal)">M</div>
+      <h3>Maya, 29</h3>
+      <div class="persona-role">The Urban Explorer — Art History Grad Student</div>
+      <ul class="persona-needs">
+        <li>Discover hidden gems in her own city and catalog finds</li>
+        <li>Frustrated by the lack of information on pieces she photographs</li>
+        <li>Wants a social layer to share discoveries with friends</li>
+      </ul>
+    </div>
+    <div class="persona-card">
+      <div class="persona-avatar" style="background:rgba(69,123,157,0.15);color:var(--blue)">J</div>
+      <h3>James, 44</h3>
+      <div class="persona-role">The Cultural Tourist — Frequent Business Traveler</div>
+      <ul class="persona-needs">
+        <li>Reliable, expert-quality guide to art in unfamiliar cities</li>
+        <li>Prefers offline access for areas with poor connectivity</li>
+        <li>Willing to pay for premium guides or ad-free experience</li>
+      </ul>
+    </div>
+    <div class="persona-card">
+      <div class="persona-avatar" style="background:rgba(230,57,70,0.15);color:var(--pink)">D</div>
+      <h3>Daniela, 35</h3>
+      <div class="persona-role">The Local Artist — Muralist & Community Organizer</div>
+      <ul class="persona-needs">
+        <li>Create a verified artist profile with her full portfolio</li>
+        <li>Secure commissions and public art grants through visibility</li>
+        <li>Proper attribution and IP protection for her work</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ FEATURES ═══════════ -->
+<div class="section" id="features">
+  <div class="section-header">
+    <div class="icon">⚡</div>
+    <h2>Feature <span class="accent-purple">Specification</span></h2>
+    <p>From MVP essentials to ambitious Phase 3 innovations.</p>
+  </div>
+
+  <!-- Feature filter buttons -->
+  <div style="display:flex;gap:8px;justify-content:center;margin-bottom:1rem;flex-wrap:wrap">
+    <button class="filter-btn active" data-filter="all" style="font-family:'Space Grotesk',sans-serif;font-size:0.8rem;padding:8px 18px;border-radius:50px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.08);color:var(--text);cursor:pointer;transition:all 0.2s">All</button>
+    <button class="filter-btn" data-filter="p0" style="font-family:'Space Grotesk',sans-serif;font-size:0.8rem;padding:8px 18px;border-radius:50px;border:1px solid rgba(230,57,70,0.3);background:transparent;color:var(--coral);cursor:pointer;transition:all 0.2s">P0 — Must Have</button>
+    <button class="filter-btn" data-filter="p1" style="font-family:'Space Grotesk',sans-serif;font-size:0.8rem;padding:8px 18px;border-radius:50px;border:1px solid rgba(69,123,157,0.4);background:transparent;color:var(--yellow);cursor:pointer;transition:all 0.2s">P1 — High</button>
+    <button class="filter-btn" data-filter="p2" style="font-family:'Space Grotesk',sans-serif;font-size:0.8rem;padding:8px 18px;border-radius:50px;border:1px solid rgba(168,218,220,0.3);background:transparent;color:var(--teal);cursor:pointer;transition:all 0.2s">P2 — Medium</button>
+    <button class="filter-btn" data-filter="p3" style="font-family:'Space Grotesk',sans-serif;font-size:0.8rem;padding:8px 18px;border-radius:50px;border:1px solid rgba(29,53,87,0.5);background:transparent;color:var(--purple);cursor:pointer;transition:all 0.2s">P3 — Future</button>
+  </div>
+
+  <div class="features-grid" id="featuresGrid">
+    <div class="feature-card" data-priority="p0">
+      <div class="feature-top"><h3>🗺️ Interactive Map</h3><span class="priority-badge p0">P0</span></div>
+      <p>Geolocated pins for all artworks with cluster view at zoom-out. Filter by type, medium, and era.</p>
+      <div class="feature-phase">MVP</div>
+    </div>
+    <div class="feature-card" data-priority="p0">
+      <div class="feature-top"><h3>🖼️ Artwork Detail Page</h3><span class="priority-badge p0">P0</span></div>
+      <p>Photos, artist bio, creation year, dimensions, medium, location history, and tags.</p>
+      <div class="feature-phase">MVP</div>
+    </div>
+    <div class="feature-card" data-priority="p0">
+      <div class="feature-top"><h3>🔎 Search & Filter</h3><span class="priority-badge p0">P0</span></div>
+      <p>Full-text search with filters for city, artist, style, date range, and medium.</p>
+      <div class="feature-phase">MVP</div>
+    </div>
+    <div class="feature-card" data-priority="p0">
+      <div class="feature-top"><h3>📤 User Contributions</h3><span class="priority-badge p0">P0</span></div>
+      <p>Submit new artworks with photo, location, and metadata through a moderation queue.</p>
+      <div class="feature-phase">MVP</div>
+    </div>
+    <div class="feature-card" data-priority="p1">
+      <div class="feature-top"><h3>🎨 Artist Profiles</h3><span class="priority-badge p1">P1</span></div>
+      <p>Verified profiles with portfolio, social links, and biography for artists.</p>
+      <div class="feature-phase">MVP</div>
+    </div>
+    <div class="feature-card" data-priority="p1">
+      <div class="feature-top"><h3>🚶 Self-Guided Tours</h3><span class="priority-badge p1">P1</span></div>
+      <p>Curated walking routes like "Williamsburg Murals" or "Chicago Sculptures."</p>
+      <div class="feature-phase">MVP</div>
+    </div>
+    <div class="feature-card" data-priority="p1">
+      <div class="feature-top"><h3>📴 Offline Mode</h3><span class="priority-badge p1">P1</span></div>
+      <p>Download city data packs for offline map and artwork browsing.</p>
+      <div class="feature-phase">MVP</div>
+    </div>
+    <div class="feature-card" data-priority="p1">
+      <div class="feature-top"><h3>🏚️ Lost Art Archive</h3><span class="priority-badge p1">P1</span></div>
+      <p>Mark artworks as removed; maintain a historical photo archive for demolished pieces.</p>
+      <div class="feature-phase">Phase 2</div>
+    </div>
+    <div class="feature-card" data-priority="p2">
+      <div class="feature-top"><h3>💬 Social Features</h3><span class="priority-badge p2">P2</span></div>
+      <p>Follow users, like and save artworks, comment threads, and share to social media.</p>
+      <div class="feature-phase">Phase 2</div>
+    </div>
+    <div class="feature-card" data-priority="p3">
+      <div class="feature-top"><h3>📱 AR Overlay</h3><span class="priority-badge p3">P3</span></div>
+      <p>Point your camera at a mural to surface metadata in augmented reality.</p>
+      <div class="feature-phase">Phase 3</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ TECH ═══════════ -->
+<div class="section" id="tech">
+  <div class="section-header">
+    <div class="icon">🏗️</div>
+    <h2>Technical <span class="accent-blue">Architecture</span></h2>
+    <p>Cloud-native architecture emphasizing scalability, offline resilience, and developer velocity.</p>
+  </div>
+  <div class="tech-layers">
+    <div class="tech-layer">
+      <div class="tech-layer-header">
+        <div class="layer-icon" style="background:rgba(168,218,220,0.15);color:var(--teal)">📱</div>
+        <h3>Frontend</h3>
+      </div>
+      <p style="color:var(--text-muted);font-size:0.95rem">Cross-platform mobile with React Native (iOS & Android) and Next.js for web. Shared component library via a custom design system.</p>
+      <div class="tech-tags">
+        <span class="tech-tag">React Native</span>
+        <span class="tech-tag">Next.js</span>
+        <span class="tech-tag">Mapbox GL JS</span>
+        <span class="tech-tag">Supercluster</span>
+      </div>
+    </div>
+    <div class="tech-layer">
+      <div class="tech-layer-header">
+        <div class="layer-icon" style="background:rgba(69,123,157,0.15);color:var(--purple)">⚙️</div>
+        <h3>Backend</h3>
+      </div>
+      <p style="color:var(--text-muted);font-size:0.95rem">Node.js API Gateway routing to microservices: Artwork, User, Search, and Media services. REST + GraphQL hybrid API.</p>
+      <div class="tech-tags">
+        <span class="tech-tag">Node.js</span>
+        <span class="tech-tag">GraphQL</span>
+        <span class="tech-tag">REST API</span>
+        <span class="tech-tag">Microservices</span>
+      </div>
+    </div>
+    <div class="tech-layer">
+      <div class="tech-layer-header">
+        <div class="layer-icon" style="background:rgba(241,250,238,0.12);color:var(--yellow)">☁️</div>
+        <h3>Infrastructure</h3>
+      </div>
+      <p style="color:var(--text-muted);font-size:0.95rem">AWS-powered: containers via ECS, PostgreSQL with PostGIS for spatial queries, S3 + CloudFront for media delivery, ElasticSearch for search, and Redis for caching.</p>
+      <div class="tech-tags">
+        <span class="tech-tag">AWS ECS</span>
+        <span class="tech-tag">PostgreSQL + PostGIS</span>
+        <span class="tech-tag">S3 + CloudFront</span>
+        <span class="tech-tag">ElasticSearch</span>
+        <span class="tech-tag">Redis</span>
+        <span class="tech-tag">MBTiles</span>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:2rem;background:var(--card-bg);border-radius:var(--radius);padding:2rem;border:1px solid rgba(255,255,255,0.06)">
+    <h3 style="margin-bottom:1rem">🗄️ Core Data Entities</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0.75rem">
+      <div style="background:rgba(168,218,220,0.08);border-radius:10px;padding:1rem;text-align:center">
+        <div style="font-size:1.5rem;margin-bottom:0.5rem">🖼️</div>
+        <div style="font-size:0.9rem;font-weight:600">Artwork</div>
+        <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.25rem">title, coords, media, tags</div>
+      </div>
+      <div style="background:rgba(69,123,157,0.08);border-radius:10px;padding:1rem;text-align:center">
+        <div style="font-size:1.5rem;margin-bottom:0.5rem">🎨</div>
+        <div style="font-size:0.9rem;font-weight:600">Artist</div>
+        <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.25rem">bio, portfolio, verified</div>
+      </div>
+      <div style="background:rgba(69,123,157,0.08);border-radius:10px;padding:1rem;text-align:center">
+        <div style="font-size:1.5rem;margin-bottom:0.5rem">👤</div>
+        <div style="font-size:0.9rem;font-weight:600">User</div>
+        <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.25rem">roles, saved, contributions</div>
+      </div>
+      <div style="background:rgba(241,250,238,0.08);border-radius:10px;padding:1rem;text-align:center">
+        <div style="font-size:1.5rem;margin-bottom:0.5rem">🚶</div>
+        <div style="font-size:0.9rem;font-weight:600">Tour</div>
+        <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.25rem">route, artworks, duration</div>
+      </div>
+      <div style="background:rgba(230,57,70,0.08);border-radius:10px;padding:1rem;text-align:center">
+        <div style="font-size:1.5rem;margin-bottom:0.5rem">📝</div>
+        <div style="font-size:0.9rem;font-weight:600">Contribution</div>
+        <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.25rem">audit trail, status</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ DESIGN ═══════════ -->
+<div class="section" id="design">
+  <div class="section-header">
+    <div class="icon">✨</div>
+    <h2>Design <span class="accent-pink">Philosophy</span></h2>
+    <p>Three core principles guide every pixel of ArtMap's experience.</p>
+  </div>
+  <div class="principles-grid">
+    <div class="principle-card">
+      <div class="principle-icon">🖼️</div>
+      <h3 class="accent-coral">Art First</h3>
+      <p>The UI recedes to let art shine. Minimal chrome, dark-mode support, full-bleed photos, and generous whitespace ensure artwork is always the hero.</p>
+    </div>
+    <div class="principle-card">
+      <div class="principle-icon">✨</div>
+      <h3 class="accent-yellow">Context as Delight</h3>
+      <p>Information reveals progressively — a thumbnail, then a title, then a rich story. Users are rewarded for curiosity, never overwhelmed.</p>
+    </div>
+    <div class="principle-card">
+      <div class="principle-icon">🤝</div>
+      <h3 class="accent-teal">Community Ownership</h3>
+      <p>Contribution flows feel as natural as social media. Anyone can add; trust is built through reputation, not gatekeeping.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ MODERATION ═══════════ -->
+<div class="section" id="moderation">
+  <div class="section-header">
+    <div class="icon">🛡️</div>
+    <h2>Trust & <span class="accent-teal">Safety</span></h2>
+    <p>A robust moderation pipeline ensures data quality and community health.</p>
+  </div>
+  <h3 style="text-align:center;margin-bottom:0.5rem;font-size:1.1rem">Contribution Workflow</h3>
+  <div class="workflow-steps">
+    <div class="workflow-step">
+      <div class="step-number" style="background:rgba(69,123,157,0.15);color:var(--blue)">1</div>
+      <div>
+        <h3>Submit</h3>
+        <p>User submits artwork with at least one photo, GPS coordinates, and a title.</p>
+      </div>
+    </div>
+    <div class="workflow-step">
+      <div class="step-number" style="background:rgba(69,123,157,0.15);color:var(--purple)">2</div>
+      <div>
+        <h3>Screen</h3>
+        <p>AI-assisted pre-screening flags duplicate coordinates, blurry images, or policy violations.</p>
+      </div>
+    </div>
+    <div class="workflow-step">
+      <div class="step-number" style="background:rgba(241,250,238,0.12);color:var(--yellow)">3</div>
+      <div>
+        <h3>Review</h3>
+        <p>Community vetters (Curators) review flagged or new submissions using earned trust.</p>
+      </div>
+    </div>
+    <div class="workflow-step">
+      <div class="step-number" style="background:rgba(168,218,220,0.15);color:var(--teal)">4</div>
+      <div>
+        <h3>Approve</h3>
+        <p>Submissions meeting quality criteria auto-approve within 24 hours; edge cases go to admin.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:3rem">
+    <h3 style="text-align:center;margin-bottom:1.5rem;font-size:1.1rem">Reputation System</h3>
+    <div class="card-grid">
+      <div class="card" style="text-align:center">
+        <div class="card-icon">⭐</div>
+        <h3>Earn Points</h3>
+        <p>Contributors earn points for approved submissions, verified edits, and helpful comments.</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <div class="card-icon">🏅</div>
+        <h3>Unlock Curator</h3>
+        <p>Reaching 500 points unlocks Curator status with expanded review permissions.</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <div class="card-icon">✅</div>
+        <h3>Verified Artists</h3>
+        <p>Artists receive a badge and can manage their own works without moderation delay.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ MONEY ═══════════ -->
+<div class="section" id="money">
+  <div class="section-header">
+    <div class="icon">💸</div>
+    <h2>Business <span class="accent-yellow">Model</span></h2>
+    <p>Ethical, non-intrusive revenue streams to sustain the platform.</p>
+  </div>
+  <div class="revenue-cards">
+    <div class="revenue-card">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">🌟</div>
+      <h3>ArtMap Plus</h3>
+      <div class="price accent-yellow">$4.99<span style="font-size:0.8rem;font-weight:400;color:var(--text-muted)">/month</span></div>
+      <p style="color:var(--text-muted);font-size:0.9rem">Offline city packs, ad-free experience, early access to new features, and exclusive editorial tours.</p>
+      <div class="timing">MVP Launch</div>
+    </div>
+    <div class="revenue-card">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">🏛️</div>
+      <h3>Institutional Licensing</h3>
+      <div class="price accent-blue">Custom</div>
+      <p style="color:var(--text-muted);font-size:0.9rem">API access and white-label solutions for museums, tourism boards, and city governments.</p>
+      <div class="timing">Month 6</div>
+    </div>
+    <div class="revenue-card">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">🎨</div>
+      <h3>Artist Pro Profiles</h3>
+      <div class="price accent-pink">$9.99<span style="font-size:0.8rem;font-weight:400;color:var(--text-muted)">/month</span></div>
+      <p style="color:var(--text-muted);font-size:0.9rem">Analytics, commission inquiry inbox, and portfolio hosting for verified artists.</p>
+      <div class="timing">Month 6</div>
+    </div>
+    <div class="revenue-card">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">📖</div>
+      <h3>Curated City Guides</h3>
+      <div class="price accent-teal">$2.99<span style="font-size:0.8rem;font-weight:400;color:var(--text-muted)"> each</span></div>
+      <p style="color:var(--text-muted);font-size:0.9rem">Premium one-time purchase guides authored by art critics and local curators.</p>
+      <div class="timing">Phase 2</div>
+    </div>
+    <div class="revenue-card">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">🤝</div>
+      <h3>Grants & Partnerships</h3>
+      <div class="price accent-purple">Ongoing</div>
+      <p style="color:var(--text-muted);font-size:0.9rem">Public arts commissions, NEA grants, and partnerships with cultural institutions for co-branded content.</p>
+      <div class="timing">Ongoing</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ ROADMAP ═══════════ -->
+<div class="section" id="roadmap">
+  <div class="section-header">
+    <div class="icon">🗓️</div>
+    <h2>Product <span class="accent-coral">Roadmap</span></h2>
+    <p>An 18-month plan from foundation to global intelligence.</p>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot" style="border-color:var(--teal)"></div>
+      <h3>Phase 1 — Foundation</h3>
+      <div class="timeline-period" style="color:var(--teal)">Months 1–6</div>
+      <ul>
+        <li style="color:var(--text-muted)">Launch iOS & Android MVP in NYC, LA, and Chicago</li>
+        <li style="color:var(--text-muted)">Seed database with 5,000 artworks via city arts partnerships</li>
+        <li style="color:var(--text-muted)">Core map, search, artwork detail, and user contribution flows</li>
+        <li style="color:var(--text-muted)">Verified artist profile program with founding cohort of 100 artists</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot" style="border-color:var(--purple)"></div>
+      <h3>Phase 2 — Community & Expansion</h3>
+      <div class="timeline-period" style="color:var(--purple)">Months 7–12</div>
+      <ul>
+        <li style="color:var(--text-muted)">Expand to 10 additional US cities + London, Mexico City, Sao Paulo</li>
+        <li style="color:var(--text-muted)">Launch self-guided tour builder for user-created walking routes</li>
+        <li style="color:var(--text-muted)">Introduce social layer: follows, saves, comments, and sharing</li>
+        <li style="color:var(--text-muted)">"Lost Art" archive — document and preserve demolished artworks</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot" style="border-color:var(--coral)"></div>
+      <h3>Phase 3 — Depth & Intelligence</h3>
+      <div class="timeline-period" style="color:var(--coral)">Months 13–18</div>
+      <ul>
+        <li style="color:var(--text-muted)">AR overlay: point camera at public art to surface info via on-device ML</li>
+        <li style="color:var(--text-muted)">AI-generated context: auto-suggest artist bios and historical notes</li>
+        <li style="color:var(--text-muted)">Global expansion to 50+ cities with multilingual support</li>
+        <li style="color:var(--text-muted)">Open API for third-party developers, academics, and city planners</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ METRICS ═══════════ -->
+<div class="section" id="metrics">
+  <div class="section-header">
+    <div class="icon">📊</div>
+    <h2>Success <span class="accent-blue">Metrics</span></h2>
+    <p>12-month targets across growth, engagement, community, and revenue.</p>
+  </div>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-value accent-teal">150K</div>
+      <div class="metric-label">Monthly Active Users</div>
+      <div class="metric-category" style="background:rgba(168,218,220,0.12);color:var(--teal)">Growth</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value accent-teal">500K</div>
+      <div class="metric-label">Artworks in Database</div>
+      <div class="metric-category" style="background:rgba(168,218,220,0.12);color:var(--teal)">Growth</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value accent-yellow">6 min</div>
+      <div class="metric-label">Avg. Session Duration</div>
+      <div class="metric-category" style="background:rgba(241,250,238,0.1);color:var(--yellow)">Engagement</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value accent-yellow">35%</div>
+      <div class="metric-label">D30 Retention</div>
+      <div class="metric-category" style="background:rgba(241,250,238,0.1);color:var(--yellow)">Engagement</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value accent-purple">30%</div>
+      <div class="metric-label">User-Contributed Artworks</div>
+      <div class="metric-category" style="background:rgba(69,123,157,0.12);color:var(--purple)">Community</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value accent-purple">2,500</div>
+      <div class="metric-label">Verified Artist Profiles</div>
+      <div class="metric-category" style="background:rgba(69,123,157,0.12);color:var(--purple)">Community</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value accent-coral">10K</div>
+      <div class="metric-label">Paid Subscribers</div>
+      <div class="metric-category" style="background:rgba(230,57,70,0.12);color:var(--coral)">Revenue</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value accent-coral">$75K</div>
+      <div class="metric-label">Monthly Recurring Revenue</div>
+      <div class="metric-category" style="background:rgba(230,57,70,0.12);color:var(--coral)">Revenue</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value accent-blue">&gt;92%</div>
+      <div class="metric-label">Data Accuracy (Spot Audit)</div>
+      <div class="metric-category" style="background:rgba(69,123,157,0.12);color:var(--blue)">Quality</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ RISKS ═══════════ -->
+<div class="section" id="risks">
+  <div class="section-header">
+    <div class="icon">⚠️</div>
+    <h2>Risks & <span class="accent-coral">Mitigations</span></h2>
+    <p>Click each risk to reveal the mitigation strategy.</p>
+  </div>
+  <div class="risk-items" id="riskItems">
+    <div class="risk-item" onclick="this.classList.toggle('open')">
+      <div class="risk-header">
+        <h3>Low-quality user submissions degrade trust</h3>
+        <span class="likelihood high">High</span>
+        <span class="expand-icon">▼</span>
+      </div>
+      <div class="risk-mitigation">
+        <p>AI pre-screening combined with a tiered contributor reputation system and community flagging tools ensures quality at scale.</p>
+      </div>
+    </div>
+    <div class="risk-item" onclick="this.classList.toggle('open')">
+      <div class="risk-header">
+        <h3>IP disputes over photographed artworks</h3>
+        <span class="likelihood medium">Medium</span>
+        <span class="expand-icon">▼</span>
+      </div>
+      <div class="risk-mitigation">
+        <p>Clear photography rights policy displayed prominently. Artist partnerships for explicit consent. Adherence to U.S. VARA guidelines.</p>
+      </div>
+    </div>
+    <div class="risk-item" onclick="this.classList.toggle('open')">
+      <div class="risk-header">
+        <h3>Map data licensing cost overruns</h3>
+        <span class="likelihood medium">Medium</span>
+        <span class="expand-icon">▼</span>
+      </div>
+      <div class="risk-mitigation">
+        <p>Negotiate startup tier with Mapbox. Evaluate OpenStreetMap as a fallback for non-critical map views.</p>
+      </div>
+    </div>
+    <div class="risk-item" onclick="this.classList.toggle('open')">
+      <div class="risk-header">
+        <h3>Slow initial data coverage limiting user value</h3>
+        <span class="likelihood high">High</span>
+        <span class="expand-icon">▼</span>
+      </div>
+      <div class="risk-mitigation">
+        <p>Pre-seed database via data partnerships before launch. Focus depth over breadth in initial launch cities to ensure a rich experience from day one.</p>
+      </div>
+    </div>
+    <div class="risk-item" onclick="this.classList.toggle('open')">
+      <div class="risk-header">
+        <h3>Competition from Google Maps or large incumbents</h3>
+        <span class="likelihood low">Low</span>
+        <span class="expand-icon">▼</span>
+      </div>
+      <div class="risk-mitigation">
+        <p>Focus on the depth of art-specific context and community that general-purpose platforms cannot replicate. Build a moat through cultural trust.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<div class="footer">
+  ArtMap — Discover the Art Around You &nbsp;|&nbsp; Product Design Document v1.0 &nbsp;|&nbsp; March 2026
+</div>
+
+<script>
+  // ═══════════ TAB NAVIGATION ═══════════
+  const tabs = document.querySelectorAll('.nav-tab');
+  const sections = document.querySelectorAll('.section');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      sections.forEach(s => {
+        s.classList.remove('active');
+        if (s.id === target) {
+          s.classList.add('active');
+          // Re-trigger animation
+          s.style.animation = 'none';
+          s.offsetHeight; // force reflow
+          s.style.animation = '';
+        }
+      });
+    });
+  });
+
+  // ═══════════ FEATURE FILTER ═══════════
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const featureCards = document.querySelectorAll('.feature-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+
+      filterBtns.forEach(b => {
+        b.classList.remove('active');
+        b.style.background = 'transparent';
+      });
+      btn.classList.add('active');
+      btn.style.background = 'rgba(255,255,255,0.08)';
+
+      featureCards.forEach(card => {
+        if (filter === 'all' || card.dataset.priority === filter) {
+          card.style.display = 'flex';
+          card.style.animation = 'fadeIn 0.3s ease';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // ═══════════ SCROLL-TRIGGERED NAV ═══════════
+  const hero = document.querySelector('.hero');
+  const navContainer = document.querySelector('.nav-container');
+
+  // Smooth scroll past hero on arrow click
+  document.querySelector('.scroll-hint')?.addEventListener('click', () => {
+    navContainer.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // ═══════════ ANIMATE NUMBERS ON HERO ═══════════
+  function animateValue(el, start, end, suffix, duration) {
+    let startTime = null;
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(start + (end - start) * eased);
+      el.textContent = current.toLocaleString() + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const numbers = document.querySelectorAll('.hero-stat .number');
+        animateValue(numbers[0], 0, 500, 'K', 1500);
+        animateValue(numbers[1], 0, 13, '+', 1200);
+        animateValue(numbers[2], 0, 150, 'K', 1500);
+        observer.disconnect();
+      }
+    });
+  });
+  observer.observe(hero);
+</script>
+</body>
+</html>
