@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "title": "Toledo Frog Mural",
+    "artist": "Dean Davis",
+    "type": "mural",
+    "description": "A vibrant, large-scale mural featuring colorful blue and green tree frogs painted on the side of a building in downtown Toledo.",
+    "latitude": 41.651832,
+    "longitude": -83.534791,
+    "image": "images/toledo-frog-mural.jpg"
+  },
+  {
+    "id": 2,
+    "title": "All You Need Is Love",
+    "artist": "Dean Davis",
+    "type": "mural",
+    "description": "A colorful mural located at Peace Love Happiness World Headquarters in downtown Toledo.",
+    "latitude": 41.652857,
+    "longitude": -83.535114,
+    "image": "images/all-you-need-is-love-mural.jpg"
+  },
+  {
+    "id": 3,
+    "title": "River Gallery Studio",
+    "artist": "",
+    "type": "studio",
+    "description": "500 Madison Avenue, Toledo, OH 43604",
+    "latitude": 41.6528,
+    "longitude": -83.5352,
+    "image": "images/river-gallery-studio.jpg"
+  },
+  {
+    "id": 4,
+    "title": "Glass City River Wall",
+    "artist": "Gabe Gault",
+    "type": "mural",
+    "description": "The largest mural in North America, spanning 28 ADM grain silos across 170,000 sq ft along the Maumee River. Features sunflowers and portraits of Native American women and children honoring the region's first agriculturalists. Photo: Doug Hinebaugh (instagram.com/thedougiefresh).",
+    "latitude": 41.6531,
+    "longitude": -83.5280,
+    "image": "images/glass-city-river-wall-mural.png"
+  },
+  {
+    "id": 5,
+    "title": "Greetings from Toledo",
+    "artist": "Victor Ving & Lisa Beggs",
+    "type": "mural",
+    "description": "A colorful postcard-style mural at 120 Main St in East Toledo, featuring iconic Toledo landmarks like Tony Packo's, the Skyway Bridge, and the Toledo Mud Hens. Photo: Doug Hinebaugh (instagram.com/thedougiefresh).",
+    "latitude": 41.6489,
+    "longitude": -83.5241,
+    "image": "images/greetings-from-toledo-mural.png"
+  },
+  {
+    "id": 6,
+    "title": "Toledo Museum of Art",
+    "artist": "",
+    "type": "gallery",
+    "description": "World-class art museum with free admission, housed in a stunning Greek Revival building. Home to the renowned Glass Pavilion. 2445 Monroe St, Toledo, OH 43620. Photo: Doug Hinebaugh (instagram.com/thedougiefresh).",
+    "latitude": 41.6598,
+    "longitude": -83.5750,
+    "image": "images/toledo-museum-of-art.png"
+  },
+  {
+    "id": 7,
+    "title": "20 North Gallery",
+    "artist": "",
+    "type": "gallery",
+    "description": "Toledo's oldest independent art gallery, founded in 1993. Located in the historic Warehouse District at 18 N. St. Clair St, Toledo, OH 43604. Photo: Kenny Greene.",
+    "latitude": 41.6497,
+    "longitude": -83.5355,
+    "image": "images/20-gallery-north-studio.webp"
+  },
+  {
+    "id": 8,
+    "title": "Collingwood Arts Center",
+    "artist": "",
+    "type": "studio",
+    "description": "A historic arts hub since 1905 offering artist studios, live performances, classes, and workshops. 2413 Collingwood Blvd, Toledo, OH 43620. Photo: Smithr1981, CC BY 3.0.",
+    "latitude": 41.6688,
+    "longitude": -83.5560,
+    "image": "images/collingwood-art-center.jpg"
+  },
+  {
+    "id": 9,
+    "title": "River House Arts",
+    "artist": "",
+    "type": "gallery",
+    "description": "A full-service gallery in the historic Secor Building downtown, with free, ever-changing exhibitions.",
+    "latitude": 41.6520,
+    "longitude": -83.5370,
+    "image": "images/river-house-arts.jpg"
+  },
+  {
+    "id": 10,
+    "title": "Echo",
+    "artist": "Kristine Rumman & Dane Turpening, 2017",
+    "type": "sculpture",
+    "description": "Eleven rings from a former steam plant smokestack create a pathway through the landscape — a metaphor for Toledo's transition from past to present to future. Photo: Doug Hinebaugh (instagram.com/thedougiefresh).",
+    "latitude": 41.649807,
+    "longitude": -83.533424,
+    "image": "images/echo-sculpture.png"
+  },
+  {
+    "id": 11,
+    "title": "Upon Reflection",
+    "artist": "Studio KCA, 2022",
+    "type": "sculpture",
+    "description": "Two suspended ovals — one mirrored, one backlit — play off sunlight by day and glow with LEDs by night. 310 N Summit St. Photo: Doug Hinebaugh (instagram.com/thedougiefresh).",
+    "latitude": 41.6537,
+    "longitude": -83.5383,
+    "image": "images/the-oval-upon-reflection-sculpture.png"
+  },
+  {
+    "id": 12,
+    "title": "Various Paintings by Dean Davis",
+    "artist": "Dean Davis",
+    "type": "gallery",
+    "description": "A rotating collection of mixed-media paintings and works by Toledo muralist Dean Davis, displayed at The Loft. 336 N Superior Ave, Toledo, OH.",
+    "latitude": 41.6536,
+    "longitude": -83.5340,
+    "image": "images/various-paintings-dean-davis.png"
+  }
+]
