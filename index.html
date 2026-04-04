@@ -1,0 +1,2189 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Greater Toledo Art Map — Public Art for Everyone</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Reddit+Sans:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&family=Caveat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* ═══════════ PALETTE ═══════════ */
+  :root {
+    --sky-blue: #8ECAE6;
+    --blue-green: #219EBC;
+    --deep-blue: #023047;
+    --amber: #FFB703;
+    --orange: #FB8500;
+    --radius: 0;
+  }
+
+  /* ═══════════ DARK MODE (default) ═══════════ */
+  [data-theme="dark"] {
+    --bg: #121212;
+    --bg-elevated: #1E1E1E;
+    --card-bg: #1E1E1E;
+    --card-hover: #2A2A2A;
+    --nav-bg: rgba(18,18,18,0.92);
+    --border: rgba(255,255,255,0.08);
+    --text: #EDEDED;
+    --text-muted: #A0A0A0;
+    --coral: var(--orange);
+    --yellow: var(--amber);
+    --teal: var(--sky-blue);
+    --purple: var(--blue-green);
+    --blue: var(--blue-green);
+    --pink: var(--orange);
+    --dark: var(--deep-blue);
+    --darker: #121212;
+    --hero-gradient: linear-gradient(135deg, #121212 0%, #1A1A2E 50%, #121212 100%);
+    --heading-gradient: linear-gradient(135deg, var(--amber), var(--sky-blue), var(--blue-green));
+  }
+
+  /* ═══════════ LIGHT MODE ═══════════ */
+  [data-theme="light"] {
+    --bg: #F5F5F0;
+    --bg-elevated: #FFFFFF;
+    --card-bg: #FFFFFF;
+    --card-hover: #F0F0F0;
+    --nav-bg: rgba(245,245,240,0.92);
+    --border: rgba(0,0,0,0.08);
+    --text: #1A1A1A;
+    --text-muted: #4A4A4A;
+    --coral: var(--orange);
+    --yellow: var(--amber);
+    --teal: var(--blue-green);
+    --purple: var(--deep-blue);
+    --blue: var(--deep-blue);
+    --pink: var(--orange);
+    --dark: var(--deep-blue);
+    --darker: #F5F5F0;
+    --hero-gradient: linear-gradient(135deg, #F5F5F0 0%, #E8E8E0 50%, #F5F5F0 100%);
+    --heading-gradient: linear-gradient(135deg, var(--orange), var(--blue-green), var(--deep-blue));
+    --teal: var(--blue-green);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Caveat', cursive;
+    font-size: 12pt;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  h1, h2, h3, h4 { font-family: 'Reddit Sans', sans-serif; }
+
+  /* ═══════════ HERO ═══════════ */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    background: var(--hero-gradient);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(168,218,220,0.15) 0%, transparent 70%);
+    top: -100px; left: -100px;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(230,57,70,0.12) 0%, transparent 70%);
+    bottom: -100px; right: -100px;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(30px, -30px); }
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(168,218,220,0.15);
+    border: 1px solid rgba(142,202,230,0.3);
+    padding: 8px 20px;
+    border-radius: 0;
+    font-size: 0.85rem;
+    color: var(--teal);
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+    animation: fadeInUp 0.6s ease;
+  }
+
+  .hero-badge .dot {
+    width: 8px; height: 8px;
+    background: var(--teal);
+    border-radius: 0;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+    animation: fadeInUp 0.8s ease;
+  }
+
+  .hero h1 .gradient-text {
+    background: var(--heading-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero .tagline {
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    color: var(--text-muted);
+    margin-top: 1rem;
+    max-width: 600px;
+    position: relative;
+    z-index: 1;
+    animation: fadeInUp 1s ease;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-top: 3rem;
+    position: relative;
+    z-index: 1;
+    animation: fadeInUp 1.2s ease;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-stat {
+    text-align: center;
+  }
+
+  .hero-stat .number {
+    font-family: 'Reddit Sans', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--teal);
+  }
+
+  .hero-stat .label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    z-index: 1;
+    animation: bounce 2s infinite;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .scroll-hint .arrow {
+    width: 24px; height: 24px;
+    border-right: 2px solid var(--text-muted);
+    border-bottom: 2px solid var(--text-muted);
+    transform: rotate(45deg);
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ═══════════ THEME TOGGLE ═══════════ */
+  .theme-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 200;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  }
+
+  .theme-toggle:hover {
+    transform: scale(1.1);
+    border-color: var(--amber);
+  }
+
+  .theme-toggle svg {
+    width: 20px;
+    height: 20px;
+    color: var(--amber);
+    transition: color 0.3s;
+  }
+
+  /* ═══════════ ART HERO ═══════════ */
+  .art-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 3rem 2rem 2rem;
+    background: var(--hero-gradient);
+  }
+
+  .art-hero h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+  }
+
+  .art-hero .tagline {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+  }
+
+  .art-hero .artwork-gallery {
+    width: 100%;
+    max-width: 1100px;
+  }
+
+  /* ═══════════ NAV TABS ═══════════ */
+  /* ── Inverted slide colors ── */
+  [data-theme="dark"] {
+    --slide-bg: #F0F0EB;
+    --slide-text: #1A1A1A;
+    --slide-text-muted: #555;
+    --slide-accent: #2563EB;
+    --slide-accent-blue: #2563EB;
+    --slide-accent-yellow: #CA8A04;
+    --slide-accent-red: #DC2626;
+    --slide-border: rgba(0,0,0,0.08);
+  }
+
+  [data-theme="light"] {
+    --slide-bg: #F0F0EB;
+    --slide-text: #1A1A1A;
+    --slide-text-muted: #555;
+    --slide-accent: #2563EB;
+    --slide-accent-blue: #2563EB;
+    --slide-accent-yellow: #CA8A04;
+    --slide-accent-red: #DC2626;
+    --slide-border: rgba(0,0,0,0.08);
+  }
+
+  /* ═══════════ SLIDESHOW ═══════════ */
+  .slideshow {
+    max-width: 1100px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+    position: relative;
+  }
+
+  .slideshow-viewport {
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
+  }
+
+  .slide-card {
+    background: var(--slide-bg);
+    color: var(--slide-text);
+    padding: 2.5rem 3rem 3.5rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateX(80px);
+    visibility: hidden;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  }
+
+  .slide-card.active {
+    opacity: 1;
+    transform: translateX(0);
+    position: relative;
+    visibility: visible;
+  }
+
+  .slide-card.slide-out-left {
+    opacity: 0;
+    transform: translateX(-80px);
+    position: absolute;
+    visibility: hidden;
+  }
+
+  .slide-card.slide-out-right {
+    opacity: 0;
+    transform: translateX(80px);
+    position: absolute;
+    visibility: hidden;
+  }
+
+  .slide-card.slide-in-right {
+    opacity: 0;
+    transform: translateX(80px);
+    visibility: hidden;
+  }
+
+  .slide-card.slide-in-left {
+    opacity: 0;
+    transform: translateX(-80px);
+    visibility: hidden;
+  }
+
+  /* Override text colors inside slides — primary color accents */
+  .slide-card h2,
+  .slide-card h3 { color: var(--slide-text); }
+  .slide-card p,
+  .slide-card li { color: var(--slide-text-muted); font-family: 'Open Sans', sans-serif; font-size: 0.95rem; }
+  .slide-card .accent-coral,
+  .slide-card .accent-pink { color: var(--slide-accent-red); }
+  .slide-card .accent-yellow { color: var(--slide-accent-yellow); }
+  .slide-card .accent-teal,
+  .slide-card .accent-blue,
+  .slide-card .accent-purple { color: var(--slide-accent-blue); }
+
+  /* SVG icon colors inside slides */
+  .slide-card .section-header .icon svg { stroke: var(--slide-accent-blue); }
+  .slide-card .goal-icon svg { stroke: var(--slide-accent-blue); }
+  .slide-card .entity-icon svg { stroke: var(--slide-accent-blue); }
+  .slide-card .principle-icon svg { stroke: var(--slide-accent-blue); }
+
+  /* Goal metric badges — primary colors */
+  .slide-card .goal-metric { background: rgba(37,99,235,0.1) !important; color: var(--slide-accent-blue) !important; }
+
+  /* Timeline dots — primary colors */
+  .slide-card .timeline-dot { border-color: var(--slide-accent-blue) !important; }
+  .slide-card .timeline-period { color: var(--slide-accent-blue) !important; }
+
+  /* Sub-cards inside slides */
+  .slide-card .problem-block,
+  .slide-card .goal-card,
+  .slide-card .persona-card,
+  .slide-card .feature-card,
+  .slide-card .tech-card,
+  .slide-card .principle-card,
+  .slide-card .risk-card,
+  .slide-card .timeline-item {
+    background: rgba(128,128,128,0.1);
+    border: 1px solid var(--slide-border);
+  }
+
+  /* Slide header bar */
+  .slide-label {
+    display: inline-block;
+    font-family: 'Reddit Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--slide-accent);
+    margin-bottom: 1.2rem;
+    padding: 0.3rem 0.8rem;
+    border: 1.5px solid var(--slide-accent);
+  }
+
+  /* Controls row */
+  .slide-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .slide-arrow {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 2px solid var(--slide-border);
+    background: var(--slide-bg);
+    color: var(--slide-text);
+    transition: all 0.25s ease;
+  }
+
+  .slide-arrow:hover {
+    background: var(--slide-accent);
+    color: #fff;
+    border-color: var(--slide-accent);
+    transform: scale(1.08);
+  }
+
+  .slide-arrow:disabled {
+    opacity: 0.3;
+    cursor: default;
+    transform: none;
+  }
+
+  .slide-arrow:disabled:hover {
+    background: var(--slide-bg);
+    color: var(--slide-text);
+    border-color: var(--slide-border);
+    transform: none;
+  }
+
+  .slide-arrow svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .slide-counter {
+    font-family: 'Reddit Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    min-width: 60px;
+    text-align: center;
+  }
+
+  /* Dots */
+  .slide-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .slide-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .slide-dot.active {
+    background: var(--slide-accent);
+    width: 24px;
+  }
+
+  /* ═══════════ SECTIONS (inside slides) ═══════════ */
+  .section {
+    /* Reset old styles — sections live inside .slide-card now */
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .section-header .icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .section-header h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-header p {
+    color: var(--text-muted);
+    max-width: 650px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+  }
+
+  .accent-coral { color: var(--orange); }
+  .accent-yellow { color: var(--amber); }
+  .accent-teal { color: var(--blue-green); }
+  .accent-purple { color: var(--deep-blue); }
+  .accent-blue { color: var(--blue-green); }
+  .accent-pink { color: var(--orange); }
+
+  [data-theme="dark"] .accent-purple { color: var(--sky-blue); }
+  [data-theme="dark"] .accent-blue { color: var(--sky-blue); }
+  [data-theme="dark"] .accent-teal { color: var(--sky-blue); }
+
+  /* ═══════════ CARDS ═══════════ */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 2rem;
+    border: 1px solid var(--border);
+    transition: all 0.3s;
+    cursor: default;
+  }
+
+  .card:hover {
+    background: var(--card-hover);
+    transform: translateY(-4px);
+    border-color: var(--teal);
+  }
+
+  .card .card-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  /* ═══════════ ARTWORK GALLERY ═══════════ */
+  .artwork-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .artwork-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+
+  .artwork-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(142,202,230,0.3);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  }
+
+  .artwork-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .artwork-card .artwork-info {
+    padding: 1.5rem;
+  }
+
+  .artwork-card .artwork-type {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 4px 12px;
+    border-radius: 0;
+    margin-bottom: 0.75rem;
+    font-family: 'Reddit Sans', sans-serif;
+  }
+
+  [data-theme="dark"] .artwork-card .artwork-type {
+    background: rgba(66,133,244,0.15);
+    color: #6EA8FE;
+  }
+
+  [data-theme="light"] .artwork-card .artwork-type {
+    background: rgba(33,158,188,0.12);
+    color: var(--blue-green);
+  }
+
+  .artwork-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .artwork-card .artwork-artist {
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+
+  [data-theme="dark"] .artwork-card .artwork-artist {
+    color: #FFD60A;
+  }
+
+  [data-theme="light"] .artwork-card .artwork-artist {
+    color: var(--blue-green);
+  }
+
+  .artwork-card .artwork-desc {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+
+  .artwork-card .artwork-desc .photo-credit {
+    color: var(--blue-green);
+  }
+
+  [data-theme="dark"] .artwork-card .artwork-desc .photo-credit {
+    color: #FF6B6B;
+  }
+
+  .artwork-card .artwork-logo {
+    height: 32px;
+    width: auto;
+    margin-bottom: 0.75rem;
+    opacity: 0.7;
+  }
+
+  [data-theme="dark"] .artwork-card .artwork-logo {
+    filter: invert(1);
+  }
+
+  .artwork-card .artwork-location {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: #ffffff;
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .artwork-card .artwork-location:hover {
+    opacity: 1;
+    text-decoration: underline;
+  }
+
+  .artwork-empty {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-muted);
+  }
+
+  .artwork-empty .empty-icon { font-size: 3rem; margin-bottom: 1rem; }
+
+  /* ═══════════ LIGHTBOX ═══════════ */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0);
+    cursor: pointer;
+    pointer-events: none;
+    transition: background 0.3s ease;
+  }
+
+  .lightbox.active {
+    background: rgba(0,0,0,0.85);
+    pointer-events: all;
+  }
+
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    transform: scale(0.6);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+  }
+
+  .lightbox.active img {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  .artwork-card img {
+    cursor: zoom-in;
+  }
+
+  /* ═══════════ PROBLEM SECTION ═══════════ */
+  .problem-blocks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .problem-block {
+    background: linear-gradient(135deg, rgba(251,133,0,0.1), rgba(251,133,0,0.02));
+    border: 1px solid rgba(251,133,0,0.2);
+    border-radius: var(--radius);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .problem-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--coral);
+    border-radius: 0;
+  }
+
+  .problem-block h3 {
+    color: var(--coral);
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .problem-block p { color: var(--text-muted); font-size: 0.95rem; }
+
+  /* ═══════════ PERSONA CARDS ═══════════ */
+  .persona-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .persona-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 2rem;
+    border: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+
+  .persona-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--teal);
+  }
+
+  .persona-avatar {
+    width: 60px; height: 60px;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .persona-card h3 { font-size: 1.1rem; margin-bottom: 0.25rem; }
+  .persona-card .persona-role { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem; }
+
+  .persona-needs {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .persona-needs li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .persona-needs li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--teal);
+    font-weight: 700;
+  }
+
+  /* ═══════════ FEATURES TABLE ═══════════ */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .feature-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    border: 1px solid var(--border);
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .feature-card:hover {
+    background: var(--card-hover);
+    transform: translateY(-3px);
+  }
+
+  .feature-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+  }
+
+  .feature-card h3 { font-size: 1.05rem; flex: 1; }
+
+  .priority-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 0;
+    flex-shrink: 0;
+    margin-left: 12px;
+    font-family: 'Reddit Sans', sans-serif;
+  }
+
+  .priority-badge.p0 { background: rgba(251,133,0,0.2); color: var(--coral); }
+  .priority-badge.p1 { background: rgba(33,158,188,0.25); color: var(--purple); }
+  .priority-badge.p2 { background: rgba(142,202,230,0.2); color: var(--teal); }
+  .priority-badge.p3 { background: rgba(29,53,87,0.4); color: #F1FAEE; }
+
+  .slide-card .priority-badge.p0 {
+    background: rgba(220,38,38,0.12);
+    color: var(--slide-accent-red);
+  }
+  .slide-card .priority-badge.p1 {
+    background: rgba(37,99,235,0.12);
+    color: var(--slide-accent-blue);
+  }
+  .slide-card .priority-badge.p2 {
+    background: rgba(202,138,4,0.12);
+    color: var(--slide-accent-yellow);
+  }
+  .slide-card .priority-badge.p3 {
+    background: rgba(128,128,128,0.12);
+    color: var(--slide-text-muted);
+  }
+
+  .feature-card p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    flex: 1;
+  }
+
+  .feature-phase {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    opacity: 0.7;
+  }
+
+  /* ── Feature cards inside slides ── */
+  .slide-card .feature-card {
+    background: rgba(128,128,128,0.1);
+    border-color: var(--slide-border);
+  }
+
+  .slide-card .feature-card:hover {
+    background: rgba(128,128,128,0.18);
+  }
+
+  .slide-card .feature-card h3 {
+    color: var(--slide-text);
+  }
+
+  .slide-card .feature-card p {
+    color: var(--slide-text-muted);
+  }
+
+  .slide-card .feature-phase {
+    color: var(--slide-text-muted);
+  }
+
+  .slide-card .filter-btn {
+    background: rgba(128,128,128,0.1) !important;
+    border-color: var(--slide-border) !important;
+    color: var(--slide-text-muted) !important;
+  }
+
+  .slide-card .filter-btn.active,
+  .slide-card .filter-btn:hover {
+    background: var(--slide-accent) !important;
+    border-color: var(--slide-accent) !important;
+    color: #fff !important;
+  }
+
+  /* ═══════════ TECH STACK ═══════════ */
+  .tech-layers {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .tech-layer {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 2rem;
+    border: 1px solid var(--border);
+  }
+
+  .slide-card .tech-layer {
+    background: rgba(128,128,128,0.1);
+    border-color: var(--slide-border);
+  }
+
+  .slide-card .tech-layer h3 { color: var(--slide-text); }
+  .slide-card .tech-layer p { color: var(--slide-text-muted) !important; }
+  .slide-card .tech-layer .layer-icon { color: var(--slide-accent-blue) !important; background: rgba(37,99,235,0.1) !important; }
+
+  .tech-layer-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1rem;
+  }
+
+  .tech-layer-header .layer-icon {
+    width: 40px; height: 40px;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+
+  .tech-layer-header h3 { font-size: 1.15rem; }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 1rem;
+  }
+
+  .tech-tag {
+    font-size: 0.8rem;
+    padding: 6px 14px;
+    border-radius: 0;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--text);
+    font-family: 'Reddit Sans', sans-serif;
+  }
+
+  .slide-card .tech-tag {
+    background: rgba(128,128,128,0.12);
+    border-color: var(--slide-border);
+    color: var(--slide-text);
+  }
+
+  /* ═══════════ TIMELINE ═══════════ */
+  .timeline {
+    position: relative;
+    margin-top: 2rem;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--teal), var(--purple), var(--coral));
+    border-radius: 0;
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+    padding-left: 2rem;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -2rem;
+    top: 6px;
+    width: 20px;
+    height: 20px;
+    border-radius: 0;
+    border: 3px solid;
+    background: var(--darker);
+  }
+
+  .timeline-item h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+  .timeline-item .timeline-period {
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    font-family: 'Reddit Sans', sans-serif;
+  }
+
+  .timeline-item ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .timeline-item li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    padding-left: 1.2rem;
+    position: relative;
+  }
+
+  .timeline-item li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+  }
+
+  /* ═══════════ METRICS ═══════════ */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .metric-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: all 0.3s;
+  }
+
+  .metric-card:hover { transform: translateY(-3px); }
+
+  .metric-value {
+    font-family: 'Reddit Sans', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .metric-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .metric-category {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border-radius: 0;
+    display: inline-block;
+  }
+
+  /* ═══════════ MONETIZATION ═══════════ */
+  .revenue-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .revenue-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 2rem;
+    border: 1px solid var(--border);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .revenue-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--teal);
+  }
+
+  .revenue-card .price {
+    font-family: 'Reddit Sans', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0.75rem 0;
+  }
+
+  .revenue-card .timing {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    opacity: 0.7;
+  }
+
+  /* ═══════════ MODERATION ═══════════ */
+  .workflow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .workflow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+  }
+
+  .step-number {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Reddit Sans', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  .workflow-step h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+  .workflow-step p { font-size: 0.9rem; color: var(--text-muted); }
+
+  /* ═══════════ RISKS ═══════════ */
+  .risk-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .risk-item {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .risk-item:hover { background: var(--card-hover); }
+
+  .risk-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .risk-header h3 { font-size: 1rem; flex: 1; }
+
+  .likelihood {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 0;
+    flex-shrink: 0;
+    margin-left: 12px;
+    font-family: 'Reddit Sans', sans-serif;
+  }
+
+  .likelihood.high { background: rgba(251,133,0,0.2); color: var(--coral); }
+  .likelihood.medium { background: rgba(33,158,188,0.25); color: var(--purple); }
+  .likelihood.low { background: rgba(142,202,230,0.2); color: var(--teal); }
+
+  .risk-mitigation {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, margin-top 0.3s ease;
+  }
+
+  .risk-item.open .risk-mitigation {
+    max-height: 200px;
+    margin-top: 1rem;
+  }
+
+  .risk-mitigation p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    padding: 1rem;
+    background: rgba(168,218,220,0.08);
+    border-radius: 0;
+    border-left: 3px solid var(--teal);
+  }
+
+  .expand-icon {
+    transition: transform 0.3s;
+    color: var(--text-muted);
+    margin-left: 8px;
+  }
+
+  .risk-item.open .expand-icon { transform: rotate(180deg); }
+
+  /* ═══════════ VISION QUOTE ═══════════ */
+  .vision-block {
+    background: linear-gradient(135deg, rgba(168,218,220,0.1), rgba(69,123,157,0.1));
+    border: 1px solid rgba(142,202,230,0.2);
+    border-radius: var(--radius);
+    padding: 3rem;
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  .vision-block blockquote {
+    font-family: 'Reddit Sans', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* ═══════════ VISION TWO-COLUMN ═══════════ */
+  .vision-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  .vision-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .vision-left .vision-block {
+    margin: 0;
+    text-align: left;
+  }
+
+  .vision-left .vision-block blockquote {
+    font-size: 1.2rem;
+  }
+
+  .goals-grid-2col {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .goals-grid-2col .goal-card {
+    text-align: left;
+  }
+
+  @media (max-width: 768px) {
+    .vision-two-col {
+      grid-template-columns: 1fr;
+    }
+    .vision-left .vision-block { text-align: center; }
+    .goals-grid-2col { grid-template-columns: 1fr !important; }
+  }
+
+  /* ═══════════ GOALS TABLE ═══════════ */
+  .goals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .goal-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: all 0.3s;
+  }
+
+  .goal-card:hover { transform: translateY(-3px); }
+  .goal-card .goal-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+  .goal-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+  .goal-card p { font-size: 0.85rem; color: var(--text-muted); }
+  .goal-card .goal-metric {
+    font-family: 'Reddit Sans', sans-serif;
+    font-size: 0.8rem;
+    margin-top: 0.75rem;
+    padding: 6px 12px;
+    border-radius: 0;
+    display: inline-block;
+  }
+
+  /* ═══════════ CORE DATA ENTITIES ═══════════ */
+  .entity-section {
+    margin-top: 2rem;
+    background: rgba(128,128,128,0.1);
+    border: 1px solid var(--slide-border);
+    padding: 2rem;
+  }
+
+  .entity-heading {
+    margin-bottom: 1rem;
+    color: var(--slide-text);
+  }
+
+  .entity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .entity-card {
+    background: rgba(128,128,128,0.08);
+    border: 1px solid var(--slide-border);
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .entity-icon { margin-bottom: 0.5rem; }
+
+  .entity-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--slide-text);
+  }
+
+  .entity-desc {
+    font-size: 0.75rem;
+    color: var(--slide-text-muted);
+    margin-top: 0.25rem;
+  }
+
+  /* ═══════════ DESIGN PRINCIPLES ═══════════ */
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .principle-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 2rem;
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: all 0.3s;
+  }
+
+  .principle-card:hover { transform: translateY(-3px); }
+  .principle-card .principle-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .principle-card h3 { font-size: 1.15rem; margin-bottom: 0.75rem; }
+  .principle-card p { color: var(--text-muted); font-size: 0.9rem; }
+
+  /* ═══════════ FOOTER ═══════════ */
+  .footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* ═══════════ RESPONSIVE ═══════════ */
+  @media (max-width: 768px) {
+    .hero-stats { gap: 1.5rem; }
+    .section { padding: 2rem 1.25rem 3rem; }
+    .card-grid, .features-grid, .persona-cards, .revenue-cards, .principles-grid {
+      grid-template-columns: 1fr;
+    }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    .goals-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ THEME TOGGLE ═══════════ -->
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">
+  <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+  </svg>
+</button>
+
+<!-- ═══════════ ARTWORK HERO ═══════════ -->
+<section class="art-hero">
+  <h1><span class="gradient-text">Greater Toledo Art Map</span></h1>
+  <p class="tagline">Connecting you to public art in and around Toledo.</p>
+  <div class="artwork-gallery" id="artworkGallery">
+    <p style="text-align:center;color:var(--text-muted)">Loading artworks…</p>
+  </div>
+</section>
+
+<div class="slideshow" id="slideshow">
+  <div class="slideshow-viewport" id="slideshowViewport">
+<!-- ═══════════ PROBLEM ═══════════ -->
+<div class="slide-card active" data-slide="problem">
+  <div class="slide-label">Slide 1 — The Problem</div>
+  <div class="section" id="problem">
+  <div class="section-header">
+    <div class="icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+    <h2>The <span class="accent-coral">Problem</span></h2>
+    <p>Public art is one of the most accessible forms of creative expression — yet it remains largely invisible to the communities it serves.</p>
+  </div>
+  <div class="problem-blocks">
+    <div class="problem-block">
+      <h3>Discoverability</h3>
+      <p>No unified, searchable database of public art exists. Travelers and longtime residents alike rarely know what's around the corner.</p>
+    </div>
+    <div class="problem-block">
+      <h3>Missing Context</h3>
+      <p>Without knowing an artist's name, intent, or the cultural moment behind a piece, viewers experience art as decoration — not dialogue.</p>
+    </div>
+    <div class="problem-block">
+      <h3>Preservation</h3>
+      <p>Public artworks are ephemeral. Murals get painted over, sculptures demolished — with no digital record they ever existed.</p>
+    </div>
+  </div>
+  <div class="problem-block" style="margin-top:2rem;border-left:3px solid var(--slide-accent-yellow);text-align:left;">
+    <h3>The Opportunity</h3>
+    <p>What if we used public art to drive people into our restaurants and events? Art already draws foot traffic — connecting it to nearby businesses and local happenings could turn murals into economic engines for the neighborhoods they live in.</p>
+  </div>
+  <div style="text-align:center; margin-top:2rem; color:var(--slide-text-muted); font-size:0.95rem;">
+    Current solutions — scattered Instagram hashtags, city portals, niche walking apps — are fragmented and lack community participation.
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ VISION ═══════════ -->
+<div class="slide-card" data-slide="vision">
+  <div class="slide-label">Slide 2 — Vision & Goals</div>
+  <div class="section" id="vision">
+  <div class="vision-two-col">
+    <div class="vision-left">
+      <div class="section-header" style="text-align:left;margin-bottom:1.5rem;">
+        <div class="icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <h2>Vision & <span class="accent-yellow">Goals</span></h2>
+      </div>
+      <div class="vision-block">
+        <blockquote>"To become Toledo's living atlas of public art — where every mural, sculpture, and installation has a story, and every citizen is a curator."</blockquote>
+      </div>
+    </div>
+    <div class="vision-right">
+      <div class="goals-grid goals-grid-2col">
+        <div class="goal-card">
+          <div class="goal-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></div>
+          <h3>Discovery</h3>
+          <p>Help users find public art near them across greater Toledo</p>
+          <div class="goal-metric" style="background:rgba(142,202,230,0.15);color:var(--teal)">250 artworks cataloged</div>
+        </div>
+        <div class="goal-card">
+          <div class="goal-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <h3>Education</h3>
+          <p>Rich cultural and historical context for every piece</p>
+          <div class="goal-metric" style="background:rgba(255,183,3,0.15);color:var(--yellow)">3+ facts per artwork</div>
+        </div>
+        <div class="goal-card">
+          <div class="goal-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <h3>Community</h3>
+          <p>Partner with local arts organizations to grow the database</p>
+          <div class="goal-metric" style="background:rgba(33,158,188,0.15);color:var(--purple)">Curated content</div>
+        </div>
+        <div class="goal-card">
+          <div class="goal-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-4h6v4"/></svg></div>
+          <h3>Preservation</h3>
+          <p>Archive artworks that have been removed or deteriorated</p>
+          <div class="goal-metric" style="background:rgba(251,133,0,0.15);color:var(--coral)">Lost Art archive in 6mo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ USERS ═══════════ -->
+<div class="slide-card" data-slide="users">
+  <div class="slide-label">Slide 3 — Users</div>
+  <div class="section" id="users">
+  <div class="section-header">
+    <div class="icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--sky-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+    <h2>Who It's <span class="accent-teal">For</span></h2>
+    <p>Three core personas drive ArtMap's product decisions.</p>
+  </div>
+  <div class="persona-cards">
+    <div class="persona-card">
+      <div class="persona-avatar" style="background:rgba(37,99,235,0.1);color:var(--slide-accent-blue)">M</div>
+      <h3>Maya, 29</h3>
+      <div class="persona-role">The Urban Explorer — Art History Grad Student</div>
+      <ul class="persona-needs">
+        <li>Discover hidden gems in her own city and catalog finds</li>
+        <li>Frustrated by the lack of information on pieces she photographs</li>
+        <li>Wants a social layer to share discoveries with friends</li>
+      </ul>
+    </div>
+    <div class="persona-card">
+      <div class="persona-avatar" style="background:rgba(202,138,4,0.1);color:var(--slide-accent-yellow)">J</div>
+      <h3>James, 44</h3>
+      <div class="persona-role">The Cultural Tourist — Frequent Business Traveler</div>
+      <ul class="persona-needs">
+        <li>Reliable, expert-quality guide to art in unfamiliar cities</li>
+        <li>Prefers offline access for areas with poor connectivity</li>
+        <li>Willing to pay for premium guides or ad-free experience</li>
+      </ul>
+    </div>
+    <div class="persona-card">
+      <div class="persona-avatar" style="background:rgba(220,38,38,0.1);color:var(--slide-accent-red)">D</div>
+      <h3>Daniela, 35</h3>
+      <div class="persona-role">The Local Artist — Muralist & Community Organizer</div>
+      <ul class="persona-needs">
+        <li>Create a verified artist profile with her full portfolio</li>
+        <li>Secure commissions and public art grants through visibility</li>
+        <li>Proper attribution and IP protection for her work</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ FEATURES ═══════════ -->
+<div class="slide-card" data-slide="features">
+  <div class="slide-label">Slide 4 — Features</div>
+  <div class="section" id="features">
+  <div class="section-header">
+    <div class="icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+    <h2>Feature <span class="accent-purple">Specification</span></h2>
+    <p>From MVP essentials to ambitious Phase 3 innovations.</p>
+  </div>
+
+  <!-- Feature filter buttons -->
+  <div style="display:flex;gap:8px;justify-content:center;margin-bottom:1rem;flex-wrap:wrap">
+    <button class="filter-btn active" data-filter="all" style="font-family:'Reddit Sans',sans-serif;font-size:0.8rem;padding:8px 18px;border-radius:50px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.08);color:var(--text);cursor:pointer;transition:all 0.2s">All</button>
+    <button class="filter-btn" data-filter="p0" style="font-family:'Reddit Sans',sans-serif;font-size:0.8rem;padding:8px 18px;border-radius:50px;border:1px solid rgba(251,133,0,0.3);background:transparent;color:var(--coral);cursor:pointer;transition:all 0.2s">P0 — Must Have</button>
+    <button class="filter-btn" data-filter="p1" style="font-family:'Reddit Sans',sans-serif;font-size:0.8rem;padding:8px 18px;border-radius:50px;border:1px solid rgba(33,158,188,0.4);background:transparent;color:var(--yellow);cursor:pointer;transition:all 0.2s">P1 — High</button>
+    <button class="filter-btn" data-filter="p2" style="font-family:'Reddit Sans',sans-serif;font-size:0.8rem;padding:8px 18px;border-radius:50px;border:1px solid rgba(142,202,230,0.3);background:transparent;color:var(--teal);cursor:pointer;transition:all 0.2s">P2 — Medium</button>
+    <button class="filter-btn" data-filter="p3" style="font-family:'Reddit Sans',sans-serif;font-size:0.8rem;padding:8px 18px;border-radius:50px;border:1px solid rgba(29,53,87,0.5);background:transparent;color:var(--purple);cursor:pointer;transition:all 0.2s">P3 — Future</button>
+  </div>
+
+  <div class="features-grid" id="featuresGrid">
+    <div class="feature-card" data-priority="p0">
+      <div class="feature-top"><h3>Interactive Map</h3><span class="priority-badge p0">P0</span></div>
+      <p>Geolocated pins for all artworks with cluster view at zoom-out. Filter by type, medium, and era.</p>
+      <div class="feature-phase">MVP</div>
+    </div>
+    <div class="feature-card" data-priority="p0">
+      <div class="feature-top"><h3>Artwork Detail Page</h3><span class="priority-badge p0">P0</span></div>
+      <p>Photos, artist bio, creation year, dimensions, medium, location history, and tags.</p>
+      <div class="feature-phase">MVP</div>
+    </div>
+    <div class="feature-card" data-priority="p0">
+      <div class="feature-top"><h3>Search & Filter</h3><span class="priority-badge p0">P0</span></div>
+      <p>Full-text search with filters for city, artist, style, date range, and medium.</p>
+      <div class="feature-phase">MVP</div>
+    </div>
+    <div class="feature-card" data-priority="p1">
+      <div class="feature-top"><h3>Artist Profiles</h3><span class="priority-badge p1">P1</span></div>
+      <p>Verified profiles with portfolio, social links, and biography for artists.</p>
+      <div class="feature-phase">MVP</div>
+    </div>
+    <div class="feature-card" data-priority="p1">
+      <div class="feature-top"><h3>Self-Guided Tours</h3><span class="priority-badge p1">P1</span></div>
+      <p>Curated walking routes like "Warehouse District Murals" or "Downtown Sculptures."</p>
+      <div class="feature-phase">MVP</div>
+    </div>
+    <div class="feature-card" data-priority="p1">
+      <div class="feature-top"><h3>Offline Mode</h3><span class="priority-badge p1">P1</span></div>
+      <p>Download city data packs for offline map and artwork browsing.</p>
+      <div class="feature-phase">MVP</div>
+    </div>
+    <div class="feature-card" data-priority="p1">
+      <div class="feature-top"><h3>Lost Art Archive</h3><span class="priority-badge p1">P1</span></div>
+      <p>Mark artworks as removed; maintain a historical photo archive for demolished pieces.</p>
+      <div class="feature-phase">Phase 2</div>
+    </div>
+    <div class="feature-card" data-priority="p2">
+      <div class="feature-top"><h3>Social Features</h3><span class="priority-badge p2">P2</span></div>
+      <p>Follow users, like and save artworks, comment threads, and share to social media.</p>
+      <div class="feature-phase">Phase 2</div>
+    </div>
+    <div class="feature-card" data-priority="p3">
+      <div class="feature-top"><h3>AR Overlay</h3><span class="priority-badge p3">P3</span></div>
+      <p>Point your camera at a mural to surface metadata in augmented reality.</p>
+      <div class="feature-phase">Phase 3</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ TECH ═══════════ -->
+<div class="slide-card" data-slide="tech">
+  <div class="slide-label">Slide 5 — Tech Stack</div>
+  <div class="section" id="tech">
+  <div class="section-header">
+    <div class="icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--blue-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 3h-8l-2 4h12z"/></svg></div>
+    <h2>Technical <span class="accent-blue">Architecture</span></h2>
+    <p>Cloud-native architecture emphasizing scalability, offline resilience, and developer velocity.</p>
+  </div>
+  <div class="tech-layers">
+    <div class="tech-layer">
+      <div class="tech-layer-header">
+        <div class="layer-icon" style="background:rgba(142,202,230,0.15);color:var(--teal)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+        <h3>Frontend</h3>
+      </div>
+      <p style="color:var(--text-muted);font-size:0.95rem">Cross-platform mobile with React Native (iOS & Android) and Next.js for web. Shared component library via a custom design system.</p>
+      <div class="tech-tags">
+        <span class="tech-tag">React Native</span>
+        <span class="tech-tag">Next.js</span>
+        <span class="tech-tag">Mapbox GL JS</span>
+        <span class="tech-tag">Supercluster</span>
+      </div>
+    </div>
+    <div class="tech-layer">
+      <div class="tech-layer-header">
+        <div class="layer-icon" style="background:rgba(33,158,188,0.15);color:var(--purple)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+        <h3>Backend</h3>
+      </div>
+      <p style="color:var(--text-muted);font-size:0.95rem">Node.js API Gateway routing to microservices: Artwork, User, Search, and Media services. REST + GraphQL hybrid API.</p>
+      <div class="tech-tags">
+        <span class="tech-tag">Node.js</span>
+        <span class="tech-tag">GraphQL</span>
+        <span class="tech-tag">REST API</span>
+        <span class="tech-tag">Microservices</span>
+      </div>
+    </div>
+    <div class="tech-layer">
+      <div class="tech-layer-header">
+        <div class="layer-icon" style="background:rgba(255,183,3,0.15);color:var(--yellow)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div>
+        <h3>Infrastructure</h3>
+      </div>
+      <p style="color:var(--text-muted);font-size:0.95rem">AWS-powered: containers via ECS, PostgreSQL with PostGIS for spatial queries, S3 + CloudFront for media delivery, ElasticSearch for search, and Redis for caching.</p>
+      <div class="tech-tags">
+        <span class="tech-tag">AWS ECS</span>
+        <span class="tech-tag">PostgreSQL + PostGIS</span>
+        <span class="tech-tag">S3 + CloudFront</span>
+        <span class="tech-tag">ElasticSearch</span>
+        <span class="tech-tag">Redis</span>
+        <span class="tech-tag">MBTiles</span>
+      </div>
+    </div>
+  </div>
+  <div class="entity-section">
+    <h3 class="entity-heading">Core Data Entities</h3>
+    <div class="entity-grid">
+      <div class="entity-card">
+        <div class="entity-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--sky-blue)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div class="entity-name">Artwork</div>
+        <div class="entity-desc">title, coords, media, tags</div>
+      </div>
+      <div class="entity-card">
+        <div class="entity-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--blue-green)" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></div>
+        <div class="entity-name">Artist</div>
+        <div class="entity-desc">bio, portfolio, verified</div>
+      </div>
+      <div class="entity-card">
+        <div class="entity-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="entity-name">User</div>
+        <div class="entity-desc">roles, saved, contributions</div>
+      </div>
+      <div class="entity-card">
+        <div class="entity-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></div>
+        <div class="entity-name">Tour</div>
+        <div class="entity-desc">route, artworks, duration</div>
+      </div>
+      <div class="entity-card">
+        <div class="entity-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--sky-blue)" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+        <div class="entity-name">Contribution</div>
+        <div class="entity-desc">audit trail, status</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ DESIGN ═══════════ -->
+<div class="slide-card" data-slide="design">
+  <div class="slide-label">Slide 6 — Design</div>
+  <div class="section" id="design">
+  <div class="section-header">
+    <div class="icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--sky-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+    <h2>Design <span class="accent-pink">Philosophy</span></h2>
+    <p>Three core principles guide every pixel of ArtMap's experience.</p>
+  </div>
+  <div class="principles-grid">
+    <div class="principle-card">
+      <div class="principle-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+      <h3 class="accent-coral">Art First</h3>
+      <p>The UI recedes to let art shine. Minimal chrome, dark-mode support, full-bleed photos, and generous whitespace ensure artwork is always the hero.</p>
+    </div>
+    <div class="principle-card">
+      <div class="principle-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      <h3 class="accent-yellow">Context as Delight</h3>
+      <p>Information reveals progressively — a thumbnail, then a title, then a rich story. Users are rewarded for curiosity, never overwhelmed.</p>
+    </div>
+    <div class="principle-card">
+      <div class="principle-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--sky-blue)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <h3 class="accent-teal">Community Connection</h3>
+      <p>Art brings people together. Every piece is a conversation starter, connecting visitors with artists and the stories behind the work.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ ROADMAP ═══════════ -->
+<div class="slide-card" data-slide="roadmap">
+  <div class="slide-label">Slide 7 — Roadmap</div>
+  <div class="section" id="roadmap">
+  <div class="section-header">
+    <div class="icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+    <h2>Product <span class="accent-coral">Roadmap</span></h2>
+    <p>An 18-month plan from foundation to global intelligence.</p>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot" style="border-color:var(--teal)"></div>
+      <h3>Phase 1 — Foundation</h3>
+      <div class="timeline-period" style="color:var(--teal)">Months 1–6</div>
+      <ul>
+        <li style="color:var(--text-muted)">Launch web MVP focused on Toledo and surrounding communities</li>
+        <li style="color:var(--text-muted)">Seed database with 100+ artworks via Toledo Arts Commission partnerships</li>
+        <li style="color:var(--text-muted)">Core map, search, artwork detail, and user contribution flows</li>
+        <li style="color:var(--text-muted)">Verified artist profile program with founding cohort of 20 local artists</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot" style="border-color:var(--purple)"></div>
+      <h3>Phase 2 — Community & Expansion</h3>
+      <div class="timeline-period" style="color:var(--purple)">Months 7–12</div>
+      <ul>
+        <li style="color:var(--text-muted)">Expand coverage to Perrysburg, Maumee, Sylvania, and greater Lucas County</li>
+        <li style="color:var(--text-muted)">Launch self-guided tour builder for user-created walking routes</li>
+        <li style="color:var(--text-muted)">Introduce social layer: follows, saves, comments, and sharing</li>
+        <li style="color:var(--text-muted)">"Lost Art" archive — document and preserve demolished artworks</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot" style="border-color:var(--coral)"></div>
+      <h3>Phase 3 — Depth & Intelligence</h3>
+      <div class="timeline-period" style="color:var(--coral)">Months 13–18</div>
+      <ul>
+        <li style="color:var(--text-muted)">AR overlay: point camera at public art to surface info via on-device ML</li>
+        <li style="color:var(--text-muted)">AI-generated context: auto-suggest artist bios and historical notes</li>
+        <li style="color:var(--text-muted)">Complete coverage of Wood, Fulton, and Ottawa counties</li>
+        <li style="color:var(--text-muted)">Open API for third-party developers, academics, and city planners</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ METRICS ═══════════ -->
+<div class="slide-card" data-slide="metrics">
+  <div class="slide-label">Slide 8 — Metrics</div>
+  <div class="section" id="metrics">
+  <div class="section-header">
+    <div class="icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--sky-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+    <h2>Success <span class="accent-blue">Metrics</span></h2>
+    <p>12-month targets scaled for the Greater Toledo area.</p>
+  </div>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-value accent-teal">5K</div>
+      <div class="metric-label">Monthly Active Users</div>
+      <div class="metric-category" style="background:rgba(33,158,188,0.12);color:var(--blue-green)">Growth</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value accent-teal">250</div>
+      <div class="metric-label">Artworks Cataloged</div>
+      <div class="metric-category" style="background:rgba(33,158,188,0.12);color:var(--blue-green)">Growth</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value accent-yellow">4 min</div>
+      <div class="metric-label">Avg. Session Duration</div>
+      <div class="metric-category" style="background:rgba(255,183,3,0.12);color:var(--amber)">Engagement</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value accent-yellow">25%</div>
+      <div class="metric-label">D30 Retention</div>
+      <div class="metric-category" style="background:rgba(255,183,3,0.12);color:var(--amber)">Engagement</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value accent-purple">50</div>
+      <div class="metric-label">Local Artist Profiles</div>
+      <div class="metric-category" style="background:rgba(2,48,71,0.12);color:var(--blue-green)">Community</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value accent-purple">10</div>
+      <div class="metric-label">Arts Organization Partners</div>
+      <div class="metric-category" style="background:rgba(2,48,71,0.12);color:var(--blue-green)">Community</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value accent-coral">500</div>
+      <div class="metric-label">Walking Tour Completions</div>
+      <div class="metric-category" style="background:rgba(251,133,0,0.12);color:var(--orange)">Engagement</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value accent-coral">8</div>
+      <div class="metric-label">Toledo Neighborhoods Covered</div>
+      <div class="metric-category" style="background:rgba(251,133,0,0.12);color:var(--orange)">Coverage</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value accent-blue">&gt;90%</div>
+      <div class="metric-label">Data Accuracy (Spot Audit)</div>
+      <div class="metric-category" style="background:rgba(33,158,188,0.12);color:var(--blue-green)">Quality</div>
+    </div>
+  </div>
+</div>
+</div>
+
+</div> <!-- end slideshow-viewport -->
+
+  <div class="slide-controls">
+    <button class="slide-arrow" id="slidePrev" aria-label="Previous slide">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="slide-counter" id="slideCounter">1 / 10</div>
+    <button class="slide-arrow" id="slideNext" aria-label="Next slide">
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+  <div class="slide-dots" id="slideDots"></div>
+</div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<div class="footer">
+  Greater Toledo Art Map — Public Art for Everyone &nbsp;|&nbsp; Product Design Document v1.0 &nbsp;|&nbsp; April 2026
+</div>
+
+<script>
+  // ═══════════ THEME TOGGLE ═══════════
+  const sunIcon = `<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>`;
+  const moonIcon = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>`;
+
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+
+  // Check saved preference or default to dark
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  themeIcon.innerHTML = savedTheme === 'dark' ? sunIcon : moonIcon;
+
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    themeIcon.innerHTML = next === 'dark' ? sunIcon : moonIcon;
+  });
+
+  // ═══════════ SLIDESHOW ═══════════
+  const slides = document.querySelectorAll('.slide-card');
+  const slideCounter = document.getElementById('slideCounter');
+  const slidePrev = document.getElementById('slidePrev');
+  const slideNext = document.getElementById('slideNext');
+  const dotsContainer = document.getElementById('slideDots');
+  const totalSlides = slides.length;
+  let currentSlide = 0;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'slide-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goToSlide(i));
+    dotsContainer.appendChild(dot);
+  });
+  const dots = dotsContainer.querySelectorAll('.slide-dot');
+
+  function updateControls() {
+    slideCounter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+    slidePrev.disabled = currentSlide === 0;
+    slideNext.disabled = currentSlide === totalSlides - 1;
+    dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+  }
+
+  function goToSlide(newIndex) {
+    if (newIndex < 0 || newIndex >= totalSlides || newIndex === currentSlide) return;
+
+    const goingRight = newIndex > currentSlide;
+
+    // Slide out current
+    const outgoing = slides[currentSlide];
+    outgoing.classList.remove('active');
+    outgoing.classList.add(goingRight ? 'slide-out-left' : 'slide-out-right');
+    setTimeout(() => {
+      outgoing.classList.remove('slide-out-left', 'slide-out-right');
+    }, 500);
+
+    // Slide in new
+    const incoming = slides[newIndex];
+    incoming.classList.add(goingRight ? 'slide-in-right' : 'slide-in-left');
+    incoming.offsetHeight; // force reflow
+    incoming.classList.remove('slide-in-right', 'slide-in-left');
+    incoming.classList.add('active');
+
+    currentSlide = newIndex;
+    updateControls();
+  }
+
+  slidePrev.addEventListener('click', () => goToSlide(currentSlide - 1));
+  slideNext.addEventListener('click', () => goToSlide(currentSlide + 1));
+
+  // Keyboard arrows
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
+    if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
+  });
+
+  updateControls();
+
+  // ═══════════ FEATURE FILTER ═══════════
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const featureCards = document.querySelectorAll('.feature-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+
+      filterBtns.forEach(b => {
+        b.classList.remove('active');
+        b.style.background = 'transparent';
+      });
+      btn.classList.add('active');
+      btn.style.background = 'rgba(255,255,255,0.08)';
+
+      featureCards.forEach(card => {
+        if (filter === 'all' || card.dataset.priority === filter) {
+          card.style.display = 'flex';
+          card.style.animation = 'fadeIn 0.3s ease';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // ═══════════ ARTWORK DATA ═══════════
+  const artworks = [
+    {
+      "id": 1,
+      "title": "Toledo Frog Mural",
+      "artist": "Dean Davis",
+      "type": "mural",
+      "description": "A vibrant, large-scale mural featuring colorful blue and green tree frogs painted on the side of a building in downtown Toledo.",
+      "latitude": 41.651832,
+      "longitude": -83.534791,
+      "image": "images/toledo-frog-mural.jpg"
+    },
+    {
+      "id": 2,
+      "title": "All You Need Is Love",
+      "artist": "Dean Davis",
+      "type": "mural",
+      "description": "A colorful mural located at Peace Love Happiness World Headquarters in downtown Toledo.",
+      "latitude": 41.652857,
+      "longitude": -83.535114,
+      "image": "images/all-you-need-is-love-mural.jpg"
+    },
+    {
+      "id": 3,
+      "title": "River Gallery Studio",
+      "artist": "",
+      "type": "studio",
+      "description": "500 Madison Avenue, Toledo, OH 43604",
+      "latitude": 41.6528,
+      "longitude": -83.5352,
+      "image": "images/river-gallery-studio.jpg"
+    },
+    {
+      "id": 4,
+      "title": "Glass City River Wall",
+      "artist": "Gabe Gault",
+      "type": "mural",
+      "description": "The largest mural in North America, spanning 28 ADM grain silos across 170,000 sq ft along the Maumee River. Features sunflowers and portraits of Native American women and children honoring the region's first agriculturalists. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
+      "latitude": 41.6531,
+      "longitude": -83.5280,
+      "image": "images/glass-city-river-wall-mural.png"
+    },
+    {
+      "id": 5,
+      "title": "Greetings from Toledo",
+      "artist": "Victor Ving & Lisa Beggs",
+      "type": "mural",
+      "description": "A colorful postcard-style mural at 120 Main St in East Toledo, featuring iconic Toledo landmarks like Tony Packo's, the Skyway Bridge, and the Toledo Mud Hens. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
+      "latitude": 41.6489,
+      "longitude": -83.5241,
+      "image": "images/greetings-from-toledo-mural.png"
+    },
+    {
+      "id": 6,
+      "title": "Toledo Museum of Art",
+      "artist": "",
+      "type": "gallery",
+      "description": "World-class art museum with free admission, housed in a stunning Greek Revival building. Home to the renowned Glass Pavilion. 2445 Monroe St, Toledo, OH 43620. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
+      "latitude": 41.6598,
+      "longitude": -83.5750,
+      "image": "images/toledo-museum-of-art.png"
+    },
+    {
+      "id": 7,
+      "title": "20 North Gallery",
+      "artist": "",
+      "type": "gallery",
+      "description": "Toledo's oldest independent art gallery, founded in 1993. Located in the historic Warehouse District at 18 N. St. Clair St, Toledo, OH 43604. Photo: Kenny Greene.",
+      "latitude": 41.6497,
+      "longitude": -83.5355,
+      "image": "images/20-gallery-north-studio.webp"
+    },
+    {
+      "id": 8,
+      "title": "Collingwood Arts Center",
+      "artist": "",
+      "type": "studio",
+      "description": "A historic arts hub since 1905 offering artist studios, live performances, classes, and workshops. 2413 Collingwood Blvd, Toledo, OH 43620. Photo: Smithr1981, <a href=\"https://creativecommons.org/licenses/by/3.0\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">CC BY 3.0</a>.",
+      "latitude": 41.6688,
+      "longitude": -83.5560,
+      "image": "images/collingwood-art-center.jpg"
+    },
+    {
+      "id": 9,
+      "title": "River House Arts",
+      "artist": "",
+      "type": "gallery",
+      "description": "A full-service gallery in the historic Secor Building downtown, with free, ever-changing exhibitions.",
+      "latitude": 41.6520,
+      "longitude": -83.5370,
+      "image": "images/river-house-arts.jpg"
+    },
+    {
+      "id": 10,
+      "title": "Echo",
+      "artist": "Kristine Rumman & Dane Turpening, 2017",
+      "type": "sculpture",
+      "description": "Eleven rings from a former steam plant smokestack create a pathway through the landscape — a metaphor for Toledo's transition from past to present to future. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
+      "logo": "images/the-art-commission.svg",
+      "latitude": 41.649807,
+      "longitude": -83.533424,
+      "image": "images/echo-sculpture.png"
+    },
+    {
+      "id": 11,
+      "title": "Upon Reflection",
+      "artist": "Studio KCA, 2022",
+      "type": "sculpture",
+      "description": "Two suspended ovals — one mirrored, one backlit — play off sunlight by day and glow with LEDs by night. 310 N Summit St. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
+      "logo": "images/the-art-commission.svg",
+      "latitude": 41.6537,
+      "longitude": -83.5383,
+      "image": "images/the-oval-upon-reflection-sculpture.png"
+    },
+    {
+      "id": 12,
+      "title": "Various Paintings by Dean Davis",
+      "artist": "Dean Davis",
+      "type": "gallery",
+      "description": "A rotating collection of mixed-media paintings and works by Toledo muralist Dean Davis, displayed at The Loft. 336 N Superior Ave, Toledo, OH.",
+      "latitude": 41.6536,
+      "longitude": -83.5340,
+      "image": "images/various-paintings-dean-davis.png"
+    }
+  ];
+
+  // ═══════════ RENDER ARTWORKS ═══════════
+  (function renderArtworks() {
+    const gallery = document.getElementById('artworkGallery');
+
+    if (!artworks.length) {
+      gallery.innerHTML = `
+        <div class="artwork-empty">
+          <div class="empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+          <p>No artworks yet — check back soon!</p>
+        </div>`;
+      return;
+    }
+
+    // Shuffle artworks randomly, but keep logo items at the top
+    const shuffled = [...artworks].sort(() => Math.random() - 0.5);
+    shuffled.sort((a, b) => (b.logo ? 1 : 0) - (a.logo ? 1 : 0));
+
+    gallery.innerHTML = shuffled.map(art => `
+      <div class="artwork-card">
+        <img src="${art.image}" alt="${art.title}" loading="lazy">
+        <div class="artwork-info">
+          <span class="artwork-type">${art.type}</span>
+          <h3>${art.title}</h3>
+          ${art.artist ? `<div class="artwork-artist">by ${art.artist}</div>` : ''}
+          <p class="artwork-desc">${art.description}</p>
+          ${art.logo ? `<a href="https://theartscommission.org/public-art/collection" target="_blank" rel="noopener"><img class="artwork-logo" src="${art.logo}" alt="The Arts Commission"></a>` : ''}
+          <a class="artwork-location" href="https://www.google.com/maps?q=${art.latitude},${art.longitude}" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Take me there!
+          </a>
+        </div>
+      </div>
+    `).join('');
+  })();
+
+  // ═══════════ LIGHTBOX ═══════════
+  const lightbox = document.createElement('div');
+  lightbox.className = 'lightbox';
+  lightbox.innerHTML = '<img src="" alt="">';
+  document.body.appendChild(lightbox);
+
+  const lightboxImg = lightbox.querySelector('img');
+
+  document.addEventListener('click', (e) => {
+    const cardImg = e.target.closest('.artwork-card img');
+    if (cardImg && !cardImg.classList.contains('artwork-logo')) {
+      lightboxImg.src = cardImg.src;
+      lightboxImg.alt = cardImg.alt;
+      requestAnimationFrame(() => lightbox.classList.add('active'));
+    }
+  });
+
+  lightbox.addEventListener('click', () => {
+    lightbox.classList.remove('active');
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') lightbox.classList.remove('active');
+  });
+</script>
+</body>
+</html>
