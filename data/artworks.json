@@ -25,8 +25,8 @@
     "artist": "",
     "type": "studio",
     "description": "500 Madison Avenue, Toledo, OH 43604",
-    "latitude": 41.6528,
-    "longitude": -83.5352,
+    "latitude": 41.6520,
+    "longitude": -83.5358,
     "image": "images/river-gallery-studio.jpg"
   },
   {
@@ -35,8 +35,8 @@
     "artist": "Toledo Artists",
     "type": "mural",
     "description": "The largest mural in North America, spanning 28 ADM grain silos across 170,000 sq ft along the Maumee River. Features sunflowers and portraits of Native American women and children honoring the region's first agriculturalists. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
-    "latitude": 41.6531,
-    "longitude": -83.5280,
+    "latitude": 41.6261,
+    "longitude": -83.5306,
     "image": "images/glass-city-river-wall-mural.png"
   },
   {
@@ -55,8 +55,8 @@
     "artist": "",
     "type": "gallery",
     "description": "World-class art museum with free admission, housed in a stunning Greek Revival building. Home to the renowned Glass Pavilion. 2445 Monroe St, Toledo, OH 43620. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
-    "latitude": 41.6598,
-    "longitude": -83.5750,
+    "latitude": 41.6585,
+    "longitude": -83.5595,
     "image": "images/toledo-museum-of-art.png"
   },
   {
@@ -116,9 +116,9 @@
     "title": "Various Paintings by Dean Davis",
     "artist": "Dean Davis",
     "type": "gallery",
-    "description": "A rotating collection of mixed-media paintings and works by Toledo muralist Dean Davis, displayed at The Loft. 336 N Superior Ave, Toledo, OH.",
-    "latitude": 41.6536,
-    "longitude": -83.5340,
+    "description": "A rotating collection of mixed-media paintings and works by Toledo muralist Dean Davis, displayed at The Loft 419. 336 N Superior St, Toledo, OH.",
+    "latitude": 41.652833,
+    "longitude": -83.534722,
     "image": "images/various-paintings-dean-davis.png"
   },
   {
