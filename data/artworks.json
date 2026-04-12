@@ -32,9 +32,9 @@
   {
     "id": 4,
     "title": "Glass City River Wall",
-    "artist": "Gabe Gault",
+    "artist": "Toledo Artists",
     "type": "mural",
-    "description": "The largest mural in North America, spanning 28 ADM grain silos across 170,000 sq ft along the Maumee River. Features sunflowers and portraits of Native American women and children honoring the region's first agriculturalists. Photo: Doug Hinebaugh (instagram.com/thedougiefresh).",
+    "description": "The largest mural in North America, spanning 28 ADM grain silos across 170,000 sq ft along the Maumee River. Features sunflowers and portraits of Native American women and children honoring the region's first agriculturalists. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
     "latitude": 41.6531,
     "longitude": -83.5280,
     "image": "images/glass-city-river-wall-mural.png"
@@ -44,7 +44,7 @@
     "title": "Greetings from Toledo",
     "artist": "Victor Ving & Lisa Beggs",
     "type": "mural",
-    "description": "A colorful postcard-style mural at 120 Main St in East Toledo, featuring iconic Toledo landmarks like Tony Packo's, the Skyway Bridge, and the Toledo Mud Hens. Photo: Doug Hinebaugh (instagram.com/thedougiefresh).",
+    "description": "A colorful postcard-style mural at 120 Main St in East Toledo, featuring iconic Toledo landmarks like Tony Packo's, the Skyway Bridge, and the Toledo Mud Hens. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
     "latitude": 41.6489,
     "longitude": -83.5241,
     "image": "images/greetings-from-toledo-mural.png"
@@ -54,7 +54,7 @@
     "title": "Toledo Museum of Art",
     "artist": "",
     "type": "gallery",
-    "description": "World-class art museum with free admission, housed in a stunning Greek Revival building. Home to the renowned Glass Pavilion. 2445 Monroe St, Toledo, OH 43620. Photo: Doug Hinebaugh (instagram.com/thedougiefresh).",
+    "description": "World-class art museum with free admission, housed in a stunning Greek Revival building. Home to the renowned Glass Pavilion. 2445 Monroe St, Toledo, OH 43620. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
     "latitude": 41.6598,
     "longitude": -83.5750,
     "image": "images/toledo-museum-of-art.png"
@@ -74,7 +74,7 @@
     "title": "Collingwood Arts Center",
     "artist": "",
     "type": "studio",
-    "description": "A historic arts hub since 1905 offering artist studios, live performances, classes, and workshops. 2413 Collingwood Blvd, Toledo, OH 43620. Photo: Smithr1981, CC BY 3.0.",
+    "description": "A historic arts hub since 1905 offering artist studios, live performances, classes, and workshops. 2413 Collingwood Blvd, Toledo, OH 43620. Photo: Smithr1981, <a href=\"https://creativecommons.org/licenses/by/3.0\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">CC BY 3.0</a>.",
     "latitude": 41.6688,
     "longitude": -83.5560,
     "image": "images/collingwood-art-center.jpg"
@@ -94,7 +94,8 @@
     "title": "Echo",
     "artist": "Kristine Rumman & Dane Turpening, 2017",
     "type": "sculpture",
-    "description": "Eleven rings from a former steam plant smokestack create a pathway through the landscape — a metaphor for Toledo's transition from past to present to future. Photo: Doug Hinebaugh (instagram.com/thedougiefresh).",
+    "description": "Eleven rings from a former steam plant smokestack create a pathway through the landscape — a metaphor for Toledo's transition from past to present to future. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
+    "logo": "images/the-art-commission.svg",
     "latitude": 41.649807,
     "longitude": -83.533424,
     "image": "images/echo-sculpture.png"
@@ -104,7 +105,8 @@
     "title": "Upon Reflection",
     "artist": "Studio KCA, 2022",
     "type": "sculpture",
-    "description": "Two suspended ovals — one mirrored, one backlit — play off sunlight by day and glow with LEDs by night. 310 N Summit St. Photo: Doug Hinebaugh (instagram.com/thedougiefresh).",
+    "description": "Two suspended ovals — one mirrored, one backlit — play off sunlight by day and glow with LEDs by night. 310 N Summit St. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
+    "logo": "images/the-art-commission.svg",
     "latitude": 41.6537,
     "longitude": -83.5383,
     "image": "images/the-oval-upon-reflection-sculpture.png"
@@ -118,5 +120,15 @@
     "latitude": 41.6536,
     "longitude": -83.5340,
     "image": "images/various-paintings-dean-davis.png"
+  },
+  {
+    "id": 13,
+    "title": "Ye Olde Cock & Bull",
+    "artist": "",
+    "type": "mural",
+    "description": "Hand-painted pub mural at Ye Olde Cock & Bull, 9 N Huron St, Toledo, OH 43604.",
+    "latitude": 41.648617,
+    "longitude": -83.540203,
+    "image": "images/yo-olde-cock-bull-mural.jpg"
   }
 ]

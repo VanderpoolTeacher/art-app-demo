@@ -11,11 +11,11 @@
 
   /* ═══════════ PALETTE ═══════════ */
   :root {
-    --sky-blue: #8ECAE6;
-    --blue-green: #219EBC;
-    --deep-blue: #023047;
-    --amber: #FFB703;
-    --orange: #FB8500;
+    --sky-blue: #1D4ED8;
+    --blue-green: #1D4ED8;
+    --deep-blue: #0B1F6B;
+    --amber: #FACC15;
+    --orange: #E63946;
     --radius: 0;
   }
 
@@ -67,7 +67,7 @@
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Caveat', cursive;
+    font-family: 'Reddit Sans', sans-serif;
     font-size: 12pt;
     background: var(--bg);
     color: var(--text);
@@ -96,7 +96,7 @@
     content: '';
     position: absolute;
     width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(168,218,220,0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(29,78,216,0.15) 0%, transparent 70%);
     top: -100px; left: -100px;
     animation: float 8s ease-in-out infinite;
   }
@@ -119,8 +119,8 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(168,218,220,0.15);
-    border: 1px solid rgba(142,202,230,0.3);
+    background: rgba(29,78,216,0.15);
+    border: 1px solid rgba(29,78,216,0.3);
     padding: 8px 20px;
     border-radius: 0;
     font-size: 0.85rem;
@@ -292,10 +292,10 @@
     --slide-bg: #F0F0EB;
     --slide-text: #1A1A1A;
     --slide-text-muted: #555;
-    --slide-accent: #2563EB;
-    --slide-accent-blue: #2563EB;
-    --slide-accent-yellow: #CA8A04;
-    --slide-accent-red: #DC2626;
+    --slide-accent: #1D4ED8;
+    --slide-accent-blue: #1D4ED8;
+    --slide-accent-yellow: #FACC15;
+    --slide-accent-red: #E63946;
     --slide-border: rgba(0,0,0,0.08);
   }
 
@@ -303,10 +303,10 @@
     --slide-bg: #F0F0EB;
     --slide-text: #1A1A1A;
     --slide-text-muted: #555;
-    --slide-accent: #2563EB;
-    --slide-accent-blue: #2563EB;
-    --slide-accent-yellow: #CA8A04;
-    --slide-accent-red: #DC2626;
+    --slide-accent: #1D4ED8;
+    --slide-accent-blue: #1D4ED8;
+    --slide-accent-yellow: #FACC15;
+    --slide-accent-red: #E63946;
     --slide-border: rgba(0,0,0,0.08);
   }
 
@@ -392,7 +392,7 @@
   .slide-card .principle-icon svg { stroke: var(--slide-accent-blue); }
 
   /* Goal metric badges — primary colors */
-  .slide-card .goal-metric { background: rgba(37,99,235,0.1) !important; color: var(--slide-accent-blue) !important; }
+  .slide-card .goal-metric { background: rgba(29,78,216,0.1) !important; color: var(--slide-accent-blue) !important; }
 
   /* Timeline dots — primary colors */
   .slide-card .timeline-dot { border-color: var(--slide-accent-blue) !important; }
@@ -410,6 +410,12 @@
     background: rgba(128,128,128,0.1);
     border: 1px solid var(--slide-border);
   }
+  .slide-card .timeline-item {
+    padding: 1.75rem 1.75rem 1.75rem 3rem;
+    margin-bottom: 2rem;
+  }
+  .slide-card .timeline-item:last-child { margin-bottom: 0; }
+  .slide-card .timeline-dot { left: 1rem; }
 
   /* Slide header bar */
   .slide-label {
@@ -425,86 +431,60 @@
     border: 1.5px solid var(--slide-accent);
   }
 
-  /* Controls row */
-  .slide-controls {
+  /* Thumbnail nav */
+  .slide-nav {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1.5rem;
-  }
-
-  .slide-arrow {
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border: 2px solid var(--slide-border);
-    background: var(--slide-bg);
-    color: var(--slide-text);
-    transition: all 0.25s ease;
-  }
-
-  .slide-arrow:hover {
-    background: var(--slide-accent);
-    color: #fff;
-    border-color: var(--slide-accent);
-    transform: scale(1.08);
-  }
-
-  .slide-arrow:disabled {
-    opacity: 0.3;
-    cursor: default;
-    transform: none;
-  }
-
-  .slide-arrow:disabled:hover {
-    background: var(--slide-bg);
-    color: var(--slide-text);
-    border-color: var(--slide-border);
-    transform: none;
-  }
-
-  .slide-arrow svg {
-    width: 20px;
-    height: 20px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 2.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .slide-counter {
-    font-family: 'Reddit Sans', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    min-width: 60px;
-    text-align: center;
-  }
-
-  /* Dots */
-  .slide-dots {
-    display: flex;
-    justify-content: center;
     gap: 0.5rem;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
+    justify-content: center;
   }
 
-  .slide-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--border);
+  .slide-thumbs {
+    display: flex;
+    gap: 0.4rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 4px 0;
+  }
+
+  .slide-thumbs::-webkit-scrollbar { display: none; }
+
+  .slide-thumb {
+    flex-shrink: 0;
+    width: 90px;
+    padding: 6px 8px;
+    background: var(--card-bg);
+    border: 2px solid var(--border);
     cursor: pointer;
-    transition: all 0.3s ease;
+    text-align: center;
+    transition: all 0.25s ease;
+    font-family: 'Reddit Sans', sans-serif;
   }
 
-  .slide-dot.active {
-    background: var(--slide-accent);
-    width: 24px;
+  .slide-thumb:hover { border-color: var(--blue-green); }
+
+  .slide-thumb.active {
+    border-color: var(--blue-green);
+    background: rgba(29,78,216,0.12);
+  }
+
+  .slide-thumb-num {
+    font-size: 0.55rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 2px;
+  }
+
+  .slide-thumb-title {
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   /* ═══════════ SECTIONS (inside slides) ═══════════ */
@@ -590,12 +570,158 @@
     line-height: 1.7;
   }
 
-  /* ═══════════ ARTWORK GALLERY ═══════════ */
-  .artwork-gallery {
+  /* ═══════════ ARTWORK HERO CAROUSEL ═══════════ */
+  .artwork-hero-carousel {
+    position: relative;
+    width: 100%;
+    height: clamp(320px, 50vh, 500px);
+    overflow: hidden;
+    background: #000;
+  }
+
+  .hero-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+    cursor: pointer;
+    pointer-events: none;
+  }
+
+  .hero-slide.active { opacity: 1; pointer-events: auto; }
+
+  .hero-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-slide .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, var(--bg) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+  }
+
+  .hero-slide .hero-content {
+    position: absolute;
+    bottom: 3rem;
+    left: 2rem;
+    right: 2rem;
+    z-index: 2;
+  }
+
+  .hero-slide .hero-tag {
+    font-size: 0.65rem;
+    color: #E63946;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    font-family: 'Reddit Sans', sans-serif;
+  }
+
+  .hero-slide .hero-title {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.25rem;
+  }
+
+  .hero-slide .hero-meta {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-slide .hero-desc {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.5);
+    max-width: 550px;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .hero-nav {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 3;
+  }
+
+  .hero-arrow {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    cursor: pointer;
+    border-radius: 0;
+    transition: background 0.2s;
+    padding: 0;
+  }
+
+  .hero-arrow:hover { background: rgba(0,0,0,0.8); }
+
+  .hero-arrow svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .hero-thumbs {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .hero-thumb {
+    width: 40px;
+    height: 28px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 0;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.3s;
+    padding: 0;
+    background: none;
+  }
+
+  .hero-thumb:hover { border-color: rgba(255,255,255,0.7); }
+  .hero-thumb.active { border-color: #fff; }
+
+  .hero-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ═══════════ DISCOVERY GRID ═══════════ */
+  .artwork-categories {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 2rem;
+  }
+
+  .discovery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
   }
 
   .artwork-card {
@@ -604,101 +730,70 @@
     overflow: hidden;
     border: 1px solid var(--border);
     transition: all 0.3s;
+    cursor: pointer;
   }
 
   .artwork-card:hover {
     transform: translateY(-4px);
-    border-color: rgba(142,202,230,0.3);
+    border-color: rgba(29,78,216,0.3);
     box-shadow: 0 12px 40px rgba(0,0,0,0.3);
   }
 
   .artwork-card img {
     width: 100%;
-    height: 220px;
+    height: 160px;
     object-fit: cover;
     display: block;
   }
 
   .artwork-card .artwork-info {
-    padding: 1.5rem;
+    padding: 0.75rem 1rem;
   }
 
   .artwork-card .artwork-type {
     display: inline-block;
-    font-size: 0.7rem;
+    font-size: 0.6rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    padding: 4px 12px;
+    padding: 2px 8px;
     border-radius: 0;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.4rem;
     font-family: 'Reddit Sans', sans-serif;
-  }
-
-  [data-theme="dark"] .artwork-card .artwork-type {
-    background: rgba(66,133,244,0.15);
-    color: #6EA8FE;
-  }
-
-  [data-theme="light"] .artwork-card .artwork-type {
-    background: rgba(33,158,188,0.12);
+    background: rgba(29,78,216,0.12);
     color: var(--blue-green);
   }
 
   .artwork-card h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.35rem;
+    font-size: 1rem;
+    margin-bottom: 0.15rem;
   }
 
   .artwork-card .artwork-artist {
-    font-size: 0.9rem;
-    margin-bottom: 0.75rem;
-  }
-
-  [data-theme="dark"] .artwork-card .artwork-artist {
-    color: #FFD60A;
-  }
-
-  [data-theme="light"] .artwork-card .artwork-artist {
-    color: var(--blue-green);
-  }
-
-  .artwork-card .artwork-desc {
+    font-size: 0.8rem;
     color: var(--text-muted);
-    font-size: 0.9rem;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-    text-align: left;
+    margin-bottom: 0.4rem;
   }
 
-  .artwork-card .artwork-desc .photo-credit {
-    color: var(--blue-green);
-  }
-
-  [data-theme="dark"] .artwork-card .artwork-desc .photo-credit {
-    color: #FF6B6B;
-  }
-
-  .artwork-card .artwork-logo {
-    height: 32px;
-    width: auto;
-    margin-bottom: 0.75rem;
-    opacity: 0.7;
-  }
-
-  [data-theme="dark"] .artwork-card .artwork-logo {
-    filter: invert(1);
+  .artwork-card .artwork-excerpt {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .artwork-card .artwork-location {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 6px;
-    font-size: 0.8rem;
-    color: #DC2626;
+    gap: 4px;
+    font-size: 0.75rem;
+    color: #E63946;
     text-decoration: none;
-    opacity: 0.85;
+    opacity: 0.8;
     transition: opacity 0.2s;
   }
 
@@ -706,6 +801,15 @@
     opacity: 1;
     text-decoration: underline;
   }
+
+  .artwork-card .artwork-logo {
+    height: 20px;
+    width: auto;
+    margin-bottom: 0.4rem;
+    opacity: 0.6;
+  }
+
+  [data-theme="dark"] .artwork-card .artwork-logo { filter: invert(1); }
 
   .artwork-empty {
     text-align: center;
@@ -734,16 +838,56 @@
     pointer-events: all;
   }
 
-  .lightbox img {
+  .lightbox-figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
     max-width: 90vw;
-    max-height: 85vh;
-    object-fit: contain;
+    max-height: 90vh;
     transform: scale(0.6);
     opacity: 0;
     transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
   }
 
-  .lightbox.active img {
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 78vh;
+    object-fit: contain;
+  }
+
+  .lightbox-caption {
+    color: #fff;
+    text-align: center;
+    font-family: 'Reddit Sans', sans-serif;
+    max-width: 90vw;
+    padding: 0 1rem;
+  }
+
+  .lightbox-caption .lb-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.15rem;
+  }
+
+  .lightbox-caption .lb-artist {
+    font-size: 0.95rem;
+    opacity: 0.85;
+    font-style: italic;
+    margin-bottom: 0.25rem;
+  }
+
+  .lightbox-caption .lb-credit {
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+
+  .lightbox-caption .lb-credit a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  .lightbox.active .lightbox-figure {
     transform: scale(1);
     opacity: 1;
   }
@@ -761,8 +905,8 @@
   }
 
   .problem-block {
-    background: linear-gradient(135deg, rgba(251,133,0,0.1), rgba(251,133,0,0.02));
-    border: 1px solid rgba(251,133,0,0.2);
+    background: linear-gradient(135deg, rgba(230,57,70,0.1), rgba(230,57,70,0.02));
+    border: 1px solid rgba(230,57,70,0.2);
     border-radius: var(--radius);
     padding: 2rem;
     position: relative;
@@ -886,21 +1030,21 @@
     font-family: 'Reddit Sans', sans-serif;
   }
 
-  .priority-badge.p0 { background: rgba(251,133,0,0.2); color: var(--coral); }
-  .priority-badge.p1 { background: rgba(33,158,188,0.25); color: var(--purple); }
-  .priority-badge.p2 { background: rgba(142,202,230,0.2); color: var(--teal); }
-  .priority-badge.p3 { background: rgba(29,53,87,0.4); color: #F1FAEE; }
+  .priority-badge.p0 { background: rgba(230,57,70,0.2); color: var(--coral); }
+  .priority-badge.p1 { background: rgba(29,78,216,0.25); color: var(--purple); }
+  .priority-badge.p2 { background: rgba(29,78,216,0.2); color: var(--teal); }
+  .priority-badge.p3 { background: rgba(11,31,107,0.4); color: #F1FAEE; }
 
   .slide-card .priority-badge.p0 {
-    background: rgba(220,38,38,0.12);
+    background: rgba(230,57,70,0.12);
     color: var(--slide-accent-red);
   }
   .slide-card .priority-badge.p1 {
-    background: rgba(37,99,235,0.12);
+    background: rgba(29,78,216,0.12);
     color: var(--slide-accent-blue);
   }
   .slide-card .priority-badge.p2 {
-    background: rgba(202,138,4,0.12);
+    background: rgba(250,204,21,0.12);
     color: var(--slide-accent-yellow);
   }
   .slide-card .priority-badge.p3 {
@@ -978,7 +1122,7 @@
 
   .slide-card .tech-layer h3 { color: var(--slide-text); }
   .slide-card .tech-layer p { color: var(--slide-text-muted) !important; }
-  .slide-card .tech-layer .layer-icon { color: var(--slide-accent-blue) !important; background: rgba(37,99,235,0.1) !important; }
+  .slide-card .tech-layer .layer-icon { color: var(--slide-accent-blue) !important; background: rgba(29,78,216,0.1) !important; }
 
   .tech-layer-header {
     display: flex;
@@ -1236,9 +1380,9 @@
     font-family: 'Reddit Sans', sans-serif;
   }
 
-  .likelihood.high { background: rgba(251,133,0,0.2); color: var(--coral); }
-  .likelihood.medium { background: rgba(33,158,188,0.25); color: var(--purple); }
-  .likelihood.low { background: rgba(142,202,230,0.2); color: var(--teal); }
+  .likelihood.high { background: rgba(230,57,70,0.2); color: var(--coral); }
+  .likelihood.medium { background: rgba(29,78,216,0.25); color: var(--purple); }
+  .likelihood.low { background: rgba(29,78,216,0.2); color: var(--teal); }
 
   .risk-mitigation {
     max-height: 0;
@@ -1255,7 +1399,7 @@
     font-size: 0.9rem;
     color: var(--text-muted);
     padding: 1rem;
-    background: rgba(168,218,220,0.08);
+    background: rgba(29,78,216,0.08);
     border-radius: 0;
     border-left: 3px solid var(--teal);
   }
@@ -1270,8 +1414,8 @@
 
   /* ═══════════ VISION QUOTE ═══════════ */
   .vision-block {
-    background: linear-gradient(135deg, rgba(168,218,220,0.1), rgba(69,123,157,0.1));
-    border: 1px solid rgba(142,202,230,0.2);
+    background: linear-gradient(135deg, rgba(29,78,216,0.1), rgba(29,78,216,0.1));
+    border: 1px solid rgba(29,78,216,0.2);
     border-radius: var(--radius);
     padding: 3rem;
     text-align: center;
@@ -1436,6 +1580,8 @@
     .card-grid, .features-grid, .persona-cards, .revenue-cards, .principles-grid {
       grid-template-columns: 1fr;
     }
+    .discovery-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+    .hero-slide .hero-content { left: 1rem; right: 1rem; bottom: 2.5rem; }
     .metrics-grid { grid-template-columns: repeat(2, 1fr); }
     .goals-grid { grid-template-columns: repeat(2, 1fr); }
   }
@@ -1454,10 +1600,18 @@
 <section class="art-hero">
   <h1><span class="gradient-text">Greater Toledo Art Map</span></h1>
   <p class="tagline">Connecting you to public art in and around Toledo.</p>
-  <div class="artwork-gallery" id="artworkGallery">
-    <p style="text-align:center;color:var(--text-muted)">Loading artworks…</p>
-  </div>
 </section>
+
+<div class="artwork-hero-carousel" id="heroCarousel">
+  <p style="text-align:center;color:var(--text-muted);padding:4rem;">Loading artworks…</p>
+</div>
+
+<div class="artwork-categories" id="artworkCategories"></div>
+
+<div style="max-width:1100px;margin:3rem auto 0;padding:0 1rem;text-align:center;">
+  <h2 style="margin-bottom:0.75rem;">Product <span class="accent-coral">Pitch Deck</span></h2>
+  <p style="color:var(--text-muted);max-width:650px;margin:0 auto;font-size:0.95rem;line-height:1.6;">The slides below walk through the vision, strategy, and roadmap for the Greater Toledo Art Map — from the problem we're solving to the features we're building, the people we're building for, and the metrics that will tell us we got it right.</p>
+</div>
 
 <div class="slideshow" id="slideshow">
   <div class="slideshow-viewport" id="slideshowViewport">
@@ -1484,7 +1638,7 @@
       <p>Public artworks are ephemeral. Murals get painted over, sculptures demolished — with no digital record they ever existed.</p>
     </div>
   </div>
-  <div class="problem-block" style="margin-top:2rem;border-left:3px solid var(--slide-accent-yellow);text-align:left;">
+  <div class="problem-block" style="margin-top:2rem;border-left:3px solid var(--slide-accent-blue);text-align:left;">
     <h3>The Opportunity</h3>
     <p>What if we used public art to drive people into our restaurants and events? Art already draws foot traffic — connecting it to nearby businesses and local happenings could turn murals into economic engines for the neighborhoods they live in.</p>
   </div>
@@ -1514,25 +1668,25 @@
           <div class="goal-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></div>
           <h3>Discovery</h3>
           <p>Help users find public art near them across greater Toledo</p>
-          <div class="goal-metric" style="background:rgba(142,202,230,0.15);color:var(--teal)">250 artworks cataloged</div>
+          <div class="goal-metric" style="background:rgba(29,78,216,0.15);color:var(--teal)">250 artworks cataloged</div>
         </div>
         <div class="goal-card">
           <div class="goal-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
           <h3>Education</h3>
           <p>Rich cultural and historical context for every piece</p>
-          <div class="goal-metric" style="background:rgba(255,183,3,0.15);color:var(--yellow)">3+ facts per artwork</div>
+          <div class="goal-metric" style="background:rgba(250,204,21,0.15);color:var(--yellow)">3+ facts per artwork</div>
         </div>
         <div class="goal-card">
           <div class="goal-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
           <h3>Community</h3>
           <p>Partner with local arts organizations to grow the database</p>
-          <div class="goal-metric" style="background:rgba(33,158,188,0.15);color:var(--purple)">Curated content</div>
+          <div class="goal-metric" style="background:rgba(29,78,216,0.15);color:var(--purple)">Curated content</div>
         </div>
         <div class="goal-card">
           <div class="goal-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-4h6v4"/></svg></div>
           <h3>Preservation</h3>
           <p>Archive artworks that have been removed or deteriorated</p>
-          <div class="goal-metric" style="background:rgba(251,133,0,0.15);color:var(--coral)">Lost Art archive in 6mo</div>
+          <div class="goal-metric" style="background:rgba(230,57,70,0.15);color:var(--coral)">Lost Art archive in 6mo</div>
         </div>
       </div>
     </div>
@@ -1551,7 +1705,7 @@
   </div>
   <div class="persona-cards">
     <div class="persona-card">
-      <div class="persona-avatar" style="background:rgba(37,99,235,0.1);color:var(--slide-accent-blue)">M</div>
+      <div class="persona-avatar" style="background:rgba(29,78,216,0.1);color:var(--slide-accent-blue)">M</div>
       <h3>Maya, 29</h3>
       <div class="persona-role">The Urban Explorer — Art History Grad Student</div>
       <ul class="persona-needs">
@@ -1561,7 +1715,7 @@
       </ul>
     </div>
     <div class="persona-card">
-      <div class="persona-avatar" style="background:rgba(202,138,4,0.1);color:var(--slide-accent-yellow)">J</div>
+      <div class="persona-avatar" style="background:rgba(250,204,21,0.1);color:var(--slide-accent-yellow)">J</div>
       <h3>James, 44</h3>
       <div class="persona-role">The Cultural Tourist — Frequent Business Traveler</div>
       <ul class="persona-needs">
@@ -1571,7 +1725,7 @@
       </ul>
     </div>
     <div class="persona-card">
-      <div class="persona-avatar" style="background:rgba(220,38,38,0.1);color:var(--slide-accent-red)">D</div>
+      <div class="persona-avatar" style="background:rgba(230,57,70,0.1);color:var(--slide-accent-red)">D</div>
       <h3>Daniela, 35</h3>
       <div class="persona-role">The Local Artist — Muralist & Community Organizer</div>
       <ul class="persona-needs">
@@ -1597,10 +1751,10 @@
   <!-- Feature filter buttons -->
   <div style="display:flex;gap:8px;justify-content:center;margin-bottom:1rem;flex-wrap:wrap">
     <button class="filter-btn active" data-filter="all" style="font-family:'Reddit Sans',sans-serif;font-size:0.8rem;padding:8px 18px;border-radius:50px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.08);color:var(--text);cursor:pointer;transition:all 0.2s">All</button>
-    <button class="filter-btn" data-filter="p0" style="font-family:'Reddit Sans',sans-serif;font-size:0.8rem;padding:8px 18px;border-radius:50px;border:1px solid rgba(251,133,0,0.3);background:transparent;color:var(--coral);cursor:pointer;transition:all 0.2s">P0 — Must Have</button>
-    <button class="filter-btn" data-filter="p1" style="font-family:'Reddit Sans',sans-serif;font-size:0.8rem;padding:8px 18px;border-radius:50px;border:1px solid rgba(33,158,188,0.4);background:transparent;color:var(--yellow);cursor:pointer;transition:all 0.2s">P1 — High</button>
-    <button class="filter-btn" data-filter="p2" style="font-family:'Reddit Sans',sans-serif;font-size:0.8rem;padding:8px 18px;border-radius:50px;border:1px solid rgba(142,202,230,0.3);background:transparent;color:var(--teal);cursor:pointer;transition:all 0.2s">P2 — Medium</button>
-    <button class="filter-btn" data-filter="p3" style="font-family:'Reddit Sans',sans-serif;font-size:0.8rem;padding:8px 18px;border-radius:50px;border:1px solid rgba(29,53,87,0.5);background:transparent;color:var(--purple);cursor:pointer;transition:all 0.2s">P3 — Future</button>
+    <button class="filter-btn" data-filter="p0" style="font-family:'Reddit Sans',sans-serif;font-size:0.8rem;padding:8px 18px;border-radius:50px;border:1px solid rgba(230,57,70,0.3);background:transparent;color:var(--coral);cursor:pointer;transition:all 0.2s">P0 — Must Have</button>
+    <button class="filter-btn" data-filter="p1" style="font-family:'Reddit Sans',sans-serif;font-size:0.8rem;padding:8px 18px;border-radius:50px;border:1px solid rgba(29,78,216,0.4);background:transparent;color:var(--yellow);cursor:pointer;transition:all 0.2s">P1 — High</button>
+    <button class="filter-btn" data-filter="p2" style="font-family:'Reddit Sans',sans-serif;font-size:0.8rem;padding:8px 18px;border-radius:50px;border:1px solid rgba(29,78,216,0.3);background:transparent;color:var(--teal);cursor:pointer;transition:all 0.2s">P2 — Medium</button>
+    <button class="filter-btn" data-filter="p3" style="font-family:'Reddit Sans',sans-serif;font-size:0.8rem;padding:8px 18px;border-radius:50px;border:1px solid rgba(11,31,107,0.5);background:transparent;color:var(--purple);cursor:pointer;transition:all 0.2s">P3 — Future</button>
   </div>
 
   <div class="features-grid" id="featuresGrid">
@@ -1665,7 +1819,7 @@
   <div class="tech-layers">
     <div class="tech-layer">
       <div class="tech-layer-header">
-        <div class="layer-icon" style="background:rgba(142,202,230,0.15);color:var(--teal)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+        <div class="layer-icon" style="background:rgba(29,78,216,0.15);color:var(--teal)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
         <h3>Frontend</h3>
       </div>
       <p style="color:var(--text-muted);font-size:0.95rem">Cross-platform mobile with React Native (iOS & Android) and Next.js for web. Shared component library via a custom design system.</p>
@@ -1678,7 +1832,7 @@
     </div>
     <div class="tech-layer">
       <div class="tech-layer-header">
-        <div class="layer-icon" style="background:rgba(33,158,188,0.15);color:var(--purple)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+        <div class="layer-icon" style="background:rgba(29,78,216,0.15);color:var(--purple)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
         <h3>Backend</h3>
       </div>
       <p style="color:var(--text-muted);font-size:0.95rem">Node.js API Gateway routing to microservices: Artwork, User, Search, and Media services. REST + GraphQL hybrid API.</p>
@@ -1691,7 +1845,7 @@
     </div>
     <div class="tech-layer">
       <div class="tech-layer-header">
-        <div class="layer-icon" style="background:rgba(255,183,3,0.15);color:var(--yellow)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div>
+        <div class="layer-icon" style="background:rgba(250,204,21,0.15);color:var(--yellow)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div>
         <h3>Infrastructure</h3>
       </div>
       <p style="color:var(--text-muted);font-size:0.95rem">AWS-powered: containers via ECS, PostgreSQL with PostGIS for spatial queries, S3 + CloudFront for media delivery, ElasticSearch for search, and Redis for caching.</p>
@@ -1827,47 +1981,47 @@
     <div class="metric-card">
       <div class="metric-value accent-teal">5K</div>
       <div class="metric-label">Monthly Active Users</div>
-      <div class="metric-category" style="background:rgba(33,158,188,0.12);color:var(--blue-green)">Growth</div>
+      <div class="metric-category" style="background:rgba(29,78,216,0.12);color:var(--blue-green)">Growth</div>
     </div>
     <div class="metric-card">
       <div class="metric-value accent-teal">250</div>
       <div class="metric-label">Artworks Cataloged</div>
-      <div class="metric-category" style="background:rgba(33,158,188,0.12);color:var(--blue-green)">Growth</div>
+      <div class="metric-category" style="background:rgba(29,78,216,0.12);color:var(--blue-green)">Growth</div>
     </div>
     <div class="metric-card">
       <div class="metric-value accent-yellow">4 min</div>
       <div class="metric-label">Avg. Session Duration</div>
-      <div class="metric-category" style="background:rgba(255,183,3,0.12);color:var(--amber)">Engagement</div>
+      <div class="metric-category" style="background:rgba(250,204,21,0.12);color:var(--amber)">Engagement</div>
     </div>
     <div class="metric-card">
       <div class="metric-value accent-yellow">25%</div>
       <div class="metric-label">D30 Retention</div>
-      <div class="metric-category" style="background:rgba(255,183,3,0.12);color:var(--amber)">Engagement</div>
+      <div class="metric-category" style="background:rgba(250,204,21,0.12);color:var(--amber)">Engagement</div>
     </div>
     <div class="metric-card">
       <div class="metric-value accent-purple">50</div>
       <div class="metric-label">Local Artist Profiles</div>
-      <div class="metric-category" style="background:rgba(2,48,71,0.12);color:var(--blue-green)">Community</div>
+      <div class="metric-category" style="background:rgba(11,31,107,0.12);color:var(--blue-green)">Community</div>
     </div>
     <div class="metric-card">
       <div class="metric-value accent-purple">10</div>
       <div class="metric-label">Arts Organization Partners</div>
-      <div class="metric-category" style="background:rgba(2,48,71,0.12);color:var(--blue-green)">Community</div>
+      <div class="metric-category" style="background:rgba(11,31,107,0.12);color:var(--blue-green)">Community</div>
     </div>
     <div class="metric-card">
       <div class="metric-value accent-coral">500</div>
       <div class="metric-label">Walking Tour Completions</div>
-      <div class="metric-category" style="background:rgba(251,133,0,0.12);color:var(--orange)">Engagement</div>
+      <div class="metric-category" style="background:rgba(230,57,70,0.12);color:var(--orange)">Engagement</div>
     </div>
     <div class="metric-card">
       <div class="metric-value accent-coral">8</div>
       <div class="metric-label">Toledo Neighborhoods Covered</div>
-      <div class="metric-category" style="background:rgba(251,133,0,0.12);color:var(--orange)">Coverage</div>
+      <div class="metric-category" style="background:rgba(230,57,70,0.12);color:var(--orange)">Coverage</div>
     </div>
     <div class="metric-card">
       <div class="metric-value accent-blue">&gt;90%</div>
       <div class="metric-label">Data Accuracy (Spot Audit)</div>
-      <div class="metric-category" style="background:rgba(33,158,188,0.12);color:var(--blue-green)">Quality</div>
+      <div class="metric-category" style="background:rgba(29,78,216,0.12);color:var(--blue-green)">Quality</div>
     </div>
   </div>
 </div>
@@ -1875,16 +2029,7 @@
 
 </div> <!-- end slideshow-viewport -->
 
-  <div class="slide-controls">
-    <button class="slide-arrow" id="slidePrev" aria-label="Previous slide">
-      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-    </button>
-    <div class="slide-counter" id="slideCounter">1 / 10</div>
-    <button class="slide-arrow" id="slideNext" aria-label="Next slide">
-      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-    </button>
-  </div>
-  <div class="slide-dots" id="slideDots"></div>
+  <nav class="slide-nav" id="slideNav"></nav>
 </div>
 
 <!-- ═══════════ FOOTER ═══════════ -->
@@ -1914,64 +2059,61 @@
   });
 
   // ═══════════ SLIDESHOW ═══════════
-  const slides = document.querySelectorAll('.slide-card');
-  const slideCounter = document.getElementById('slideCounter');
-  const slidePrev = document.getElementById('slidePrev');
-  const slideNext = document.getElementById('slideNext');
-  const dotsContainer = document.getElementById('slideDots');
-  const totalSlides = slides.length;
-  let currentSlide = 0;
+  (function() {
+    var allSlides = document.querySelectorAll('.slide-card');
+    var nav = document.getElementById('slideNav');
+    var total = allSlides.length;
+    var cur = 0;
 
-  // Build dots
-  slides.forEach((_, i) => {
-    const dot = document.createElement('div');
-    dot.className = 'slide-dot' + (i === 0 ? ' active' : '');
-    dot.addEventListener('click', () => goToSlide(i));
-    dotsContainer.appendChild(dot);
-  });
-  const dots = dotsContainer.querySelectorAll('.slide-dot');
+    var titles = {
+      problem: 'Problem', vision: 'Vision', users: 'Users',
+      features: 'Features', tech: 'Tech', design: 'Design',
+      roadmap: 'Roadmap', metrics: 'Metrics'
+    };
 
-  function updateControls() {
-    slideCounter.textContent = `${currentSlide + 1} / ${totalSlides}`;
-    slidePrev.disabled = currentSlide === 0;
-    slideNext.disabled = currentSlide === totalSlides - 1;
-    dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
-  }
+    var thumbStrip = document.createElement('div');
+    thumbStrip.className = 'slide-thumbs';
 
-  function goToSlide(newIndex) {
-    if (newIndex < 0 || newIndex >= totalSlides || newIndex === currentSlide) return;
+    var thumbs = [];
+    allSlides.forEach(function(slide, i) {
+      var key = slide.dataset.slide || '';
+      var t = document.createElement('div');
+      t.className = 'slide-thumb' + (i === 0 ? ' active' : '');
+      t.innerHTML = '<div class="slide-thumb-num">' + (i + 1) + '</div><div class="slide-thumb-title">' + (titles[key] || key) + '</div>';
+      t.addEventListener('click', function() { go(i); });
+      thumbStrip.appendChild(t);
+      thumbs.push(t);
+    });
 
-    const goingRight = newIndex > currentSlide;
+    nav.appendChild(thumbStrip);
 
-    // Slide out current
-    const outgoing = slides[currentSlide];
-    outgoing.classList.remove('active');
-    outgoing.classList.add(goingRight ? 'slide-out-left' : 'slide-out-right');
-    setTimeout(() => {
-      outgoing.classList.remove('slide-out-left', 'slide-out-right');
-    }, 500);
+    function update() {
+      thumbs.forEach(function(t, i) { t.classList.toggle('active', i === cur); });
+      thumbs[cur].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
 
-    // Slide in new
-    const incoming = slides[newIndex];
-    incoming.classList.add(goingRight ? 'slide-in-right' : 'slide-in-left');
-    incoming.offsetHeight; // force reflow
-    incoming.classList.remove('slide-in-right', 'slide-in-left');
-    incoming.classList.add('active');
+    function go(idx) {
+      if (idx < 0 || idx >= total || idx === cur) return;
+      var right = idx > cur;
 
-    currentSlide = newIndex;
-    updateControls();
-  }
+      allSlides[cur].classList.remove('active');
+      allSlides[cur].classList.add(right ? 'slide-out-left' : 'slide-out-right');
+      var old = cur;
+      setTimeout(function() {
+        allSlides[old].classList.remove('slide-out-left', 'slide-out-right');
+      }, 500);
 
-  slidePrev.addEventListener('click', () => goToSlide(currentSlide - 1));
-  slideNext.addEventListener('click', () => goToSlide(currentSlide + 1));
+      allSlides[idx].classList.add(right ? 'slide-in-right' : 'slide-in-left');
+      allSlides[idx].offsetHeight;
+      allSlides[idx].classList.remove('slide-in-right', 'slide-in-left');
+      allSlides[idx].classList.add('active');
 
-  // Keyboard arrows
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
-    if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
-  });
+      cur = idx;
+      update();
+    }
 
-  updateControls();
+    update();
+  })();
 
   // ═══════════ FEATURE FILTER ═══════════
   const filterBtns = document.querySelectorAll('.filter-btn');
@@ -1999,181 +2141,210 @@
     });
   });
 
-  // ═══════════ ARTWORK DATA ═══════════
-  const artworks = [
-    {
-      "id": 1,
-      "title": "Toledo Frog Mural",
-      "artist": "Dean Davis",
-      "type": "mural",
-      "description": "A vibrant, large-scale mural featuring colorful blue and green tree frogs painted on the side of a building in downtown Toledo.",
-      "latitude": 41.651832,
-      "longitude": -83.534791,
-      "image": "images/toledo-frog-mural.jpg"
-    },
-    {
-      "id": 2,
-      "title": "All You Need Is Love",
-      "artist": "Dean Davis",
-      "type": "mural",
-      "description": "A colorful mural located at Peace Love Happiness World Headquarters in downtown Toledo.",
-      "latitude": 41.652857,
-      "longitude": -83.535114,
-      "image": "images/all-you-need-is-love-mural.jpg"
-    },
-    {
-      "id": 3,
-      "title": "River Gallery Studio",
-      "artist": "",
-      "type": "studio",
-      "description": "500 Madison Avenue, Toledo, OH 43604",
-      "latitude": 41.6528,
-      "longitude": -83.5352,
-      "image": "images/river-gallery-studio.jpg"
-    },
-    {
-      "id": 4,
-      "title": "Glass City River Wall",
-      "artist": "Gabe Gault",
-      "type": "mural",
-      "description": "The largest mural in North America, spanning 28 ADM grain silos across 170,000 sq ft along the Maumee River. Features sunflowers and portraits of Native American women and children honoring the region's first agriculturalists. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
-      "latitude": 41.6531,
-      "longitude": -83.5280,
-      "image": "images/glass-city-river-wall-mural.png"
-    },
-    {
-      "id": 5,
-      "title": "Greetings from Toledo",
-      "artist": "Victor Ving & Lisa Beggs",
-      "type": "mural",
-      "description": "A colorful postcard-style mural at 120 Main St in East Toledo, featuring iconic Toledo landmarks like Tony Packo's, the Skyway Bridge, and the Toledo Mud Hens. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
-      "latitude": 41.6489,
-      "longitude": -83.5241,
-      "image": "images/greetings-from-toledo-mural.png"
-    },
-    {
-      "id": 6,
-      "title": "Toledo Museum of Art",
-      "artist": "",
-      "type": "gallery",
-      "description": "World-class art museum with free admission, housed in a stunning Greek Revival building. Home to the renowned Glass Pavilion. 2445 Monroe St, Toledo, OH 43620. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
-      "latitude": 41.6598,
-      "longitude": -83.5750,
-      "image": "images/toledo-museum-of-art.png"
-    },
-    {
-      "id": 7,
-      "title": "20 North Gallery",
-      "artist": "",
-      "type": "gallery",
-      "description": "Toledo's oldest independent art gallery, founded in 1993. Located in the historic Warehouse District at 18 N. St. Clair St, Toledo, OH 43604. Photo: Kenny Greene.",
-      "latitude": 41.6497,
-      "longitude": -83.5355,
-      "image": "images/20-gallery-north-studio.webp"
-    },
-    {
-      "id": 8,
-      "title": "Collingwood Arts Center",
-      "artist": "",
-      "type": "studio",
-      "description": "A historic arts hub since 1905 offering artist studios, live performances, classes, and workshops. 2413 Collingwood Blvd, Toledo, OH 43620. Photo: Smithr1981, <a href=\"https://creativecommons.org/licenses/by/3.0\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">CC BY 3.0</a>.",
-      "latitude": 41.6688,
-      "longitude": -83.5560,
-      "image": "images/collingwood-art-center.jpg"
-    },
-    {
-      "id": 9,
-      "title": "River House Arts",
-      "artist": "",
-      "type": "gallery",
-      "description": "A full-service gallery in the historic Secor Building downtown, with free, ever-changing exhibitions.",
-      "latitude": 41.6520,
-      "longitude": -83.5370,
-      "image": "images/river-house-arts.jpg"
-    },
-    {
-      "id": 10,
-      "title": "Echo",
-      "artist": "Kristine Rumman & Dane Turpening, 2017",
-      "type": "sculpture",
-      "description": "Eleven rings from a former steam plant smokestack create a pathway through the landscape — a metaphor for Toledo's transition from past to present to future. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
-      "logo": "images/the-art-commission.svg",
-      "latitude": 41.649807,
-      "longitude": -83.533424,
-      "image": "images/echo-sculpture.png"
-    },
-    {
-      "id": 11,
-      "title": "Upon Reflection",
-      "artist": "Studio KCA, 2022",
-      "type": "sculpture",
-      "description": "Two suspended ovals — one mirrored, one backlit — play off sunlight by day and glow with LEDs by night. 310 N Summit St. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
-      "logo": "images/the-art-commission.svg",
-      "latitude": 41.6537,
-      "longitude": -83.5383,
-      "image": "images/the-oval-upon-reflection-sculpture.png"
-    },
-    {
-      "id": 12,
-      "title": "Various Paintings by Dean Davis",
-      "artist": "Dean Davis",
-      "type": "gallery",
-      "description": "A rotating collection of mixed-media paintings and works by Toledo muralist Dean Davis, displayed at The Loft. 336 N Superior Ave, Toledo, OH.",
-      "latitude": 41.6536,
-      "longitude": -83.5340,
-      "image": "images/various-paintings-dean-davis.png"
-    }
-  ];
+  // ═══════════ RENDER ARTWORKS (loaded from data/artworks.json) ═══════════
+  const extractCredit = (desc) => {
+    const m = desc && desc.match(/Photo:\s*([^]*?)\.?\s*$/i);
+    return m ? m[1].replace(/\.$/, '') : '';
+  };
+  const escapeAttr = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+  const stripHtml = (s) => s.replace(/<[^>]*>/g, '');
 
-  // ═══════════ RENDER ARTWORKS ═══════════
-  (function renderArtworks() {
-    const gallery = document.getElementById('artworkGallery');
+  async function renderArtworks() {
+    const carousel = document.getElementById('heroCarousel');
+    const categories = document.getElementById('artworkCategories');
+    const emptyState = `
+      <div class="artwork-empty">
+        <div class="empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <p>No artworks yet — check back soon!</p>
+      </div>`;
 
-    if (!artworks.length) {
-      gallery.innerHTML = `
-        <div class="artwork-empty">
-          <div class="empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-          <p>No artworks yet — check back soon!</p>
-        </div>`;
+    let artworks;
+    try {
+      const res = await fetch('data/artworks.json', { cache: 'no-store' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      artworks = await res.json();
+    } catch (err) {
+      console.error('Failed to load artworks.json', err);
+      carousel.innerHTML = emptyState;
       return;
     }
 
-    // Shuffle artworks randomly, but keep logo items at the top
-    const shuffled = [...artworks].sort(() => Math.random() - 0.5);
-    shuffled.sort((a, b) => (b.logo ? 1 : 0) - (a.logo ? 1 : 0));
+    if (!artworks.length) {
+      carousel.innerHTML = emptyState;
+      return;
+    }
 
-    gallery.innerHTML = shuffled.map(art => `
-      <div class="artwork-card">
-        <img src="${art.image}" alt="${art.title}" loading="lazy">
-        <div class="artwork-info">
-          <span class="artwork-type">${art.type}</span>
-          <h3>${art.title}</h3>
-          ${art.artist ? `<div class="artwork-artist">by ${art.artist}</div>` : ''}
-          <p class="artwork-desc">${art.description}</p>
-          ${art.logo ? `<a href="https://theartscommission.org/public-art/collection" target="_blank" rel="noopener"><img class="artwork-logo" src="${art.logo}" alt="The Arts Commission"></a>` : ''}
-          <a class="artwork-location" href="https://www.google.com/maps?q=${art.latitude},${art.longitude}" target="_blank" rel="noopener">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Take me there!
-          </a>
+    // ── Hero carousel ──
+    const heroItems = [...artworks].sort(() => Math.random() - 0.5);
+    carousel.innerHTML = heroItems.map((art, i) => {
+      const credit = extractCredit(art.description);
+      const descClean = stripHtml(art.description).replace(/Photo:.*$/, '').trim();
+      return `
+      <div class="hero-slide${i === 0 ? ' active' : ''}"
+           data-title="${escapeAttr(art.title)}"
+           data-artist="${escapeAttr(art.artist || '')}"
+           data-credit="${escapeAttr(credit)}"
+           data-image="${escapeAttr(art.image)}">
+        <img src="${art.image}" alt="${art.title}">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-tag">Featured</div>
+          <div class="hero-title">${art.title}</div>
+          <div class="hero-meta">${art.artist ? `by ${art.artist} &bull; ` : ''}${art.type}</div>
+          ${descClean ? `<div class="hero-desc">${descClean}</div>` : ''}
         </div>
-      </div>
-    `).join('');
-  })();
+      </div>`;
+    }).join('') + `
+      <div class="hero-nav">
+        <button class="hero-arrow" id="heroPrev" type="button"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <div class="hero-thumbs">
+          ${heroItems.map((art, i) => `<button class="hero-thumb${i === 0 ? ' active' : ''}" data-index="${i}"><img src="${art.image}" alt="${escapeAttr(art.title)}"></button>`).join('')}
+        </div>
+        <button class="hero-arrow" id="heroNext" type="button"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>`;
+
+    let heroIndex = 0;
+    const heroSlides = carousel.querySelectorAll('.hero-slide');
+    const heroThumbs = carousel.querySelectorAll('.hero-thumb');
+    const heroPrev = document.getElementById('heroPrev');
+    const heroNext = document.getElementById('heroNext');
+
+    function showHeroSlide(idx) {
+      heroSlides[heroIndex].classList.remove('active');
+      heroThumbs[heroIndex].classList.remove('active');
+      heroIndex = ((idx % heroSlides.length) + heroSlides.length) % heroSlides.length;
+      heroSlides[heroIndex].classList.add('active');
+      heroThumbs[heroIndex].classList.add('active');
+    }
+
+    function resetTimer() {
+      clearInterval(heroTimer);
+      heroTimer = setInterval(() => showHeroSlide(heroIndex + 1), 8000);
+    }
+
+    let heroTimer = setInterval(() => showHeroSlide(heroIndex + 1), 8000);
+
+    heroThumbs.forEach(thumb => thumb.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showHeroSlide(+thumb.dataset.index);
+      resetTimer();
+    }));
+
+    heroPrev.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showHeroSlide(heroIndex - 1);
+      resetTimer();
+    });
+
+    heroNext.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showHeroSlide(heroIndex + 1);
+      resetTimer();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') { showHeroSlide(heroIndex - 1); resetTimer(); }
+      if (e.key === 'ArrowRight') { showHeroSlide(heroIndex + 1); resetTimer(); }
+    });
+
+    // ── Discovery grid (shuffled, flat) ──
+    const shuffled = [...artworks].sort(() => Math.random() - 0.5);
+
+    categories.innerHTML = `<div class="discovery-grid">
+      ${shuffled.map(art => {
+        const credit = extractCredit(art.description);
+        const excerpt = stripHtml(art.description).replace(/Photo:.*$/, '').trim();
+        return `
+        <div class="artwork-card">
+          <img src="${art.image}" alt="${art.title}" loading="lazy"
+               data-title="${escapeAttr(art.title)}"
+               data-artist="${escapeAttr(art.artist || '')}"
+               data-credit="${escapeAttr(credit)}">
+          <div class="artwork-info">
+            ${art.logo ? `<a href="https://theartscommission.org/public-art/collection" target="_blank" rel="noopener"><img class="artwork-logo" src="${art.logo}" alt="The Arts Commission"></a>` : ''}
+            <h3>${art.title}</h3>
+            ${art.artist ? `<div class="artwork-artist">by ${art.artist}</div>` : ''}
+            ${excerpt ? `<p class="artwork-excerpt">${excerpt}</p>` : ''}
+            <a class="artwork-location" href="https://www.google.com/maps?q=${art.latitude},${art.longitude}" target="_blank" rel="noopener">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Take me there!
+            </a>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`;
+  }
+  renderArtworks();
 
   // ═══════════ LIGHTBOX ═══════════
   const lightbox = document.createElement('div');
   lightbox.className = 'lightbox';
-  lightbox.innerHTML = '<img src="" alt="">';
+  lightbox.innerHTML = `
+    <figure class="lightbox-figure">
+      <img src="" alt="">
+      <figcaption class="lightbox-caption">
+        <div class="lb-title"></div>
+        <div class="lb-artist"></div>
+        <div class="lb-credit"></div>
+      </figcaption>
+    </figure>`;
   document.body.appendChild(lightbox);
 
   const lightboxImg = lightbox.querySelector('img');
+  const lbTitle = lightbox.querySelector('.lb-title');
+  const lbArtist = lightbox.querySelector('.lb-artist');
+  const lbCredit = lightbox.querySelector('.lb-credit');
+
+  var lbItems = [];
+  var lbIndex = -1;
+
+  function buildLightboxList() {
+    lbItems = [];
+    document.querySelectorAll('.artwork-card img:not(.artwork-logo)').forEach(img => {
+      lbItems.push({ src: img.src, title: img.dataset.title || '', artist: img.dataset.artist || '', credit: img.dataset.credit || '' });
+    });
+  }
+
+  function showLightboxItem(idx) {
+    if (!lbItems.length) return;
+    lbIndex = ((idx % lbItems.length) + lbItems.length) % lbItems.length;
+    var item = lbItems[lbIndex];
+    lightboxImg.src = item.src;
+    lightboxImg.alt = item.title;
+    lbTitle.textContent = item.title;
+    lbArtist.textContent = item.artist ? `by ${item.artist}` : '';
+    lbArtist.style.display = item.artist ? '' : 'none';
+    lbCredit.innerHTML = item.credit ? `Photo: ${item.credit}` : '';
+    lbCredit.style.display = item.credit ? '' : 'none';
+  }
+
+  function openLightbox(imgSrc, title, artist, credit) {
+    buildLightboxList();
+    lbIndex = lbItems.findIndex(it => it.src === imgSrc);
+    if (lbIndex === -1) lbIndex = 0;
+    lightboxImg.src = imgSrc;
+    lightboxImg.alt = title;
+    lbTitle.textContent = title;
+    lbArtist.textContent = artist ? `by ${artist}` : '';
+    lbArtist.style.display = artist ? '' : 'none';
+    lbCredit.innerHTML = credit ? `Photo: ${credit}` : '';
+    lbCredit.style.display = credit ? '' : 'none';
+    requestAnimationFrame(() => lightbox.classList.add('active'));
+  }
+
+  function isLightboxOpen() {
+    return lightbox.classList.contains('active');
+  }
 
   document.addEventListener('click', (e) => {
+    const heroSlide = e.target.closest('.hero-slide');
+    if (heroSlide) {
+      openLightbox(heroSlide.dataset.image, heroSlide.dataset.title, heroSlide.dataset.artist, heroSlide.dataset.credit);
+      return;
+    }
     const cardImg = e.target.closest('.artwork-card img');
     if (cardImg && !cardImg.classList.contains('artwork-logo')) {
-      lightboxImg.src = cardImg.src;
-      lightboxImg.alt = cardImg.alt;
-      requestAnimationFrame(() => lightbox.classList.add('active'));
+      openLightbox(cardImg.src, cardImg.dataset.title, cardImg.dataset.artist, cardImg.dataset.credit);
     }
   });
 
@@ -2182,7 +2353,11 @@
   });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') lightbox.classList.remove('active');
+    if (e.key === 'Escape') { lightbox.classList.remove('active'); return; }
+    if (isLightboxOpen() && lbItems.length) {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); showLightboxItem(lbIndex - 1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); showLightboxItem(lbIndex + 1); }
+    }
   });
 </script>
 </body>
