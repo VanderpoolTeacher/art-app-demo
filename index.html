@@ -901,6 +901,129 @@
 
   .map-popup a:hover { text-decoration: underline; }
 
+  /* ═══════════ TOUR ═══════════ */
+  .tour-section {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+
+  .tour-header {
+    margin-bottom: 1rem;
+  }
+
+  .tour-header h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+  }
+
+  .tour-header p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .tour-stops {
+    position: relative;
+    padding-left: 2.5rem;
+  }
+
+  .tour-stops::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, #E63946, #1D4ED8, #FACC15);
+  }
+
+  .tour-stop {
+    position: relative;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 1rem;
+    transition: all 0.3s;
+  }
+
+  .tour-stop:hover {
+    border-color: rgba(29,78,216,0.3);
+    transform: translateX(4px);
+  }
+
+  .tour-stop:last-child { margin-bottom: 0; }
+
+  .tour-stop-number {
+    position: absolute;
+    left: -2.5rem;
+    top: 1rem;
+    width: 28px;
+    height: 28px;
+    background: var(--card-bg);
+    border: 3px solid #1D4ED8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    font-family: 'Reddit Sans', sans-serif;
+    color: var(--text);
+    z-index: 1;
+  }
+
+  .tour-stop-number.first { border-color: #E63946; }
+  .tour-stop-number.last { border-color: #FACC15; }
+
+  .tour-stop-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .tour-stop-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .tour-stop-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.15rem;
+  }
+
+  .tour-stop-artist {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.35rem;
+  }
+
+  .tour-stop-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 0.4rem;
+  }
+
+  .tour-stop-walk {
+    font-size: 0.7rem;
+    color: #1D4ED8;
+    font-weight: 600;
+    font-family: 'Reddit Sans', sans-serif;
+  }
+
+  .tour-stop-link {
+    font-size: 0.75rem;
+    color: #E63946;
+    text-decoration: none;
+  }
+
+  .tour-stop-link:hover { text-decoration: underline; }
+
   /* ═══════════ LIGHTBOX ═══════════ */
   .lightbox {
     position: fixed;
@@ -1701,6 +1824,8 @@
   <div id="artMap"></div>
 </div>
 
+<div class="tour-section" id="tourSection"></div>
+
 <div class="artwork-categories" id="artworkCategories"></div>
 
 <div style="max-width:1100px;margin:3rem auto 0;padding:0 1rem;text-align:center;">
@@ -2400,6 +2525,71 @@
 
       marker.bindPopup(popupHtml);
     });
+
+    // ── Tour ──
+    try {
+      var tourRes = await fetch('data/tours.json', { cache: 'no-store' });
+      if (tourRes.ok) {
+        var tours = await tourRes.json();
+        var tourContainer = document.getElementById('tourSection');
+        var artworkMap = {};
+        artworks.forEach(function(a) { artworkMap[a.id] = a; });
+
+        function haversine(lat1, lon1, lat2, lon2) {
+          var R = 3959;
+          var dLat = (lat2 - lat1) * Math.PI / 180;
+          var dLon = (lon2 - lon1) * Math.PI / 180;
+          var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                  Math.cos(lat1 * Math.PI/180) * Math.cos(lat2 * Math.PI/180) *
+                  Math.sin(dLon/2) * Math.sin(dLon/2);
+          return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        }
+
+        tours.forEach(function(tour) {
+          var stops = tour.stops.map(function(s) {
+            return Object.assign({}, s, { artwork: artworkMap[s.artworkId] });
+          }).filter(function(s) { return s.artwork; });
+
+          var stopsHtml = stops.map(function(stop, i) {
+            var art = stop.artwork;
+            var numClass = i === 0 ? ' first' : (i === stops.length - 1 ? ' last' : '');
+            var walkHtml = '';
+            if (i < stops.length - 1) {
+              var next = stops[i + 1].artwork;
+              var dist = haversine(art.latitude, art.longitude, next.latitude, next.longitude);
+              var mins = Math.round(dist / 0.05);
+              walkHtml = '<div class="tour-stop-walk">↓ ~' + dist.toFixed(1) + ' mi · ' + mins + ' min walk to next stop</div>';
+            } else {
+              walkHtml = '<div class="tour-stop-walk" style="color:#FACC15;">★ Final stop — enjoy!</div>';
+            }
+            return '<div class="tour-stop">' +
+              '<div class="tour-stop-number' + numClass + '">' + (i + 1) + '</div>' +
+              '<img class="tour-stop-img" src="' + art.image + '" alt="' + escapeAttr(art.title) + '">' +
+              '<div class="tour-stop-content">' +
+                '<div class="tour-stop-title">' + art.title + '</div>' +
+                (art.artist ? '<div class="tour-stop-artist">by ' + art.artist + '</div>' : '') +
+                '<div class="tour-stop-note">' + stop.note + '</div>' +
+                walkHtml +
+                '<a class="tour-stop-link" href="https://www.google.com/maps?q=' + art.latitude + ',' + art.longitude + '" target="_blank" rel="noopener">Get directions →</a>' +
+              '</div>' +
+            '</div>';
+          }).join('');
+
+          tourContainer.innerHTML +=
+            '<div class="tour-header">' +
+              '<h2>🚶 ' + tour.title + '</h2>' +
+              '<p>' + tour.description + '</p>' +
+            '</div>' +
+            '<div class="tour-stops">' + stopsHtml + '</div>';
+
+          // Draw route on map
+          var routeCoords = stops.map(function(s) {
+            return [s.artwork.latitude, s.artwork.longitude];
+          });
+          L.polyline(routeCoords, { color: '#1D4ED8', weight: 3, opacity: 0.6, dashArray: '8,8' }).addTo(map);
+        });
+      }
+    } catch(e) { console.error('Tour load failed', e); }
   }
   renderArtworks();
 
