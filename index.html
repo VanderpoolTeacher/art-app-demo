@@ -908,20 +908,52 @@
     padding: 0 1rem;
   }
 
-  .tour-header {
-    margin-bottom: 1rem;
+  .tour-details {
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    padding: 1.25rem 1.5rem;
   }
 
-  .tour-header h2 {
+  .tour-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+
+  .tour-summary::-webkit-details-marker { display: none; }
+
+  .tour-summary h2 {
     font-size: 1.3rem;
     font-weight: 700;
-    margin-bottom: 0.35rem;
   }
 
-  .tour-header p {
+  .tour-summary-meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .tour-summary-toggle {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #1D4ED8;
+    font-family: 'Reddit Sans', sans-serif;
+    transition: transform 0.2s;
+  }
+
+  .tour-details[open] .tour-summary-toggle { transform: rotate(90deg); }
+
+  .tour-body {
+    margin-top: 1rem;
+  }
+
+  .tour-body > p {
     font-size: 0.9rem;
     color: var(--text-muted);
     line-height: 1.5;
+    margin-bottom: 1rem;
   }
 
   .tour-stops {
@@ -2576,17 +2608,17 @@
           }).join('');
 
           tourContainer.innerHTML +=
-            '<div class="tour-header">' +
-              '<h2>🚶 ' + tour.title + '</h2>' +
-              '<p>' + tour.description + '</p>' +
-            '</div>' +
-            '<div class="tour-stops">' + stopsHtml + '</div>';
+            '<details class="tour-details">' +
+              '<summary class="tour-summary">' +
+                '<div><h2>🚶 ' + tour.title + '</h2><span class="tour-summary-meta">' + stops.length + ' stops · ~3 miles</span></div>' +
+                '<span class="tour-summary-toggle">▶</span>' +
+              '</summary>' +
+              '<div class="tour-body">' +
+                '<p>' + tour.description + '</p>' +
+                '<div class="tour-stops">' + stopsHtml + '</div>' +
+              '</div>' +
+            '</details>';
 
-          // Draw route on map
-          var routeCoords = stops.map(function(s) {
-            return [s.artwork.latitude, s.artwork.longitude];
-          });
-          L.polyline(routeCoords, { color: '#1D4ED8', weight: 3, opacity: 0.6, dashArray: '8,8' }).addTo(map);
         });
       }
     } catch(e) { console.error('Tour load failed', e); }

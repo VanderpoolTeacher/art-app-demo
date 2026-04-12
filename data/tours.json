@@ -2,7 +2,7 @@
   {
     "id": 1,
     "title": "Glass City Art Walk & Lunch",
-    "description": "Start at North America's largest mural, walk through downtown Toledo's best public art, and finish with lunch at a historic pub. About 3 miles, 2-3 hours at a leisurely pace.",
+    "description": "Start at North America's largest mural, break for lunch midway at a historic pub, then finish with downtown Toledo's best public art. About 3 miles, 2-3 hours at a leisurely pace.",
     "stops": [
       {
         "artworkId": 4,
@@ -21,8 +21,12 @@
         "note": "Just north on Summit St, look up — two suspended ovals that glow with LEDs at night."
       },
       {
+        "artworkId": 13,
+        "note": "Halfway point — refuel with lunch at Ye Olde Cock & Bull. Check out the pub mural while you're here!"
+      },
+      {
         "artworkId": 1,
-        "note": "Head into downtown to find this vibrant frog mural by local artist Dean Davis."
+        "note": "Refreshed and ready — head into downtown to find this vibrant frog mural by local artist Dean Davis."
       },
       {
         "artworkId": 2,
@@ -30,11 +34,7 @@
       },
       {
         "artworkId": 12,
-        "note": "Stop into The Loft 419 to see Dean Davis's rotating gallery of mixed-media paintings."
-      },
-      {
-        "artworkId": 13,
-        "note": "End your tour with lunch at Ye Olde Cock & Bull. Check out the pub mural while you're there!"
+        "note": "Finish at The Loft 419 to see Dean Davis's rotating gallery of mixed-media paintings."
       }
     ]
   }
