@@ -2089,7 +2089,9 @@
 
     function update() {
       thumbs.forEach(function(t, i) { t.classList.toggle('active', i === cur); });
-      thumbs[cur].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      var strip = thumbs[cur].parentElement;
+      var offset = thumbs[cur].offsetLeft - strip.offsetWidth / 2 + thumbs[cur].offsetWidth / 2;
+      strip.scrollTo({ left: offset, behavior: 'smooth' });
     }
 
     function go(idx) {
