@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "title": "Glass City Art Walk & Lunch",
+    "description": "Start at North America's largest mural, break for lunch midway at a historic pub, then finish with downtown Toledo's best public art. About 3 miles, 2-3 hours at a leisurely pace.",
+    "stops": [
+      {
+        "artworkId": 4,
+        "note": "Start here — the largest mural in North America. Take in all 28 silos from the east bank of the Maumee River."
+      },
+      {
+        "artworkId": 5,
+        "note": "Head north along the river to this postcard-style mural celebrating Toledo landmarks."
+      },
+      {
+        "artworkId": 10,
+        "note": "Continue to Promenade Park. Walk through the eleven steel rings — remnants of a steam plant smokestack."
+      },
+      {
+        "artworkId": 11,
+        "note": "Just north on Summit St, look up — two suspended ovals that glow with LEDs at night."
+      },
+      {
+        "artworkId": 13,
+        "note": "Halfway point — refuel with lunch at Ye Olde Cock & Bull. Check out the pub mural while you're here!",
+        "icon": "lunch"
+      },
+      {
+        "artworkId": 1,
+        "note": "Refreshed and ready — head into downtown to find this vibrant frog mural by local artist Dean Davis."
+      },
+      {
+        "artworkId": 2,
+        "note": "A short walk to the Peace Love Happiness HQ for another colorful Davis mural."
+      },
+      {
+        "artworkId": 12,
+        "note": "Finish at The Loft 419 to see Dean Davis's rotating gallery of mixed-media paintings."
+      }
+    ]
+  }
+]

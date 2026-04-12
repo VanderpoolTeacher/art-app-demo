@@ -75,8 +75,8 @@
     "artist": "",
     "type": "studio",
     "description": "A historic arts hub since 1905 offering artist studios, live performances, classes, and workshops. 2413 Collingwood Blvd, Toledo, OH 43620. Photo: Smithr1981, <a href=\"https://creativecommons.org/licenses/by/3.0\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">CC BY 3.0</a>.",
-    "latitude": 41.6688,
-    "longitude": -83.5560,
+    "latitude": 41.6687,
+    "longitude": -83.5563,
     "image": "images/collingwood-art-center.jpg"
   },
   {
@@ -130,5 +130,25 @@
     "latitude": 41.648617,
     "longitude": -83.540203,
     "image": "images/yo-olde-cock-bull-mural.jpg"
+  },
+  {
+    "id": 14,
+    "title": "The Ageless Empress and Her Beloved Beings",
+    "artist": "Gabe Gault",
+    "type": "mural",
+    "description": "A striking mural featuring a purple lion, a robed empress with flowing energy, monarch butterflies, and a misty landscape — a celebration of nature's power and grace.",
+    "latitude": 41.647611,
+    "longitude": -83.540472,
+    "image": "images/ageless-empress-mural.jpg"
+  },
+  {
+    "id": 15,
+    "title": "St. Clair Street Garage Mural",
+    "artist": "",
+    "type": "mural",
+    "description": "A vibrant mural wrapping the entrance of a parking garage at 201 N St Clair St, featuring two figures flanking a central totem, a cityscape, rainbow, and abstract patterns across the columns and ceiling.",
+    "latitude": 41.6504,
+    "longitude": -83.5357,
+    "image": "images/st-clair-garage-mural.jpg"
   }
 ]
