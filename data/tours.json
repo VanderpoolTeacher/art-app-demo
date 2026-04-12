@@ -22,7 +22,8 @@
       },
       {
         "artworkId": 13,
-        "note": "Halfway point — refuel with lunch at Ye Olde Cock & Bull. Check out the pub mural while you're here!"
+        "note": "Halfway point — refuel with lunch at Ye Olde Cock & Bull. Check out the pub mural while you're here!",
+        "icon": "lunch"
       },
       {
         "artworkId": 1,
