@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# Ingestion workspace — photos here are processed and moved to images/
+load-photos/
+
+# Backup artifacts not part of the site
+cloud-backup.dng
+
+# Tooling
+.superpowers/
+
+# Nested repo / leftover scaffold
+art-app-demo/

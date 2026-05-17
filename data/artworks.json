@@ -17,7 +17,14 @@
     "description": "A colorful mural located at Peace Love Happiness World Headquarters in downtown Toledo.",
     "latitude": 41.652857,
     "longitude": -83.535114,
-    "image": "images/all-you-need-is-love-mural.jpg"
+    "image": "images/all-you-need-is-love-mural.jpg",
+    "submissions": [
+      {
+        "image": "images/all-you-need-is-love-submission-01.jpg",
+        "submitted_at": "2026-05-17",
+        "submitted_by": "public"
+      }
+    ]
   },
   {
     "id": 3,
@@ -150,5 +157,77 @@
     "latitude": 41.6504,
     "longitude": -83.5357,
     "image": "images/st-clair-garage-mural.jpg"
+  },
+  {
+    "id": 16,
+    "title": "Tragic Mask",
+    "artist": "Anne & Patrick Poirier, 1999",
+    "type": "sculpture",
+    "description": "A monumental bronze mask sculpture by French artists Anne & Patrick Poirier, evoking the archetypal tragic mask of classical theater.",
+    "logo": "images/the-art-commission.svg",
+    "latitude": 41.653513,
+    "longitude": -83.534017,
+    "image": "images/tragic-mask.jpg",
+    "images": ["images/tragic-mask.jpg", "images/tragic-mask-01.jpg"]
+  },
+  {
+    "id": 17,
+    "title": "Various Works, Mark J. Bevington Collection",
+    "artist": "Mark J. Bevington",
+    "type": "gallery",
+    "description": "A rotating display of works from the Mark J. Bevington Collection, on view at Tolhouse. 1447 N Summit St, Toledo, OH 43604.",
+    "latitude": 41.661098,
+    "longitude": -83.518486,
+    "image": "images/mark-j-bevington-collection-tolhouse.jpg",
+    "images": ["images/mark-j-bevington-collection-tolhouse.jpg", "images/cloud-backup.jpg", "images/cloud-backup-details.jpg"]
+  },
+  {
+    "id": 18,
+    "title": "Need info",
+    "artist": "Need info",
+    "type": "mural",
+    "description": "Need info",
+    "latitude": 41.646242,
+    "longitude": -83.541533,
+    "image": "images/artwork-18-submission-01.jpg",
+    "submissions": [
+      {
+        "image": "images/artwork-18-submission-01.jpg",
+        "submitted_at": "2026-05-14",
+        "submitted_by": "public"
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "title": "José Martínez Memorial Galería",
+    "artist": "",
+    "type": "gallery",
+    "description": "1222 Broadway, Toledo, OH 43609",
+    "latitude": 41.6342218,
+    "longitude": -83.5518475,
+    "image": "images/jose-martinez-memorial-galeria-submission-01.jpg",
+    "submissions": [
+      {
+        "image": "images/jose-martinez-memorial-galeria-submission-01.jpg",
+        "submitted_at": "2026-04-30",
+        "submitted_by": "public"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "title": "Need info",
+    "artist": "Need info",
+    "type": "mural",
+    "description": "Need info",
+    "image": "images/artwork-20-submission-01.jpg",
+    "submissions": [
+      {
+        "image": "images/artwork-20-submission-01.jpg",
+        "submitted_at": "2026-05-02",
+        "submitted_by": "public"
+      }
+    ]
   }
 ]

@@ -733,6 +733,41 @@
     border: 1px solid var(--border);
     transition: all 0.3s;
     cursor: pointer;
+    position: relative;
+  }
+
+  .artwork-photo-count {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: rgba(0,0,0,0.65);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 999px;
+    backdrop-filter: blur(4px);
+    pointer-events: none;
+  }
+
+  .artwork-new-badge {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: linear-gradient(135deg, #E63946, #F472B6);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(230, 57, 70, 0.4);
+    pointer-events: none;
+    z-index: 1;
   }
 
   .artwork-card:hover {
@@ -788,20 +823,55 @@
     overflow: hidden;
   }
 
-  .artwork-card .artwork-location {
+  .artwork-card .artwork-actions {
     display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .artwork-card .artwork-location {
+    display: inline-flex;
     align-items: center;
     gap: 4px;
     font-size: 0.75rem;
     color: #E63946;
     text-decoration: none;
-    opacity: 0.8;
+    opacity: 0.85;
     transition: opacity 0.2s;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
   }
 
   .artwork-card .artwork-location:hover {
     opacity: 1;
     text-decoration: underline;
+  }
+
+  .artwork-card .artwork-directions {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    opacity: 0.75;
+    transition: opacity 0.2s;
+  }
+
+  .artwork-card .artwork-directions:hover {
+    opacity: 1;
+    text-decoration: underline;
+  }
+
+  .artwork-card .artwork-location-pending {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    opacity: 0.6;
+    font-style: italic;
   }
 
   .artwork-card .artwork-logo {
@@ -1123,6 +1193,28 @@
   .lightbox-caption .lb-credit a {
     color: inherit;
     text-decoration: underline;
+  }
+
+  .lightbox-caption .lb-source {
+    margin-bottom: 0.5rem;
+  }
+
+  .lightbox-caption .lb-source-tag {
+    display: inline-block;
+    background: rgba(124, 58, 237, 0.25);
+    color: #DDD6FE;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .lightbox-caption .lb-source-date {
+    margin-left: 0.5rem;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.75rem;
   }
 
   .lightbox.active .lightbox-figure {
@@ -1852,6 +1944,7 @@
       <div class="legend-item"><div class="legend-dot" style="background:#1D4ED8;"></div> Galleries</div>
       <div class="legend-item"><div class="legend-dot" style="background:#FACC15;"></div> Sculptures</div>
       <div class="legend-item"><div class="legend-dot" style="background:#0B1F6B;"></div> Studios</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#7C3AED;"></div> Textiles</div>
     </div>
   </div>
   <div id="artMap"></div>
@@ -2405,6 +2498,25 @@
   const escapeAttr = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
   const stripHtml = (s) => s.replace(/<[^>]*>/g, '');
 
+  // Local-date YYYY-MM-DD (avoids UTC drift across timezones)
+  const localDateStr = (d) => {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${dd}`;
+  };
+  // Latest submission date for an artwork (string YYYY-MM-DD), or '' if none
+  const latestSubmissionDate = (art) =>
+    (art.submissions || []).map(s => s.submitted_at || '').sort().slice(-1)[0] || '';
+  // True if artwork has a submission dated today or yesterday (≈ "within 24 hours")
+  const isRecent = (art) => {
+    const latest = latestSubmissionDate(art);
+    if (!latest) return false;
+    const today = new Date();
+    const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
+    return latest === localDateStr(today) || latest === localDateStr(yesterday);
+  };
+
   async function renderArtworks() {
     const carousel = document.getElementById('heroCarousel');
     const categories = document.getElementById('artworkCategories');
@@ -2504,42 +2616,71 @@
       if (e.key === 'ArrowRight') { showHeroSlide(heroIndex + 1); resetTimer(); }
     });
 
-    // ── Discovery grid (shuffled, flat) ──
-    const shuffled = [...artworks].sort(() => Math.random() - 0.5);
+    // ── Discovery grid (recent submissions pinned to top, rest shuffled) ──
+    const recentArt = artworks.filter(isRecent)
+      .sort((a, b) => latestSubmissionDate(b).localeCompare(latestSubmissionDate(a)));
+    const restArt = artworks.filter(a => !isRecent(a))
+      .sort(() => Math.random() - 0.5);
+    const ordered = [...recentArt, ...restArt];
 
     categories.innerHTML = `<div class="discovery-grid">
-      ${shuffled.map(art => {
+      ${ordered.map(art => {
         const credit = extractCredit(art.description);
         const excerpt = stripHtml(art.description).replace(/Photo:.*$/, '').trim();
+        const recentFlag = isRecent(art);
+        const hasCoords = typeof art.latitude === 'number' && typeof art.longitude === 'number';
+        const submissionImgs = (art.submissions || []).map(sub => ({
+          src: sub.image,
+          source: 'public',
+          submittedAt: sub.submitted_at || '',
+          submittedBy: sub.submitted_by || 'public'
+        }));
+        const submissionSrcs = new Set(submissionImgs.map(s => s.src));
+        const curatorImgs = (art.images || [art.image])
+          .filter(s => !submissionSrcs.has(s))
+          .map(s => ({ src: s, source: 'curator' }));
+        const gallery = [...curatorImgs, ...submissionImgs];
         return `
         <div class="artwork-card">
           <img src="${art.image}" alt="${art.title}" loading="lazy"
                data-title="${escapeAttr(art.title)}"
                data-artist="${escapeAttr(art.artist || '')}"
-               data-credit="${escapeAttr(credit)}">
+               data-credit="${escapeAttr(credit)}"
+               data-images="${escapeAttr(JSON.stringify(gallery))}">
+          ${recentFlag ? `<div class="artwork-new-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1l2.5 7.5L22 11l-7.5 2.5L12 21l-2.5-7.5L2 11l7.5-2.5L12 1z"/></svg>NEW</div>` : ''}
+          ${gallery.length > 1 ? `<div class="artwork-photo-count">📷 ${gallery.length}</div>` : ''}
           <div class="artwork-info">
             ${art.logo ? `<a href="https://theartscommission.org/public-art/collection" target="_blank" rel="noopener"><img class="artwork-logo" src="${art.logo}" alt="The Arts Commission"></a>` : ''}
             <h3>${art.title}</h3>
             ${art.artist ? `<div class="artwork-artist">by ${art.artist}</div>` : ''}
             ${excerpt ? `<p class="artwork-excerpt">${excerpt}</p>` : ''}
-            <a class="artwork-location" href="https://www.google.com/maps?q=${art.latitude},${art.longitude}" target="_blank" rel="noopener">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              Take me there!
-            </a>
+            ${hasCoords ? `
+            <div class="artwork-actions">
+              <button class="artwork-location" type="button" data-artwork-id="${art.id}">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Take me there!
+              </button>
+              <a class="artwork-directions" href="https://www.google.com/maps?q=${art.latitude},${art.longitude}" target="_blank" rel="noopener">Get directions →</a>
+            </div>` : `
+            <div class="artwork-actions artwork-actions-pending">
+              <span class="artwork-location-pending">📍 Location pending</span>
+            </div>`}
           </div>
         </div>`;
       }).join('')}
     </div>`;
 
     // ── Map ──
-    var typeColors = { mural: '#E63946', gallery: '#1D4ED8', sculpture: '#FACC15', studio: '#0B1F6B' };
+    var typeColors = { mural: '#E63946', gallery: '#1D4ED8', sculpture: '#FACC15', studio: '#0B1F6B', textile: '#7C3AED' };
     var map = L.map('artMap').setView([41.6528, -83.5352], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       maxZoom: 19
     }).addTo(map);
 
+    var markersById = {};
     artworks.forEach(function(art) {
+      if (typeof art.latitude !== 'number' || typeof art.longitude !== 'number') return;
       var color = typeColors[art.type] || '#999';
       var marker = L.circleMarker([art.latitude, art.longitude], {
         radius: 8,
@@ -2557,6 +2698,23 @@
         '</div>';
 
       marker.bindPopup(popupHtml);
+      markersById[art.id] = marker;
+    });
+
+    // "Take me there!" from a discovery card → scroll to map, fly to coords, open popup
+    categories.addEventListener('click', function(e) {
+      var btn = e.target.closest('.artwork-location[data-artwork-id]');
+      if (!btn) return;
+      e.preventDefault();
+      var id = +btn.dataset.artworkId;
+      var marker = markersById[id];
+      if (!marker) return;
+      var mapEl = document.getElementById('artMap');
+      if (mapEl) mapEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(function() {
+        map.flyTo(marker.getLatLng(), 17, { duration: 0.8 });
+        marker.openPopup();
+      }, 350);
     });
 
     // ── Tour ──
@@ -2633,6 +2791,7 @@
     <figure class="lightbox-figure">
       <img src="" alt="">
       <figcaption class="lightbox-caption">
+        <div class="lb-source"></div>
         <div class="lb-title"></div>
         <div class="lb-artist"></div>
         <div class="lb-credit"></div>
@@ -2641,6 +2800,7 @@
   document.body.appendChild(lightbox);
 
   const lightboxImg = lightbox.querySelector('img');
+  const lbSource = lightbox.querySelector('.lb-source');
   const lbTitle = lightbox.querySelector('.lb-title');
   const lbArtist = lightbox.querySelector('.lb-artist');
   const lbCredit = lightbox.querySelector('.lb-credit');
@@ -2651,8 +2811,35 @@
   function buildLightboxList() {
     lbItems = [];
     document.querySelectorAll('.artwork-card img:not(.artwork-logo)').forEach(img => {
-      lbItems.push({ src: img.src, title: img.dataset.title || '', artist: img.dataset.artist || '', credit: img.dataset.credit || '' });
+      var entries;
+      try { entries = JSON.parse(img.dataset.images || '[]'); } catch(e) { entries = []; }
+      if (!entries.length) entries = [{ src: img.getAttribute('src'), source: 'curator' }];
+      entries.forEach(entry => {
+        var src = typeof entry === 'string' ? entry : entry.src;
+        var source = typeof entry === 'string' ? 'curator' : (entry.source || 'curator');
+        var submittedAt = typeof entry === 'string' ? '' : (entry.submittedAt || '');
+        var absSrc = new URL(src, window.location.href).href;
+        lbItems.push({
+          src: absSrc,
+          title: img.dataset.title || '',
+          artist: img.dataset.artist || '',
+          credit: img.dataset.credit || '',
+          source: source,
+          submittedAt: submittedAt
+        });
+      });
     });
+  }
+
+  function renderLightboxSource(source, submittedAt) {
+    if (source === 'public') {
+      lbSource.innerHTML = '<span class="lb-source-tag">Public submission</span>'
+        + (submittedAt ? ` <span class="lb-source-date">${submittedAt}</span>` : '');
+      lbSource.style.display = '';
+    } else {
+      lbSource.innerHTML = '';
+      lbSource.style.display = 'none';
+    }
   }
 
   function showLightboxItem(idx) {
@@ -2661,6 +2848,7 @@
     var item = lbItems[lbIndex];
     lightboxImg.src = item.src;
     lightboxImg.alt = item.title;
+    renderLightboxSource(item.source, item.submittedAt);
     lbTitle.textContent = item.title;
     lbArtist.textContent = item.artist ? `by ${item.artist}` : '';
     lbArtist.style.display = item.artist ? '' : 'none';
@@ -2672,8 +2860,10 @@
     buildLightboxList();
     lbIndex = lbItems.findIndex(it => it.src === imgSrc);
     if (lbIndex === -1) lbIndex = 0;
+    var item = lbItems[lbIndex] || { source: 'curator', submittedAt: '' };
     lightboxImg.src = imgSrc;
     lightboxImg.alt = title;
+    renderLightboxSource(item.source, item.submittedAt);
     lbTitle.textContent = title;
     lbArtist.textContent = artist ? `by ${artist}` : '';
     lbArtist.style.display = artist ? '' : 'none';
