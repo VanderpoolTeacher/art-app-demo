@@ -253,5 +253,22 @@
         "submitted_by": "public"
       }
     ]
+  },
+  {
+    "id": 22,
+    "title": "There Is No Such Thing as a Wrong Note",
+    "artist": "Need info",
+    "type": "mural",
+    "description": "Large outdoor mural featuring an acoustic guitar and a black-and-white portrait of a jazz musician, with the quote \"There is no such thing as a wrong note.\" in handwritten white text.",
+    "latitude": 41.651953,
+    "longitude": -83.535533,
+    "image": "images/there-is-no-such-thing-as-a-wrong-note-submission-01.jpg",
+    "submissions": [
+      {
+        "image": "images/there-is-no-such-thing-as-a-wrong-note-submission-01.jpg",
+        "submitted_at": "2026-05-17",
+        "submitted_by": "public"
+      }
+    ]
   }
 ]
