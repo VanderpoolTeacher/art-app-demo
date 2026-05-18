@@ -179,7 +179,14 @@
     "latitude": 41.661098,
     "longitude": -83.518486,
     "image": "images/mark-j-bevington-collection-tolhouse.jpg",
-    "images": ["images/mark-j-bevington-collection-tolhouse.jpg", "images/cloud-backup.jpg", "images/cloud-backup-details.jpg"]
+    "images": ["images/mark-j-bevington-collection-tolhouse.jpg", "images/cloud-backup.jpg", "images/cloud-backup-details.jpg"],
+    "submissions": [
+      {
+        "image": "images/mark-j-bevington-collection-tolhouse-submission-01.jpg",
+        "submitted_at": "2026-04-14",
+        "submitted_by": "public"
+      }
+    ]
   },
   {
     "id": 18,
