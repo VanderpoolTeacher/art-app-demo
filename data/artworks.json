@@ -236,5 +236,22 @@
         "submitted_by": "public"
       }
     ]
+  },
+  {
+    "id": 21,
+    "title": "Need info",
+    "artist": "Need info",
+    "type": "mural",
+    "description": "Need info",
+    "latitude": 41.647317,
+    "longitude": -83.538242,
+    "image": "images/artwork-21-submission-01.jpg",
+    "submissions": [
+      {
+        "image": "images/artwork-21-submission-01.jpg",
+        "submitted_at": "2026-05-02",
+        "submitted_by": "public"
+      }
+    ]
   }
 ]
