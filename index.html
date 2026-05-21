@@ -732,7 +732,7 @@
     font-size: 0.85rem;
     padding: 8px 18px;
     border-radius: 50px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 1px solid var(--border);
     background: transparent;
     color: var(--text);
     cursor: pointer;
@@ -749,7 +749,7 @@
   .discovery-empty {
     padding: 24px 12px;
     text-align: center;
-    color: var(--muted, rgba(255, 255, 255, 0.6));
+    color: var(--text-muted);
     font-style: italic;
   }
 
@@ -2658,11 +2658,11 @@
 
     categories.innerHTML = `
     <div class="type-filter" role="group" aria-label="Filter artworks by type">
-      <button class="type-filter-btn active" data-type-filter="all" type="button">All</button>
-      <button class="type-filter-btn" data-type-filter="mural" type="button">Murals</button>
-      <button class="type-filter-btn" data-type-filter="gallery" type="button">Galleries</button>
-      <button class="type-filter-btn" data-type-filter="sculpture" type="button">Sculptures</button>
-      <button class="type-filter-btn" data-type-filter="studio" type="button">Studios</button>
+      <button class="type-filter-btn active" data-type-filter="all" type="button" aria-pressed="true">All</button>
+      <button class="type-filter-btn" data-type-filter="mural" type="button" aria-pressed="false">Murals</button>
+      <button class="type-filter-btn" data-type-filter="gallery" type="button" aria-pressed="false">Galleries</button>
+      <button class="type-filter-btn" data-type-filter="sculpture" type="button" aria-pressed="false">Sculptures</button>
+      <button class="type-filter-btn" data-type-filter="studio" type="button" aria-pressed="false">Studios</button>
     </div>
     <div class="discovery-empty" hidden>No artworks of this type yet.</div>
     <div class="discovery-grid">
