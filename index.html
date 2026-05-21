@@ -720,6 +720,39 @@
     padding: 1.5rem 1rem 2rem;
   }
 
+  .type-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 18px;
+    padding: 0;
+  }
+  .type-filter-btn {
+    font-family: 'Reddit Sans', sans-serif;
+    font-size: 0.85rem;
+    padding: 8px 18px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+  .type-filter-btn:hover {
+    border-color: rgba(255, 255, 255, 0.45);
+  }
+  .type-filter-btn.active {
+    background: var(--coral);
+    border-color: var(--coral);
+    color: #fff;
+  }
+  .discovery-empty {
+    padding: 24px 12px;
+    text-align: center;
+    color: var(--muted, rgba(255, 255, 255, 0.6));
+    font-style: italic;
+  }
+
   .discovery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -2623,7 +2656,16 @@
       .sort(() => Math.random() - 0.5);
     const ordered = [...recentArt, ...restArt];
 
-    categories.innerHTML = `<div class="discovery-grid">
+    categories.innerHTML = `
+    <div class="type-filter" role="group" aria-label="Filter artworks by type">
+      <button class="type-filter-btn active" data-type-filter="all" type="button">All</button>
+      <button class="type-filter-btn" data-type-filter="mural" type="button">Murals</button>
+      <button class="type-filter-btn" data-type-filter="gallery" type="button">Galleries</button>
+      <button class="type-filter-btn" data-type-filter="sculpture" type="button">Sculptures</button>
+      <button class="type-filter-btn" data-type-filter="studio" type="button">Studios</button>
+    </div>
+    <div class="discovery-empty" hidden>No artworks of this type yet.</div>
+    <div class="discovery-grid">
       ${ordered.map(art => {
         const credit = extractCredit(art.description);
         const excerpt = stripHtml(art.description).replace(/Photo:.*$/, '').trim();
