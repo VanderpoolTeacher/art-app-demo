@@ -2641,7 +2641,7 @@
           .map(s => ({ src: s, source: 'curator' }));
         const gallery = [...curatorImgs, ...submissionImgs];
         return `
-        <div class="artwork-card">
+        <div class="artwork-card" data-type="${art.type || 'unknown'}">
           <img src="${art.image}" alt="${art.title}" loading="lazy"
                data-title="${escapeAttr(art.title)}"
                data-artist="${escapeAttr(art.artist || '')}"
@@ -2679,6 +2679,7 @@
     }).addTo(map);
 
     var markersById = {};
+    var markersByType = { mural: [], gallery: [], sculpture: [], studio: [], textile: [] };
     artworks.forEach(function(art) {
       if (typeof art.latitude !== 'number' || typeof art.longitude !== 'number') return;
       var color = typeColors[art.type] || '#999';
@@ -2689,6 +2690,7 @@
         weight: 2,
         fillOpacity: 0.9
       }).addTo(map);
+      if (markersByType[art.type]) markersByType[art.type].push(marker);
 
       var popupHtml = '<div class="map-popup">' +
         '<img src="' + art.image + '" alt="' + escapeAttr(art.title) + '">' +
