@@ -2745,6 +2745,48 @@
       markersById[art.id] = marker;
     });
 
+    // ── Type filter ─────────────────────────────────────────────
+    var typeFilterRoot = document.querySelector('.type-filter');
+    var emptyMsg = document.querySelector('.discovery-empty');
+
+    function applyTypeFilter(selected) {
+      // 1. Update chip active state + aria-pressed
+      typeFilterRoot.querySelectorAll('.type-filter-btn').forEach(function(btn) {
+        var isActive = btn.dataset.typeFilter === selected;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+
+      // 2. Filter grid cards
+      var visibleCount = 0;
+      document.querySelectorAll('.artwork-card').forEach(function(card) {
+        var show = selected === 'all' || card.dataset.type === selected;
+        card.style.display = show ? '' : 'none';
+        if (show) visibleCount++;
+      });
+
+      // 3. Filter map markers
+      Object.keys(markersByType).forEach(function(t) {
+        var shouldShow = selected === 'all' || t === selected;
+        markersByType[t].forEach(function(m) {
+          if (shouldShow) {
+            if (!map.hasLayer(m)) m.addTo(map);
+          } else {
+            if (map.hasLayer(m)) map.removeLayer(m);
+          }
+        });
+      });
+
+      // 4. Empty state
+      emptyMsg.hidden = visibleCount > 0;
+    }
+
+    typeFilterRoot.addEventListener('click', function(e) {
+      var btn = e.target.closest('.type-filter-btn');
+      if (!btn) return;
+      applyTypeFilter(btn.dataset.typeFilter);
+    });
+
     // "Take me there!" from a discovery card → scroll to map, fly to coords, open popup
     categories.addEventListener('click', function(e) {
       var btn = e.target.closest('.artwork-location[data-artwork-id]');
