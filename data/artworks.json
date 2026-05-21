@@ -270,5 +270,73 @@
         "submitted_by": "public"
       }
     ]
+  },
+  {
+    "id": 23,
+    "title": "Ostrich Skeleton",
+    "artist": "Need info",
+    "type": "sculpture",
+    "description": "A wall-mounted sculpture of a skeletal flightless bird with stylized teal-and-blue ribs, displayed on the dark paneled exterior of the Ostrich Towne building.",
+    "latitude": 41.65695,
+    "longitude": -83.5274111,
+    "image": "images/ostrich-skeleton-submission-01.jpg",
+    "submissions": [
+      {
+        "image": "images/ostrich-skeleton-submission-01.jpg",
+        "submitted_at": "2026-05-21",
+        "submitted_by": "public"
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "title": "Ostrich Towne Mural",
+    "artist": "Need info",
+    "type": "mural",
+    "description": "A large mural of three life-sized brown ostriches striding across the brick side of the Ostrich Towne building, set against a swirling blue and orange sky.",
+    "latitude": 41.65695,
+    "longitude": -83.5274111,
+    "image": "images/ostrich-towne-mural-submission-01.jpg",
+    "submissions": [
+      {
+        "image": "images/ostrich-towne-mural-submission-01.jpg",
+        "submitted_at": "2026-05-21",
+        "submitted_by": "public"
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "title": "Piano Bridge Mural",
+    "artist": "Need info",
+    "type": "mural",
+    "description": "A mural of a piano keyboard arching like a suspension bridge, painted in blues and purples across a teal-and-blue brick wall.",
+    "latitude": 41.64973,
+    "longitude": -83.5353083,
+    "image": "images/piano-bridge-mural-submission-01.jpg",
+    "submissions": [
+      {
+        "image": "images/piano-bridge-mural-submission-01.jpg",
+        "submitted_at": "2026-05-21",
+        "submitted_by": "public"
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "title": "Glass City Center Trees",
+    "artist": "Need info",
+    "type": "sculpture",
+    "description": "Tall blue steel arches resembling trees, topped with luminous white and silver leaf-like forms, installed on the plaza outside the Glass City Center.",
+    "latitude": 41.64973,
+    "longitude": -83.5353083,
+    "image": "images/glass-city-center-trees-submission-01.jpg",
+    "submissions": [
+      {
+        "image": "images/glass-city-center-trees-submission-01.jpg",
+        "submitted_at": "2026-05-21",
+        "submitted_by": "public"
+      }
+    ]
   }
 ]
