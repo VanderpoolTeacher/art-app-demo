@@ -733,6 +733,7 @@
   .type-filter {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 8px;
     margin: 0 0 18px;
     padding: 0;
@@ -955,7 +956,10 @@
 
   .art-map-legend {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1rem;
+    margin-top: 0.75rem;
     font-size: 0.75rem;
     color: var(--text-muted);
     font-family: 'Reddit Sans', sans-serif;
@@ -1972,7 +1976,7 @@
 <!-- ═══════════ ARTWORK HERO ═══════════ -->
 <section class="art-hero">
   <h1><span class="gradient-text">Greater Toledo Art Experience</span></h1>
-  <p class="site-version">v0.1</p>
+  <p class="site-version">v0.2</p>
   <p class="tagline">Connecting you to art in and around Toledo.</p>
 </section>
 
@@ -1991,15 +1995,15 @@
 <div class="art-map-container" style="margin-top:1.5rem;margin-bottom:1.5rem;">
   <div class="art-map-header">
     <h2>Explore the <span class="accent-coral">Map</span></h2>
-    <div class="art-map-legend">
-      <div class="legend-item"><div class="legend-dot" style="background:#E63946;"></div> Murals</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#1D4ED8;"></div> Galleries</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#FACC15;"></div> Sculptures</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#0B1F6B;"></div> Studios</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#7C3AED;"></div> Textiles</div>
-    </div>
   </div>
   <div id="artMap"></div>
+  <div class="art-map-legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#E63946;"></div> Murals</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#1D4ED8;"></div> Galleries</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#FACC15;"></div> Sculptures</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#0B1F6B;"></div> Studios</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#7C3AED;"></div> Textiles</div>
+  </div>
 </div>
 
 <div class="tour-section" id="tourSection"></div>
