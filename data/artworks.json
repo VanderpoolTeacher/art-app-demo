@@ -32,7 +32,7 @@
     "artist": "",
     "type": "studio",
     "description": "500 Madison Avenue, Toledo, OH 43604",
-    "latitude": 41.6520,
+    "latitude": 41.652,
     "longitude": -83.5358,
     "image": "images/river-gallery-studio.jpg"
   },
@@ -92,8 +92,8 @@
     "artist": "",
     "type": "gallery",
     "description": "A full-service gallery in the historic Secor Building downtown, with free, ever-changing exhibitions.",
-    "latitude": 41.6520,
-    "longitude": -83.5370,
+    "latitude": 41.652,
+    "longitude": -83.537,
     "image": "images/river-house-arts.jpg"
   },
   {
@@ -101,7 +101,7 @@
     "title": "Echo",
     "artist": "Kristine Rumman & Dane Turpening, 2017",
     "type": "sculpture",
-    "description": "Eleven rings from a former steam plant smokestack create a pathway through the landscape — a metaphor for Toledo's transition from past to present to future. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
+    "description": "Eleven rings from a former steam plant smokestack create a pathway through the landscape \u2014 a metaphor for Toledo's transition from past to present to future. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
     "logo": "images/the-art-commission.svg",
     "latitude": 41.6503453,
     "longitude": -83.5332719,
@@ -112,11 +112,23 @@
     "title": "Upon Reflection",
     "artist": "Studio KCA, 2022",
     "type": "sculpture",
-    "description": "Two suspended ovals — one mirrored, one backlit — play off sunlight by day and glow with LEDs by night. 310 N Summit St. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
+    "description": "Two suspended ovals \u2014 one mirrored, one backlit \u2014 play off sunlight by day and glow with LEDs by night. 310 N Summit St. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
     "logo": "images/the-art-commission.svg",
     "latitude": 41.6512441,
     "longitude": -83.5345955,
-    "image": "images/the-oval-upon-reflection-sculpture.png"
+    "image": "images/the-oval-upon-reflection-sculpture.png",
+    "submissions": [
+      {
+        "image": "images/upon-reflection-submission-01.jpg",
+        "submitted_at": "2026-05-22",
+        "submitted_by": "public"
+      },
+      {
+        "image": "images/upon-reflection-submission-02.jpg",
+        "submitted_at": "2026-05-22",
+        "submitted_by": "public"
+      }
+    ]
   },
   {
     "id": 12,
@@ -143,7 +155,7 @@
     "title": "The Ageless Empress and Her Beloved Beings",
     "artist": "Gabe Gault",
     "type": "mural",
-    "description": "A striking mural featuring a purple lion, a robed empress with flowing energy, monarch butterflies, and a misty landscape — a celebration of nature's power and grace.",
+    "description": "A striking mural featuring a purple lion, a robed empress with flowing energy, monarch butterflies, and a misty landscape \u2014 a celebration of nature's power and grace.",
     "latitude": 41.647611,
     "longitude": -83.540472,
     "image": "images/ageless-empress-mural.jpg"
@@ -168,7 +180,10 @@
     "latitude": 41.653513,
     "longitude": -83.534017,
     "image": "images/tragic-mask.jpg",
-    "images": ["images/tragic-mask.jpg", "images/tragic-mask-01.jpg"]
+    "images": [
+      "images/tragic-mask.jpg",
+      "images/tragic-mask-01.jpg"
+    ]
   },
   {
     "id": 17,
@@ -179,7 +194,11 @@
     "latitude": 41.661098,
     "longitude": -83.518486,
     "image": "images/mark-j-bevington-collection-tolhouse.jpg",
-    "images": ["images/mark-j-bevington-collection-tolhouse.jpg", "images/cloud-backup.jpg", "images/cloud-backup-details.jpg"],
+    "images": [
+      "images/mark-j-bevington-collection-tolhouse.jpg",
+      "images/cloud-backup.jpg",
+      "images/cloud-backup-details.jpg"
+    ],
     "submissions": [
       {
         "image": "images/mark-j-bevington-collection-tolhouse-submission-01.jpg",
@@ -207,7 +226,7 @@
   },
   {
     "id": 19,
-    "title": "José Martínez Memorial Galería",
+    "title": "Jos\u00e9 Mart\u00ednez Memorial Galer\u00eda",
     "artist": "",
     "type": "gallery",
     "description": "1222 Broadway, Toledo, OH 43609",
@@ -335,6 +354,82 @@
       {
         "image": "images/glass-city-center-trees-submission-01.jpg",
         "submitted_at": "2026-05-21",
+        "submitted_by": "public"
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "title": "Cattails Glass Mosaic Mural",
+    "artist": "Need info",
+    "type": "mural",
+    "description": "Need info",
+    "latitude": 41.64796666666667,
+    "longitude": -83.53742222222222,
+    "image": "images/cattails-glass-mosaic-mural-submission-01.jpg",
+    "submissions": [
+      {
+        "image": "images/cattails-glass-mosaic-mural-submission-01.jpg",
+        "submitted_at": "2026-05-22",
+        "submitted_by": "public"
+      },
+      {
+        "image": "images/cattails-glass-mosaic-mural-submission-02.jpg",
+        "submitted_at": "2026-05-22",
+        "submitted_by": "public"
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "title": "Warehouse District Mural Wall",
+    "artist": "Need info",
+    "type": "mural",
+    "description": "Need info",
+    "latitude": 41.645802777777774,
+    "longitude": -83.54106944444445,
+    "image": "images/warehouse-district-mural-wall-submission-01.jpg",
+    "submissions": [
+      {
+        "image": "images/warehouse-district-mural-wall-submission-01.jpg",
+        "submitted_at": "2026-05-22",
+        "submitted_by": "public"
+      },
+      {
+        "image": "images/warehouse-district-mural-wall-submission-02.jpg",
+        "submitted_at": "2026-05-22",
+        "submitted_by": "public"
+      },
+      {
+        "image": "images/warehouse-district-mural-wall-submission-03.jpg",
+        "submitted_at": "2026-05-22",
+        "submitted_by": "public"
+      },
+      {
+        "image": "images/warehouse-district-mural-wall-submission-04.jpg",
+        "submitted_at": "2026-05-22",
+        "submitted_by": "public"
+      },
+      {
+        "image": "images/warehouse-district-mural-wall-submission-05.jpg",
+        "submitted_at": "2026-05-22",
+        "submitted_by": "public"
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "title": "Blue Frog Bike Rack",
+    "artist": "Need info",
+    "type": "sculpture",
+    "description": "Need info",
+    "latitude": 41.64926388888889,
+    "longitude": -83.53945833333333,
+    "image": "images/blue-frog-bike-rack-submission-01.jpg",
+    "submissions": [
+      {
+        "image": "images/blue-frog-bike-rack-submission-01.jpg",
+        "submitted_at": "2026-05-22",
         "submitted_by": "public"
       }
     ]
