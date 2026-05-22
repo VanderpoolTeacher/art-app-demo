@@ -2657,12 +2657,12 @@
     const ordered = [...recentArt, ...restArt];
 
     categories.innerHTML = `
-    <div class="type-filter" role="group" aria-label="Filter artworks by type">
-      <button class="type-filter-btn active" data-type-filter="all" type="button" aria-pressed="true">All</button>
-      <button class="type-filter-btn" data-type-filter="mural" type="button" aria-pressed="false">Murals</button>
-      <button class="type-filter-btn" data-type-filter="gallery" type="button" aria-pressed="false">Galleries</button>
-      <button class="type-filter-btn" data-type-filter="sculpture" type="button" aria-pressed="false">Sculptures</button>
-      <button class="type-filter-btn" data-type-filter="studio" type="button" aria-pressed="false">Studios</button>
+    <div class="type-filter" role="radiogroup" aria-label="Filter artworks by type">
+      <button class="type-filter-btn active" data-type-filter="all" type="button" role="radio" aria-checked="true">All</button>
+      <button class="type-filter-btn" data-type-filter="mural" type="button" role="radio" aria-checked="false">Murals</button>
+      <button class="type-filter-btn" data-type-filter="gallery" type="button" role="radio" aria-checked="false">Galleries</button>
+      <button class="type-filter-btn" data-type-filter="sculpture" type="button" role="radio" aria-checked="false">Sculptures</button>
+      <button class="type-filter-btn" data-type-filter="studio" type="button" role="radio" aria-checked="false">Studios</button>
     </div>
     <div class="discovery-empty" hidden>No artworks of this type yet.</div>
     <div class="discovery-grid">
@@ -2750,16 +2750,16 @@
     var emptyMsg = document.querySelector('.discovery-empty');
 
     function applyTypeFilter(selected) {
-      // 1. Update chip active state + aria-pressed
+      // 1. Update chip active state + aria-checked
       typeFilterRoot.querySelectorAll('.type-filter-btn').forEach(function(btn) {
         var isActive = btn.dataset.typeFilter === selected;
         btn.classList.toggle('active', isActive);
-        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        btn.setAttribute('aria-checked', isActive ? 'true' : 'false');
       });
 
       // 2. Filter grid cards
       var visibleCount = 0;
-      document.querySelectorAll('.artwork-card').forEach(function(card) {
+      categories.querySelectorAll('.artwork-card').forEach(function(card) {
         var show = selected === 'all' || card.dataset.type === selected;
         card.style.display = show ? '' : 'none';
         if (show) visibleCount++;
