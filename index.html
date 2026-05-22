@@ -1969,6 +1969,14 @@
   <p style="text-align:center;color:var(--text-muted);padding:4rem;">Loading artworks…</p>
 </div>
 
+<div class="type-filter" role="radiogroup" aria-label="Filter artworks by type">
+  <button class="type-filter-btn active" data-type-filter="all" type="button" role="radio" aria-checked="true">All</button>
+  <button class="type-filter-btn" data-type-filter="mural" type="button" role="radio" aria-checked="false">Murals</button>
+  <button class="type-filter-btn" data-type-filter="gallery" type="button" role="radio" aria-checked="false">Galleries</button>
+  <button class="type-filter-btn" data-type-filter="sculpture" type="button" role="radio" aria-checked="false">Sculptures</button>
+  <button class="type-filter-btn" data-type-filter="studio" type="button" role="radio" aria-checked="false">Studios</button>
+</div>
+
 <div class="art-map-container" style="margin-top:1.5rem;margin-bottom:1.5rem;">
   <div class="art-map-header">
     <h2>Explore the <span class="accent-coral">Map</span></h2>
@@ -2660,13 +2668,6 @@
     const ordered = [...recentArt, ...restArt];
 
     categories.innerHTML = `
-    <div class="type-filter" role="radiogroup" aria-label="Filter artworks by type">
-      <button class="type-filter-btn active" data-type-filter="all" type="button" role="radio" aria-checked="true">All</button>
-      <button class="type-filter-btn" data-type-filter="mural" type="button" role="radio" aria-checked="false">Murals</button>
-      <button class="type-filter-btn" data-type-filter="gallery" type="button" role="radio" aria-checked="false">Galleries</button>
-      <button class="type-filter-btn" data-type-filter="sculpture" type="button" role="radio" aria-checked="false">Sculptures</button>
-      <button class="type-filter-btn" data-type-filter="studio" type="button" role="radio" aria-checked="false">Studios</button>
-    </div>
     <div class="discovery-empty" hidden>No artworks of this type yet.</div>
     <div class="discovery-grid">
       ${ordered.map(art => {
