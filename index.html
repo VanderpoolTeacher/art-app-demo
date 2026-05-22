@@ -2718,11 +2718,27 @@
 
     // ── Map ──
     var typeColors = { mural: '#E63946', gallery: '#1D4ED8', sculpture: '#FACC15', studio: '#0B1F6B', textile: '#7C3AED' };
-    var map = L.map('artMap').setView([41.6528, -83.5352], 13);
+    var map = L.map('artMap', {
+      scrollWheelZoom: false,
+      dragging: false,
+      touchZoom: false,
+      doubleClickZoom: false,
+      boxZoom: false
+    }).setView([41.6528, -83.5352], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       maxZoom: 19
     }).addTo(map);
+    // Activate map interactions on first click anywhere inside the map container
+    // (including marker clicks), so wheel-scrolling the page doesn't zoom the map.
+    map.getContainer().addEventListener('click', function activate() {
+      map.scrollWheelZoom.enable();
+      map.dragging.enable();
+      map.touchZoom.enable();
+      map.doubleClickZoom.enable();
+      map.boxZoom.enable();
+      map.getContainer().removeEventListener('click', activate);
+    }, { once: true });
 
     var markersById = {};
     var markersByType = { mural: [], gallery: [], sculpture: [], studio: [], textile: [] };
