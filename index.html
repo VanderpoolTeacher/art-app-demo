@@ -2541,13 +2541,16 @@
   // Latest submission date for an artwork (string YYYY-MM-DD), or '' if none
   const latestSubmissionDate = (art) =>
     (art.submissions || []).map(s => s.submitted_at || '').sort().slice(-1)[0] || '';
-  // True if artwork has a submission dated today or yesterday (≈ "within 24 hours")
+  // True if artwork has a submission within the last 7 days (rolling window).
+  // Parses YYYY-MM-DD as local date to avoid UTC drift across timezones.
   const isRecent = (art) => {
     const latest = latestSubmissionDate(art);
     if (!latest) return false;
-    const today = new Date();
-    const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
-    return latest === localDateStr(today) || latest === localDateStr(yesterday);
+    const [y, m, d] = latest.split('-').map(Number);
+    if (!y || !m || !d) return false;
+    const submitted = new Date(y, m - 1, d);
+    const days = (new Date() - submitted) / 86400000;
+    return days >= 0 && days <= 7;
   };
 
   async function renderArtworks() {
