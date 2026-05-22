@@ -2,7 +2,7 @@
   {
     "id": 1,
     "title": "Toledo Frog Mural",
-    "artist": "Dean Davis",
+    "artist": "Dean Davis, 2024",
     "type": "mural",
     "description": "A vibrant, large-scale mural featuring colorful blue and green tree frogs painted on the side of a building in downtown Toledo.",
     "latitude": 41.651832,
@@ -15,8 +15,8 @@
     "artist": "Dean Davis",
     "type": "mural",
     "description": "A colorful mural located at Peace Love Happiness World Headquarters in downtown Toledo.",
-    "latitude": 41.652857,
-    "longitude": -83.535114,
+    "latitude": 41.65233,
+    "longitude": -83.535482,
     "image": "images/all-you-need-is-love-mural.jpg",
     "submissions": [
       {
@@ -39,7 +39,7 @@
   {
     "id": 4,
     "title": "Glass City River Wall",
-    "artist": "Toledo Artists",
+    "artist": "Gabe Gault & Eric Henn, 2022",
     "type": "mural",
     "description": "The largest mural in North America, spanning 28 ADM grain silos across 170,000 sq ft along the Maumee River. Features sunflowers and portraits of Native American women and children honoring the region's first agriculturalists. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
     "latitude": 41.6261,
@@ -52,8 +52,8 @@
     "artist": "Victor Ving & Lisa Beggs",
     "type": "mural",
     "description": "A colorful postcard-style mural at 120 Main St in East Toledo, featuring iconic Toledo landmarks like Tony Packo's, the Skyway Bridge, and the Toledo Mud Hens. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
-    "latitude": 41.6489,
-    "longitude": -83.5241,
+    "latitude": 41.647756,
+    "longitude": -83.522784,
     "image": "images/greetings-from-toledo-mural.png"
   },
   {
@@ -92,8 +92,8 @@
     "artist": "",
     "type": "gallery",
     "description": "A full-service gallery in the historic Secor Building downtown, with free, ever-changing exhibitions.",
-    "latitude": 41.652,
-    "longitude": -83.537,
+    "latitude": 41.650138,
+    "longitude": -83.536265,
     "image": "images/river-house-arts.jpg"
   },
   {
@@ -136,8 +136,8 @@
     "artist": "Dean Davis",
     "type": "gallery",
     "description": "A rotating collection of mixed-media paintings and works by Toledo muralist Dean Davis, displayed at The Loft 419. 336 N Superior St, Toledo, OH.",
-    "latitude": 41.652833,
-    "longitude": -83.534722,
+    "latitude": 41.652266,
+    "longitude": -83.535278,
     "image": "images/various-paintings-dean-davis.png"
   },
   {
@@ -153,7 +153,7 @@
   {
     "id": 14,
     "title": "The Ageless Empress and Her Beloved Beings",
-    "artist": "Gabe Gault",
+    "artist": "Michael Osborne, c. 2021",
     "type": "mural",
     "description": "A striking mural featuring a purple lion, a robed empress with flowing energy, monarch butterflies, and a misty landscape \u2014 a celebration of nature's power and grace.",
     "latitude": 41.647611,
@@ -177,8 +177,8 @@
     "type": "sculpture",
     "description": "A monumental bronze mask sculpture by French artists Anne & Patrick Poirier, evoking the archetypal tragic mask of classical theater.",
     "logo": "images/the-art-commission.svg",
-    "latitude": 41.653513,
-    "longitude": -83.534017,
+    "latitude": 41.652792,
+    "longitude": -83.533902,
     "image": "images/tragic-mask.jpg",
     "images": [
       "images/tragic-mask.jpg",
@@ -242,21 +242,6 @@
     ]
   },
   {
-    "id": 20,
-    "title": "Need info",
-    "artist": "Need info",
-    "type": "mural",
-    "description": "Need info",
-    "image": "images/artwork-20-submission-01.jpg",
-    "submissions": [
-      {
-        "image": "images/artwork-20-submission-01.jpg",
-        "submitted_at": "2026-05-02",
-        "submitted_by": "public"
-      }
-    ]
-  },
-  {
     "id": 21,
     "title": "Need info",
     "artist": "Need info",
@@ -276,7 +261,7 @@
   {
     "id": 22,
     "title": "There Is No Such Thing as a Wrong Note",
-    "artist": "Need info",
+    "artist": "Bradley Scherzer & Jacob Parr, 2021",
     "type": "mural",
     "description": "Large outdoor mural featuring an acoustic guitar and a black-and-white portrait of a jazz musician, with the quote \"There is no such thing as a wrong note.\" in handwritten white text.",
     "latitude": 41.651953,
@@ -310,7 +295,7 @@
   {
     "id": 24,
     "title": "Ostrich Towne Mural",
-    "artist": "Need info",
+    "artist": "Dean Davis, c. 2023-2024",
     "type": "mural",
     "description": "A large mural of three life-sized brown ostriches striding across the brick side of the Ostrich Towne building, set against a swirling blue and orange sky.",
     "latitude": 41.65695,
@@ -343,8 +328,8 @@
   },
   {
     "id": 26,
-    "title": "Glass City Center Trees",
-    "artist": "Need info",
+    "title": "Blue Lupine",
+    "artist": "Susan Zoccola, 2023",
     "type": "sculpture",
     "description": "Tall blue steel arches resembling trees, topped with luminous white and silver leaf-like forms, installed on the plaza outside the Glass City Center.",
     "latitude": 41.64973,
@@ -377,13 +362,18 @@
         "image": "images/cattails-glass-mosaic-mural-submission-02.jpg",
         "submitted_at": "2026-05-22",
         "submitted_by": "public"
+      },
+      {
+        "image": "images/artwork-20-submission-01.jpg",
+        "submitted_at": "2026-05-02",
+        "submitted_by": "public"
       }
     ]
   },
   {
     "id": 28,
     "title": "Warehouse District Mural Wall",
-    "artist": "Need info",
+    "artist": "Art Corner Toledo project, 2015 (12 artists)",
     "type": "mural",
     "description": "Need info",
     "latitude": 41.645802777777774,
