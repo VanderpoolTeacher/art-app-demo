@@ -1259,6 +1259,11 @@
     letter-spacing: 0.06em;
   }
 
+  .lightbox-caption .lb-source-tag-exhibit {
+    background: rgba(29, 78, 216, 0.3);
+    color: #BFDBFE;
+  }
+
   .lightbox-caption .lb-source-date {
     margin-left: 0.5rem;
     color: rgba(255, 255, 255, 0.55);
@@ -2576,6 +2581,38 @@
     return days >= 0 && days <= 7;
   };
 
+  // ── Exhibits (rotational shows nested on a gallery record) ──
+  // Pad a YYYY-MM value to a month bound so month-precision dates compare
+  // sensibly against a full YYYY-MM-DD "today".
+  const exStartBound = (d) => (d && d.length === 7 ? d + '-01' : d);
+  const exEndBound = (d) => (d && d.length === 7 ? d + '-31' : d);
+  // Derive an exhibit's status. Explicit `status` wins; otherwise end===null
+  // means permanent/ongoing; otherwise compare against today.
+  const exhibitStatus = (ex) => {
+    if (ex.status) return ex.status;
+    if (ex.end === null || ex.end === undefined) return 'permanent';
+    const today = localDateStr(new Date());
+    if (today > exEndBound(ex.end)) return 'past';
+    if (ex.start && today < exStartBound(ex.start)) return 'upcoming';
+    return 'on-view';
+  };
+  const MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const exFmtMonth = (d) => {
+    if (!d) return '';
+    const [y, m] = d.split('-');
+    return m ? `${MONTH_NAMES[Number(m) - 1]} ${y}` : y;
+  };
+  // Human label for an exhibit's run, e.g. "Past exhibit · May 2026" / "On view".
+  const exhibitDateRange = (ex) => {
+    const status = exhibitStatus(ex);
+    const a = exFmtMonth(ex.start), b = exFmtMonth(ex.end);
+    const span = a && b ? (a === b ? a : `${a} – ${b}`) : (a || b || '');
+    if (status === 'permanent') return 'Permanent installation';
+    if (status === 'past') return span ? `Past exhibit · ${span}` : 'Past exhibit';
+    if (status === 'upcoming') return span ? `Upcoming · ${span}` : 'Upcoming';
+    return span ? `On view · ${span}` : 'On view';
+  };
+
   async function renderArtworks() {
     const carousel = document.getElementById('heroCarousel');
     const categories = document.getElementById('artworkCategories');
@@ -2700,7 +2737,20 @@
         const curatorImgs = (art.images || [art.image])
           .filter(s => !submissionSrcs.has(s))
           .map(s => ({ src: s, source: 'curator' }));
-        const gallery = [...curatorImgs, ...submissionImgs];
+        const usedSrcs = new Set([...curatorImgs.map(c => c.src), ...submissionImgs.map(s => s.src)]);
+        const exhibitImgs = (art.exhibits || []).flatMap(ex => {
+          const dateRange = exhibitDateRange(ex);
+          const status = exhibitStatus(ex);
+          return (ex.images || []).map(src => ({
+            src,
+            source: 'exhibit',
+            exhibitTitle: ex.title || '',
+            exhibitArtist: ex.artist || '',
+            status,
+            dateRange
+          }));
+        }).filter(e => !usedSrcs.has(e.src));
+        const gallery = [...curatorImgs, ...submissionImgs, ...exhibitImgs];
         return `
         <div class="artwork-card" data-type="${art.type || 'unknown'}">
           <img src="${art.image}" alt="${art.title}" loading="lazy"
@@ -2940,22 +2990,29 @@
         var source = typeof entry === 'string' ? 'curator' : (entry.source || 'curator');
         var submittedAt = typeof entry === 'string' ? '' : (entry.submittedAt || '');
         var absSrc = new URL(src, window.location.href).href;
+        var isExhibit = source === 'exhibit';
         lbItems.push({
           src: absSrc,
-          title: img.dataset.title || '',
-          artist: img.dataset.artist || '',
-          credit: img.dataset.credit || '',
+          title: isExhibit && entry.exhibitTitle ? entry.exhibitTitle : (img.dataset.title || ''),
+          artist: isExhibit ? (entry.exhibitArtist || '') : (img.dataset.artist || ''),
+          credit: isExhibit ? '' : (img.dataset.credit || ''),
           source: source,
-          submittedAt: submittedAt
+          submittedAt: submittedAt,
+          dateRange: isExhibit ? (entry.dateRange || '') : ''
         });
       });
     });
   }
 
-  function renderLightboxSource(source, submittedAt) {
+  function renderLightboxSource(item) {
+    var source = item && item.source;
     if (source === 'public') {
       lbSource.innerHTML = '<span class="lb-source-tag">Public submission</span>'
-        + (submittedAt ? ` <span class="lb-source-date">${submittedAt}</span>` : '');
+        + (item.submittedAt ? ` <span class="lb-source-date">${item.submittedAt}</span>` : '');
+      lbSource.style.display = '';
+    } else if (source === 'exhibit') {
+      lbSource.innerHTML = '<span class="lb-source-tag lb-source-tag-exhibit">Exhibit</span>'
+        + (item.dateRange ? ` <span class="lb-source-date">${item.dateRange}</span>` : '');
       lbSource.style.display = '';
     } else {
       lbSource.innerHTML = '';
@@ -2969,7 +3026,7 @@
     var item = lbItems[lbIndex];
     lightboxImg.src = item.src;
     lightboxImg.alt = item.title;
-    renderLightboxSource(item.source, item.submittedAt);
+    renderLightboxSource(item);
     lbTitle.textContent = item.title;
     lbArtist.textContent = item.artist ? `by ${item.artist}` : '';
     lbArtist.style.display = item.artist ? '' : 'none';
@@ -2979,17 +3036,22 @@
 
   function openLightbox(imgSrc, title, artist, credit) {
     buildLightboxList();
-    lbIndex = lbItems.findIndex(it => it.src === imgSrc);
-    if (lbIndex === -1) lbIndex = 0;
-    var item = lbItems[lbIndex] || { source: 'curator', submittedAt: '' };
-    lightboxImg.src = imgSrc;
-    lightboxImg.alt = title;
-    renderLightboxSource(item.source, item.submittedAt);
-    lbTitle.textContent = title;
-    lbArtist.textContent = artist ? `by ${artist}` : '';
-    lbArtist.style.display = artist ? '' : 'none';
-    lbCredit.innerHTML = credit ? `Photo: ${credit}` : '';
-    lbCredit.style.display = credit ? '' : 'none';
+    var absSrc = new URL(imgSrc, window.location.href).href;
+    lbIndex = lbItems.findIndex(it => it.src === absSrc);
+    if (lbIndex !== -1) {
+      showLightboxItem(lbIndex);
+    } else {
+      // Fallback: image not found in the card list — render from passed args.
+      lbIndex = 0;
+      lightboxImg.src = imgSrc;
+      lightboxImg.alt = title;
+      renderLightboxSource({ source: 'curator' });
+      lbTitle.textContent = title;
+      lbArtist.textContent = artist ? `by ${artist}` : '';
+      lbArtist.style.display = artist ? '' : 'none';
+      lbCredit.innerHTML = credit ? `Photo: ${credit}` : '';
+      lbCredit.style.display = credit ? '' : 'none';
+    }
     requestAnimationFrame(() => lightbox.classList.add('active'));
   }
 

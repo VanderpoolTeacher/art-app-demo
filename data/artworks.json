@@ -101,7 +101,7 @@
     "title": "Echo",
     "artist": "Kristine Rumman & Dane Turpening, 2017",
     "type": "sculpture",
-    "description": "Eleven rings from a former steam plant smokestack create a pathway through the landscape \u2014 a metaphor for Toledo's transition from past to present to future. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
+    "description": "Eleven rings from a former steam plant smokestack create a pathway through the landscape — a metaphor for Toledo's transition from past to present to future. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
     "logo": "images/the-art-commission.svg",
     "latitude": 41.6503453,
     "longitude": -83.5332719,
@@ -112,7 +112,7 @@
     "title": "Upon Reflection",
     "artist": "Studio KCA, 2022",
     "type": "sculpture",
-    "description": "Two suspended ovals \u2014 one mirrored, one backlit \u2014 play off sunlight by day and glow with LEDs by night. 310 N Summit St. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
+    "description": "Two suspended ovals — one mirrored, one backlit — play off sunlight by day and glow with LEDs by night. 310 N Summit St. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
     "logo": "images/the-art-commission.svg",
     "latitude": 41.65211099847761,
     "longitude": -83.53267515857658,
@@ -155,7 +155,7 @@
     "title": "The Ageless Empress and Her Beloved Beings",
     "artist": "Michael Osborne, c. 2021",
     "type": "mural",
-    "description": "A striking mural featuring a purple lion, a robed empress with flowing energy, monarch butterflies, and a misty landscape \u2014 a celebration of nature's power and grace.",
+    "description": "A striking mural featuring a purple lion, a robed empress with flowing energy, monarch butterflies, and a misty landscape — a celebration of nature's power and grace.",
     "latitude": 41.647611,
     "longitude": -83.540472,
     "image": "images/ageless-empress-mural.jpg"
@@ -226,7 +226,7 @@
   },
   {
     "id": 19,
-    "title": "Jos\u00e9 Mart\u00ednez Memorial Galer\u00eda",
+    "title": "José Martínez Memorial Galería",
     "artist": "",
     "type": "gallery",
     "description": "1222 Broadway, Toledo, OH 43609",
@@ -367,6 +367,16 @@
         "image": "images/artwork-20-submission-01.jpg",
         "submitted_at": "2026-05-02",
         "submitted_by": "public"
+      },
+      {
+        "image": "images/cattails-glass-mosaic-mural-submission-03.jpg",
+        "submitted_at": "2026-05-31",
+        "submitted_by": "public"
+      },
+      {
+        "image": "images/cattails-glass-mosaic-mural-submission-04.jpg",
+        "submitted_at": "2026-05-31",
+        "submitted_by": "public"
       }
     ]
   },
@@ -421,6 +431,230 @@
         "image": "images/blue-frog-bike-rack-submission-01.jpg",
         "submitted_at": "2026-05-22",
         "submitted_by": "public"
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "title": "Floral Garden Mural",
+    "artist": "Need info",
+    "type": "mural",
+    "description": "A large-scale floral mural wrapping a downtown plaza wall in oversized daisies, coneflowers and wildflowers, paired with a black granite reflecting trough holding a single white orb.",
+    "latitude": 41.6507,
+    "longitude": -83.53340555555555,
+    "image": "images/floral-garden-mural-submission-01.jpg",
+    "submissions": [
+      {
+        "image": "images/floral-garden-mural-submission-01.jpg",
+        "submitted_at": "2026-05-31",
+        "submitted_by": "public"
+      },
+      {
+        "image": "images/floral-garden-mural-submission-02.jpg",
+        "submitted_at": "2026-05-31",
+        "submitted_by": "public"
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "title": "\"Never a Wrong Note\" Mural",
+    "artist": "Need info",
+    "type": "mural",
+    "description": "A bold black-and-white typographic mural reading \"NEVER A WRONG NOTE\" across a downtown plaza wall.",
+    "latitude": 41.6507,
+    "longitude": -83.53340555555555,
+    "image": "images/never-a-wrong-note-mural-submission-01.jpg",
+    "submissions": [
+      {
+        "image": "images/never-a-wrong-note-mural-submission-01.jpg",
+        "submitted_at": "2026-05-31",
+        "submitted_by": "public"
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "title": "Geometric Mural (Parking Structure)",
+    "artist": "Need info",
+    "type": "mural",
+    "description": "A bold geometric mural of overlapping angular bands and diagonal stripes in red, blue, yellow, pink and teal on a downtown parking-structure wall.",
+    "latitude": 41.6507,
+    "longitude": -83.53340555555555,
+    "image": "images/geometric-x-parking-mural-submission-01.jpg",
+    "submissions": [
+      {
+        "image": "images/geometric-x-parking-mural-submission-01.jpg",
+        "submitted_at": "2026-05-31",
+        "submitted_by": "public"
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "title": "Toledo Skyline Mural",
+    "artist": "Need info",
+    "type": "mural",
+    "description": "A painted Toledo skyline set within a brick archway, with \"TOLEDO\" lettering and a small \"Pride\" script across the base.",
+    "latitude": 41.646775,
+    "longitude": -83.54081944444444,
+    "image": "images/toledo-skyline-arch-mural-submission-01.jpg",
+    "submissions": [
+      {
+        "image": "images/toledo-skyline-arch-mural-submission-01.jpg",
+        "submitted_at": "2026-05-31",
+        "submitted_by": "public"
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "title": "Ostrich Heads Mural",
+    "artist": "Need info",
+    "type": "mural",
+    "description": "A vivid mural of four stylized ostrich heads in saturated purples, pinks and oranges along the side of the Ostrich Towne building — a third ostrich-themed piece near the skeleton sculpture and the striding-ostriches mural.",
+    "latitude": 41.656391666666664,
+    "longitude": -83.52765833333333,
+    "image": "images/ostrich-heads-mural-submission-01.jpg",
+    "submissions": [
+      {
+        "image": "images/ostrich-heads-mural-submission-01.jpg",
+        "submitted_at": "2026-05-31",
+        "submitted_by": "public"
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "title": "\"Toledo Loves Love\" Mural",
+    "artist": "Need info",
+    "type": "mural",
+    "description": "A rainbow-hued mural reading \"TOLEDO LOVES LOVE\" with abstract floral and linework forms across a brick wall.",
+    "latitude": 41.65626111111111,
+    "longitude": -83.5416,
+    "image": "images/toledo-loves-love-mural-submission-01.jpg",
+    "submissions": [
+      {
+        "image": "images/toledo-loves-love-mural-submission-01.jpg",
+        "submitted_at": "2026-05-31",
+        "submitted_by": "public"
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "title": "Abstract Panel Mural",
+    "artist": "Need info",
+    "type": "mural",
+    "description": "A long multi-panel mural of abstract geometric and figurative motifs — harlequin diamonds, a portrait in an oval, and bold maze-like patterns — along a building wall.",
+    "latitude": 41.65626111111111,
+    "longitude": -83.5416,
+    "image": "images/abstract-panel-mural-submission-01.jpg",
+    "submissions": [
+      {
+        "image": "images/abstract-panel-mural-submission-01.jpg",
+        "submitted_at": "2026-05-31",
+        "submitted_by": "public"
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "title": "Heart-Glasses Portrait Mural",
+    "artist": "Scherer",
+    "type": "mural",
+    "description": "A portrait mural of a smiling woman with golden hair and pink heart-shaped sunglasses painted across a garage door, signed \"Scherer\".",
+    "latitude": 41.65626111111111,
+    "longitude": -83.5416,
+    "image": "images/heart-sunglasses-portrait-mural-submission-01.jpg",
+    "submissions": [
+      {
+        "image": "images/heart-sunglasses-portrait-mural-submission-01.jpg",
+        "submitted_at": "2026-05-31",
+        "submitted_by": "public"
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "title": "Cicada Mural",
+    "artist": "Need info",
+    "type": "mural",
+    "description": "A large mural of an iridescent cicada with stained-glass-like wings on a coral ground, above a band of marbled blue-and-orange floral forms.",
+    "latitude": 41.651475,
+    "longitude": -83.53212222222223,
+    "image": "images/cicada-mural-submission-01.jpg",
+    "submissions": [
+      {
+        "image": "images/cicada-mural-submission-01.jpg",
+        "submitted_at": "2026-05-31",
+        "submitted_by": "public"
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "title": "Single-Line Face Mural",
+    "artist": "Need info",
+    "type": "mural",
+    "description": "A giant continuous-line drawing of a woman's face on a white wall, with tiny figures climbing ladders across it.",
+    "latitude": 41.65564722222222,
+    "longitude": -83.54027777777777,
+    "image": "images/single-line-face-mural-submission-01.jpg",
+    "submissions": [
+      {
+        "image": "images/single-line-face-mural-submission-01.jpg",
+        "submitted_at": "2026-05-31",
+        "submitted_by": "public"
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "title": "Toledo School for the Arts",
+    "artist": "",
+    "type": "gallery",
+    "description": "Arts high school and community gallery (Maxine and Stuart Frankel Family Foundation Annex), home to rotating exhibits, a permanent lobby sculpture, and a donor wall.",
+    "latitude": 41.65697,
+    "longitude": -83.5432,
+    "image": "images/tsa-one-city-many-moments-01.jpg",
+    "exhibits": [
+      {
+        "id": "tsa-one-city-many-moments",
+        "title": "One City, Many Moments",
+        "artist": "Doug Hinebaugh",
+        "start": null,
+        "end": null,
+        "status": "past",
+        "note": "Need info: exact run dates",
+        "description": "A photography exhibition by Doug Hinebaugh of Toledo skyline, riverfront and portrait work, including a backlit skyline print captioned \"you will do better...\" in neon.",
+        "images": [
+          "images/tsa-one-city-many-moments-01.jpg",
+          "images/tsa-one-city-many-moments-02.jpg",
+          "images/tsa-one-city-many-moments-03.jpg"
+        ]
+      },
+      {
+        "id": "tsa-unity",
+        "title": "Unity",
+        "artist": "Need info",
+        "start": null,
+        "end": null,
+        "description": "A floor-standing sculpture of stacked, offset rainbow-colored discs forming a vase-like silhouette, displayed in the lobby.",
+        "images": [
+          "images/tsa-unity-sculpture-01.jpg"
+        ]
+      },
+      {
+        "id": "tsa-the-next-big-thing",
+        "title": "The Next Big Thing",
+        "artist": "Need info",
+        "start": null,
+        "end": null,
+        "description": "A donor recognition wall — \"ordinary people doing extraordinary things\" — flanking a tall, brightly colored abstract panel painting.",
+        "images": [
+          "images/tsa-the-next-big-thing-01.jpg"
+        ]
       }
     ]
   }
