@@ -917,6 +917,79 @@
     font-style: italic;
   }
 
+  .artwork-card .artwork-fix {
+    margin-left: auto;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .artwork-card .artwork-fix:hover { opacity: 1; text-decoration: underline; color: var(--blue-green); }
+
+  /* ── Suggest-a-fix modal ── */
+  .fix-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 4000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 1rem;
+  }
+  .fix-modal.active { display: flex; }
+  .fix-dialog {
+    background: var(--card-bg, #14182a);
+    color: var(--text, #fff);
+    border-radius: 14px;
+    width: 100%;
+    max-width: 460px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 1.4rem 1.5rem 1.5rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+  .fix-dialog h3 { margin: 0 0 0.2rem; font-size: 1.1rem; }
+  .fix-dialog .fix-sub { margin: 0 0 1rem; font-size: 0.8rem; color: var(--text-muted); }
+  .fix-field { margin-bottom: 0.9rem; }
+  .fix-field label { display: block; font-size: 0.75rem; font-weight: 600; margin-bottom: 0.3rem; letter-spacing: 0.02em; }
+  .fix-field input[type="text"],
+  .fix-field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: inherit;
+    font-family: inherit;
+    font-size: 0.85rem;
+    padding: 0.5rem 0.6rem;
+  }
+  .fix-field textarea { resize: vertical; min-height: 3.2rem; }
+  .fix-field input:focus, .fix-field textarea:focus { outline: none; border-color: var(--blue-green, #1D4ED8); }
+  .fix-field .fix-hint { font-size: 0.68rem; color: var(--text-muted); margin-top: 0.25rem; }
+  .fix-map { height: 180px; border-radius: 8px; overflow: hidden; }
+  .fix-actions { display: flex; gap: 0.6rem; justify-content: flex-end; margin-top: 1.1rem; }
+  .fix-btn {
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+  .fix-btn-cancel { background: none; border-color: rgba(255, 255, 255, 0.2); color: var(--text-muted); }
+  .fix-btn-submit { background: var(--blue-green, #1D4ED8); color: #fff; }
+  .fix-btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+  .fix-confirm { font-size: 0.85rem; line-height: 1.5; }
+  .fix-confirm a { color: var(--blue-green, #60A5FA); }
+
   .artwork-card .artwork-logo {
     height: 20px;
     width: auto;
@@ -1982,7 +2055,7 @@
 <!-- ═══════════ ARTWORK HERO ═══════════ -->
 <section class="art-hero">
   <h1><span class="gradient-text">Greater Toledo Art Experience</span></h1>
-  <p class="site-version">v0.4</p>
+  <p class="site-version">v0.5</p>
   <p class="tagline">Connecting you to art in and around Toledo.</p>
 </section>
 
@@ -2772,9 +2845,11 @@
                 Take me there!
               </button>
               <a class="artwork-directions" href="https://www.google.com/maps?q=${art.latitude},${art.longitude}" target="_blank" rel="noopener">Get directions →</a>
+              <button class="artwork-fix" type="button" data-fix-id="${art.id}" data-fix-title="${escapeAttr(art.title)}" data-fix-lat="${art.latitude}" data-fix-lng="${art.longitude}">Suggest a fix</button>
             </div>` : `
             <div class="artwork-actions artwork-actions-pending">
               <span class="artwork-location-pending">📍 Location pending</span>
+              <button class="artwork-fix" type="button" data-fix-id="${art.id}" data-fix-title="${escapeAttr(art.title)}">Suggest a fix</button>
             </div>`}
           </div>
         </div>`;
@@ -3081,6 +3156,172 @@
       if (e.key === 'ArrowLeft') { e.preventDefault(); showLightboxItem(lbIndex - 1); }
       if (e.key === 'ArrowRight') { e.preventDefault(); showLightboxItem(lbIndex + 1); }
     }
+  });
+
+  // ═══════════ SUGGEST A FIX ═══════════
+  // Collects a proposed metadata correction and opens a prefilled GitHub issue
+  // (collect-only — a curator reviews/applies it later). See issue #10.
+  const FIX_REPO = 'VanderpoolTeacher/art-app-demo';
+  const TOLEDO_CENTER = [41.6528, -83.5352];
+
+  const fixModal = document.createElement('div');
+  fixModal.className = 'fix-modal';
+  fixModal.innerHTML = `
+    <div class="fix-dialog" role="dialog" aria-modal="true" aria-label="Suggest a fix">
+      <div class="fix-form">
+        <h3>Suggest a fix</h3>
+        <p class="fix-sub" id="fixForWhat"></p>
+        <div class="fix-field">
+          <label for="fixTitle">Corrected title</label>
+          <input type="text" id="fixTitle" placeholder="Leave blank if unchanged">
+        </div>
+        <div class="fix-field">
+          <label for="fixDesc">Corrected description</label>
+          <textarea id="fixDesc" placeholder="Leave blank if unchanged"></textarea>
+        </div>
+        <div class="fix-field">
+          <label>Corrected location</label>
+          <div class="fix-map" id="fixMap"></div>
+          <div class="fix-hint" id="fixLocHint">Drag the pin to the correct spot (only sent if you move it).</div>
+        </div>
+        <div class="fix-field">
+          <label for="fixNote">What's wrong / source (optional)</label>
+          <textarea id="fixNote" placeholder="e.g. correct title is…, saw a plaque, artist's website…"></textarea>
+        </div>
+        <div class="fix-hint" id="fixEmptyHint" style="display:none;color:#E63946;">Fill in at least one field or move the pin.</div>
+        <div class="fix-actions">
+          <button type="button" class="fix-btn fix-btn-cancel" id="fixCancel">Cancel</button>
+          <button type="button" class="fix-btn fix-btn-submit" id="fixSubmit">Open GitHub issue →</button>
+        </div>
+      </div>
+      <div class="fix-confirm" id="fixConfirm" style="display:none;"></div>
+    </div>`;
+  document.body.appendChild(fixModal);
+
+  const fixForWhat = fixModal.querySelector('#fixForWhat');
+  const fixTitleEl = fixModal.querySelector('#fixTitle');
+  const fixDescEl = fixModal.querySelector('#fixDesc');
+  const fixNoteEl = fixModal.querySelector('#fixNote');
+  const fixEmptyHint = fixModal.querySelector('#fixEmptyHint');
+  const fixFormEl = fixModal.querySelector('.fix-form');
+  const fixConfirmEl = fixModal.querySelector('#fixConfirm');
+  const fixLocHint = fixModal.querySelector('#fixLocHint');
+
+  let fixState = null;     // { id, title }
+  let fixMap = null;
+  let fixMarker = null;
+  let fixProposed = null;  // [lat, lng] if the pin was moved
+  let fixOrigin = null;    // original [lat, lng] or null
+
+  function teardownFixMap() {
+    if (fixMap) { fixMap.remove(); fixMap = null; fixMarker = null; }
+  }
+
+  function openFixModal(id, title, lat, lng) {
+    fixState = { id, title };
+    fixProposed = null;
+    fixOrigin = (typeof lat === 'number' && typeof lng === 'number') ? [lat, lng] : null;
+    fixForWhat.textContent = `For #${id} — ${title}. Collected for curator review; nothing changes on the map yet.`;
+    fixTitleEl.value = '';
+    fixDescEl.value = '';
+    fixNoteEl.value = '';
+    fixEmptyHint.style.display = 'none';
+    fixLocHint.textContent = fixOrigin
+      ? 'Drag the pin to the correct spot (only sent if you move it).'
+      : 'No location yet — drag the pin onto this artwork to suggest one.';
+    fixFormEl.style.display = '';
+    fixConfirmEl.style.display = 'none';
+    fixConfirmEl.innerHTML = '';
+    fixModal.classList.add('active');
+
+    const center = fixOrigin || TOLEDO_CENTER;
+    requestAnimationFrame(() => {
+      teardownFixMap();
+      fixMap = L.map('fixMap', { attributionControl: false }).setView(center, fixOrigin ? 16 : 13);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(fixMap);
+      fixMarker = L.marker(center, { draggable: true }).addTo(fixMap);
+      const setProposed = (ll) => {
+        fixProposed = [ll.lat, ll.lng];
+        fixLocHint.textContent = `New location: ${ll.lat.toFixed(6)}, ${ll.lng.toFixed(6)}`;
+      };
+      fixMarker.on('dragend', () => setProposed(fixMarker.getLatLng()));
+      fixMap.on('click', (e) => { fixMarker.setLatLng(e.latlng); setProposed(e.latlng); });
+      fixMap.invalidateSize();
+    });
+  }
+
+  function closeFixModal() {
+    fixModal.classList.remove('active');
+    teardownFixMap();
+    fixState = null;
+  }
+
+  function buildFixIssue() {
+    const fields = {};
+    const human = [];
+    const t = fixTitleEl.value.trim();
+    const d = fixDescEl.value.trim();
+    const note = fixNoteEl.value.trim();
+    if (t) { fields.title = t; human.push(`- **Title:** ${t}`); }
+    if (d) { fields.description = d; human.push(`- **Description:** ${d}`); }
+    if (fixProposed) {
+      fields.latitude = Number(fixProposed[0].toFixed(6));
+      fields.longitude = Number(fixProposed[1].toFixed(6));
+      const from = fixOrigin ? ` (was ${fixOrigin[0].toFixed(6)}, ${fixOrigin[1].toFixed(6)})` : ' (no prior location)';
+      human.push(`- **Location:** ${fields.latitude}, ${fields.longitude}${from}`);
+    }
+    if (!Object.keys(fields).length) return null;
+
+    const payload = {
+      artworkId: fixState.id,
+      submitted_at: localDateStr(new Date()),
+      submitted_by: 'public',
+      status: 'pending',
+      fields
+    };
+    if (note) payload.note = note;
+
+    const title = `Suggested fix — #${fixState.id} ${fixState.title}`;
+    const body =
+      `**Artwork:** #${fixState.id} — ${fixState.title}\n\n` +
+      `A suggested correction, collected for curator review. **Not yet applied.**\n\n` +
+      `### Proposed changes\n${human.join('\n')}\n` +
+      (note ? `\n**Note / source:** ${note}\n` : '') +
+      `\n<!-- structured payload for the future admin portal -->\n` +
+      '```json\n' + JSON.stringify(payload, null, 2) + '\n```\n';
+    const url = `https://github.com/${FIX_REPO}/issues/new?labels=suggested-fix`
+      + `&title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+    return { url, title };
+  }
+
+  function submitFix() {
+    const issue = buildFixIssue();
+    if (!issue) { fixEmptyHint.style.display = ''; return; }
+    const win = window.open(issue.url, '_blank', 'noopener');
+    fixFormEl.style.display = 'none';
+    fixConfirmEl.style.display = '';
+    fixConfirmEl.innerHTML = win
+      ? `Thanks! A GitHub issue draft opened in a new tab — click <strong>Submit new issue</strong> there to send it to the curators.
+         <div class="fix-actions"><button type="button" class="fix-btn fix-btn-submit" id="fixDone">Done</button></div>`
+      : `Your browser blocked the popup. <a href="${issue.url}" target="_blank" rel="noopener">Open the GitHub issue draft here →</a>
+         <div class="fix-actions"><button type="button" class="fix-btn fix-btn-submit" id="fixDone">Done</button></div>`;
+    const done = fixModal.querySelector('#fixDone');
+    if (done) done.addEventListener('click', closeFixModal);
+  }
+
+  document.addEventListener('click', (e) => {
+    const fixBtn = e.target.closest('.artwork-fix');
+    if (fixBtn) {
+      const lat = fixBtn.dataset.fixLat !== undefined ? Number(fixBtn.dataset.fixLat) : undefined;
+      const lng = fixBtn.dataset.fixLng !== undefined ? Number(fixBtn.dataset.fixLng) : undefined;
+      openFixModal(Number(fixBtn.dataset.fixId), fixBtn.dataset.fixTitle || '', lat, lng);
+    }
+  });
+  fixModal.querySelector('#fixCancel').addEventListener('click', closeFixModal);
+  fixModal.querySelector('#fixSubmit').addEventListener('click', submitFix);
+  fixModal.addEventListener('click', (e) => { if (e.target === fixModal) closeFixModal(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && fixModal.classList.contains('active')) closeFixModal();
   });
 </script>
 </body>
