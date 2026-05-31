@@ -617,7 +617,7 @@
     "description": "Arts high school and community gallery (Maxine and Stuart Frankel Family Foundation Annex), home to rotating exhibits, a permanent lobby sculpture, and a donor wall.",
     "latitude": 41.65697,
     "longitude": -83.5432,
-    "image": "images/tsa-one-city-many-moments-01.jpg",
+    "image": "images/tsa-unity-sculpture-01.jpg",
     "exhibits": [
       {
         "id": "tsa-one-city-many-moments",
@@ -633,29 +633,12 @@
           "images/tsa-one-city-many-moments-02.jpg",
           "images/tsa-one-city-many-moments-03.jpg"
         ]
-      },
-      {
-        "id": "tsa-unity",
-        "title": "Unity",
-        "artist": "Need info",
-        "start": null,
-        "end": null,
-        "description": "A floor-standing sculpture of stacked, offset rainbow-colored discs forming a vase-like silhouette, displayed in the lobby.",
-        "images": [
-          "images/tsa-unity-sculpture-01.jpg"
-        ]
-      },
-      {
-        "id": "tsa-the-next-big-thing",
-        "title": "The Next Big Thing",
-        "artist": "Need info",
-        "start": null,
-        "end": null,
-        "description": "A donor recognition wall — \"ordinary people doing extraordinary things\" — flanking a tall, brightly colored abstract panel painting.",
-        "images": [
-          "images/tsa-the-next-big-thing-01.jpg"
-        ]
       }
+    ],
+    "images": [
+      "images/tsa-unity-sculpture-01.jpg",
+      "images/tsa-one-city-many-moments-01.jpg",
+      "images/tsa-the-next-big-thing-01.jpg"
     ]
   }
 ]
