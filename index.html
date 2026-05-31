@@ -2142,7 +2142,7 @@
 <section class="art-hero">
   <h1><span class="gradient-text">Greater Toledo Art Experience</span></h1>
   <p class="tagline">Connecting you to art in and around Toledo.</p>
-  <p class="site-version">v0.7</p>
+  <p class="site-version">v0.8</p>
   <p class="site-notice">🚧 <strong>Under construction</strong> — we're actively adding artwork and assets, and existing data still needs to be verified.</p>
 </section>
 
@@ -2159,6 +2159,7 @@
       <button class="type-filter-btn" data-type-filter="gallery" type="button" role="radio" aria-checked="false">Galleries</button>
       <button class="type-filter-btn" data-type-filter="sculpture" type="button" role="radio" aria-checked="false">Sculptures</button>
       <button class="type-filter-btn" data-type-filter="studio" type="button" role="radio" aria-checked="false">Studios</button>
+      <button class="type-filter-btn" data-type-filter="collection" type="button" role="radio" aria-checked="false">Collections</button>
       <button class="type-filter-btn" data-type-filter="exhibits" type="button" role="radio" aria-checked="false">Exhibits</button>
     </div>
   </div>
@@ -2945,7 +2946,7 @@
     </div>`;
 
     // ── Map ──
-    var typeColors = { mural: '#E63946', gallery: '#1D4ED8', sculpture: '#FACC15', studio: '#0B1F6B', textile: '#7C3AED' };
+    var typeColors = { mural: '#E63946', gallery: '#1D4ED8', sculpture: '#FACC15', studio: '#0B1F6B', textile: '#7C3AED', collection: '#14B8A6' };
     var map = L.map('artMap', {
       scrollWheelZoom: false,
       dragging: false,
@@ -2969,7 +2970,7 @@
     }, { once: true });
 
     var markersById = {};
-    var markersByType = { mural: [], gallery: [], sculpture: [], studio: [], textile: [] };
+    var markersByType = { mural: [], gallery: [], sculpture: [], studio: [], textile: [], collection: [] };
     var exhibitMarkers = [];
     artworks.forEach(function(art) {
       if (typeof art.latitude !== 'number' || typeof art.longitude !== 'number') return;
