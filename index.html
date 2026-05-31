@@ -850,6 +850,66 @@
     z-index: 1;
   }
 
+  /* Green "exhibit" pill on the card thumbnail; muted when the exhibit is past */
+  .artwork-exhibit-badge {
+    position: absolute;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    background: #16A34A;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .artwork-exhibit-badge.is-past {
+    background: rgba(31,41,55,0.82);
+  }
+
+  /* Exhibit name + status pill in the card body */
+  .artwork-card .artwork-exhibits {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-bottom: 0.5rem;
+  }
+  .artwork-card .artwork-exhibit {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+  }
+  .artwork-card .exhibit-name {
+    font-weight: 600;
+    color: var(--text);
+  }
+  .artwork-card .exhibit-by {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+  .artwork-card .exhibit-pill {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: #16A34A;
+    color: #fff;
+    white-space: nowrap;
+  }
+  .artwork-card .exhibit-pill-past { background: #6B7280; }
+  .artwork-card .exhibit-pill-upcoming { background: #2563EB; }
+  .artwork-card .exhibit-pill-permanent { background: #0891B2; }
+
   .artwork-card:hover {
     transform: translateY(-4px);
     border-color: rgba(29,78,216,0.3);
@@ -2913,6 +2973,18 @@
           }));
         }).filter(e => !usedSrcs.has(e.src));
         const gallery = [...curatorImgs, ...submissionImgs, ...exhibitImgs];
+        // Per-exhibit summary for the card: exhibit NAME is the headline, with a
+        // status pill so a past exhibit reads at a glance in the thumbnail view.
+        const exhibitList = (art.exhibits || []).map(ex => ({
+          title: ex.title || 'Exhibit',
+          artist: ex.artist || '',
+          status: exhibitStatus(ex),
+          label: exhibitDateRange(ex)
+        }));
+        const allPast = exhibitList.length > 0 && exhibitList.every(e => e.status === 'past');
+        const exhibitBadge = exhibitList.length
+          ? (exhibitList.length === 1 ? exhibitList[0].label.split(' · ')[0] : `${exhibitList.length} exhibits`)
+          : '';
         return `
         <div class="artwork-card" data-type="${art.type || 'unknown'}"${(art.exhibits || []).length ? ' data-has-exhibits="true"' : ''}>
           <img src="${art.image}" alt="${art.title}" loading="lazy"
@@ -2922,10 +2994,17 @@
                data-images="${escapeAttr(JSON.stringify(gallery))}">
           ${recentFlag ? `<div class="artwork-new-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1l2.5 7.5L22 11l-7.5 2.5L12 21l-2.5-7.5L2 11l7.5-2.5L12 1z"/></svg>NEW</div>` : ''}
           ${gallery.length > 1 ? `<div class="artwork-photo-count">📷 ${gallery.length}</div>` : ''}
+          ${exhibitBadge ? `<div class="artwork-exhibit-badge${allPast ? ' is-past' : ''}">${exhibitBadge}</div>` : ''}
           <div class="artwork-info">
             ${art.logo ? `<a href="https://theartscommission.org/public-art/collection" target="_blank" rel="noopener"><img class="artwork-logo" src="${art.logo}" alt="The Arts Commission"></a>` : ''}
             <h3>${art.title}</h3>
             ${art.artist ? `<div class="artwork-artist">by ${art.artist}</div>` : ''}
+            ${exhibitList.length ? `<div class="artwork-exhibits">${exhibitList.map(e => `
+              <div class="artwork-exhibit">
+                <span class="exhibit-name">${e.title}</span>
+                <span class="exhibit-pill exhibit-pill-${e.status}">${e.label}</span>
+                ${e.artist ? `<span class="exhibit-by">${e.artist}</span>` : ''}
+              </div>`).join('')}</div>` : ''}
             ${excerpt ? `<p class="artwork-excerpt">${excerpt}</p>` : ''}
             ${hasCoords ? `
             <div class="artwork-actions">
