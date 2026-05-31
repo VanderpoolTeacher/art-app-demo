@@ -990,6 +990,55 @@
   .fix-confirm { font-size: 0.85rem; line-height: 1.5; }
   .fix-confirm a { color: var(--blue-green, #60A5FA); }
 
+  /* ── Feature gates ── */
+  body.ff-off-suggestFix .artwork-fix { display: none !important; }
+
+  /* ── Admin panel ── */
+  .admin-modal {
+    position: fixed; inset: 0; z-index: 5000; display: none;
+    align-items: center; justify-content: center;
+    background: rgba(0, 0, 0, 0.7); padding: 1rem;
+  }
+  .admin-modal.active { display: flex; }
+  .admin-dialog {
+    background: var(--card-bg, #14182a); color: var(--text, #fff);
+    border-radius: 14px; width: 100%; max-width: 520px; max-height: 90vh;
+    overflow-y: auto; padding: 1.4rem 1.5rem 1.5rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+  .admin-dialog h3 { margin: 0 0 0.2rem; font-size: 1.15rem; }
+  .admin-dialog .admin-sub { margin: 0 0 1.1rem; font-size: 0.8rem; color: var(--text-muted); }
+  .admin-feature {
+    display: flex; align-items: flex-start; gap: 0.9rem;
+    padding: 0.8rem 0; border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .admin-feature-text { flex: 1; }
+  .admin-feature-text .ff-name { font-weight: 600; font-size: 0.9rem; }
+  .admin-feature-text .ff-desc { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .admin-feature-text .ff-meta { font-size: 0.68rem; color: var(--text-muted); margin-top: 0.25rem; opacity: 0.8; }
+  /* toggle switch */
+  .ff-switch { position: relative; width: 44px; height: 24px; flex-shrink: 0; cursor: pointer; }
+  .ff-switch input { opacity: 0; width: 0; height: 0; }
+  .ff-slider {
+    position: absolute; inset: 0; border-radius: 999px;
+    background: rgba(255, 255, 255, 0.2); transition: background 0.2s;
+  }
+  .ff-slider::before {
+    content: ""; position: absolute; height: 18px; width: 18px; left: 3px; top: 3px;
+    background: #fff; border-radius: 50%; transition: transform 0.2s;
+  }
+  .ff-switch input:checked + .ff-slider { background: var(--blue-green, #1D4ED8); }
+  .ff-switch input:checked + .ff-slider::before { transform: translateX(20px); }
+  .admin-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: flex-end; margin-top: 1.2rem; }
+  .admin-btn {
+    font-family: inherit; font-size: 0.8rem; font-weight: 600; border-radius: 8px;
+    padding: 0.5rem 0.9rem; cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.2);
+    background: none; color: var(--text-muted);
+  }
+  .admin-btn-primary { background: var(--blue-green, #1D4ED8); color: #fff; border-color: transparent; }
+  .admin-note { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.8rem; }
+  .admin-note.ok { color: #22c55e; }
+
   .artwork-card .artwork-logo {
     height: 20px;
     width: auto;
@@ -2055,7 +2104,7 @@
 <!-- ═══════════ ARTWORK HERO ═══════════ -->
 <section class="art-hero">
   <h1><span class="gradient-text">Greater Toledo Art Experience</span></h1>
-  <p class="site-version">v0.5</p>
+  <p class="site-version">v0.6</p>
   <p class="tagline">Connecting you to art in and around Toledo.</p>
 </section>
 
@@ -3312,6 +3361,7 @@
   document.addEventListener('click', (e) => {
     const fixBtn = e.target.closest('.artwork-fix');
     if (fixBtn) {
+      if (!isFeatureEnabled('suggestFix')) return;
       const lat = fixBtn.dataset.fixLat !== undefined ? Number(fixBtn.dataset.fixLat) : undefined;
       const lng = fixBtn.dataset.fixLng !== undefined ? Number(fixBtn.dataset.fixLng) : undefined;
       openFixModal(Number(fixBtn.dataset.fixId), fixBtn.dataset.fixTitle || '', lat, lng);
@@ -3323,6 +3373,115 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && fixModal.classList.contains('active')) closeFixModal();
   });
+
+  // ═══════════ FEATURE FLAGS + ADMIN ═══════════
+  // Static-site feature toggles. Committed defaults live in data/features.json;
+  // per-browser overrides live in localStorage. Effective = override ?? default.
+  // Admin panel opens at #admin (obscurity only — no real auth on a static site).
+  const FEATURES = [
+    { key: 'suggestFix', name: 'Suggest a fix', desc: 'Lets visitors propose metadata corrections (opens a prefilled GitHub issue).', fallback: false }
+  ];
+  const FF_OVERRIDE_KEY = 'artmap_feature_overrides';
+  let featureDefaults = {};
+  FEATURES.forEach(f => { featureDefaults[f.key] = f.fallback; });
+
+  function ffOverrides() {
+    try { return JSON.parse(localStorage.getItem(FF_OVERRIDE_KEY) || '{}'); }
+    catch (e) { return {}; }
+  }
+  function isFeatureEnabled(key) {
+    const ov = ffOverrides();
+    if (Object.prototype.hasOwnProperty.call(ov, key)) return !!ov[key];
+    return !!featureDefaults[key];
+  }
+  function applyFeatureFlags() {
+    FEATURES.forEach(f => document.body.classList.toggle('ff-off-' + f.key, !isFeatureEnabled(f.key)));
+  }
+  function setFeatureOverride(key, val) {
+    const ov = ffOverrides();
+    ov[key] = val;
+    localStorage.setItem(FF_OVERRIDE_KEY, JSON.stringify(ov));
+    applyFeatureFlags();
+  }
+  function clearFeatureOverrides() {
+    localStorage.removeItem(FF_OVERRIDE_KEY);
+    applyFeatureFlags();
+  }
+
+  applyFeatureFlags(); // apply fallbacks immediately so the gated UI never flashes
+  fetch('data/features.json', { cache: 'no-store' })
+    .then(r => r.ok ? r.json() : {})
+    .then(cfg => { featureDefaults = Object.assign(featureDefaults, cfg || {}); applyFeatureFlags(); refreshAdminPanel(); })
+    .catch(() => {});
+
+  const adminModal = document.createElement('div');
+  adminModal.className = 'admin-modal';
+  adminModal.innerHTML = `
+    <div class="admin-dialog" role="dialog" aria-modal="true" aria-label="Admin — feature flags">
+      <h3>Admin · Feature flags</h3>
+      <p class="admin-sub">Toggles apply to <strong>this browser</strong> immediately. Use "Copy features.json" to commit a new global default.</p>
+      <div id="adminFeatures"></div>
+      <div class="admin-actions">
+        <button type="button" class="admin-btn" id="adminClear">Clear local overrides</button>
+        <button type="button" class="admin-btn" id="adminCopy">Copy features.json</button>
+        <button type="button" class="admin-btn admin-btn-primary" id="adminClose">Close</button>
+      </div>
+      <div class="admin-note" id="adminNote"></div>
+    </div>`;
+  document.body.appendChild(adminModal);
+  const adminFeaturesEl = adminModal.querySelector('#adminFeatures');
+  const adminNote = adminModal.querySelector('#adminNote');
+
+  function refreshAdminPanel() {
+    if (!adminFeaturesEl) return;
+    const ov = ffOverrides();
+    adminFeaturesEl.innerHTML = FEATURES.map(f => {
+      const on = isFeatureEnabled(f.key);
+      const overridden = Object.prototype.hasOwnProperty.call(ov, f.key);
+      const meta = `Committed default: ${featureDefaults[f.key] ? 'on' : 'off'}${overridden ? ' · local override active' : ''}`;
+      return `
+        <div class="admin-feature">
+          <div class="admin-feature-text">
+            <div class="ff-name">${f.name}</div>
+            <div class="ff-desc">${f.desc}</div>
+            <div class="ff-meta">${meta}</div>
+          </div>
+          <label class="ff-switch">
+            <input type="checkbox" data-ff="${f.key}" ${on ? 'checked' : ''}>
+            <span class="ff-slider"></span>
+          </label>
+        </div>`;
+    }).join('');
+    adminFeaturesEl.querySelectorAll('input[data-ff]').forEach(inp => {
+      inp.addEventListener('change', () => { setFeatureOverride(inp.dataset.ff, inp.checked); refreshAdminPanel(); });
+    });
+  }
+
+  function openAdmin() { refreshAdminPanel(); adminNote.textContent = ''; adminNote.className = 'admin-note'; adminModal.classList.add('active'); }
+  function closeAdmin() {
+    adminModal.classList.remove('active');
+    if (location.hash === '#admin') history.replaceState(null, '', location.pathname + location.search);
+  }
+
+  adminModal.querySelector('#adminClose').addEventListener('click', closeAdmin);
+  adminModal.querySelector('#adminClear').addEventListener('click', () => {
+    clearFeatureOverrides(); refreshAdminPanel();
+    adminNote.textContent = 'Local overrides cleared — back to committed defaults.'; adminNote.className = 'admin-note ok';
+  });
+  adminModal.querySelector('#adminCopy').addEventListener('click', () => {
+    const cfg = {};
+    FEATURES.forEach(f => { cfg[f.key] = isFeatureEnabled(f.key); });
+    const json = JSON.stringify(cfg, null, 2) + '\n';
+    const done = () => { adminNote.textContent = 'Copied. Commit it to data/features.json to make these the global defaults.'; adminNote.className = 'admin-note ok'; };
+    if (navigator.clipboard) navigator.clipboard.writeText(json).then(done, () => { adminNote.textContent = json; adminNote.className = 'admin-note'; });
+    else { adminNote.textContent = json; adminNote.className = 'admin-note'; }
+  });
+  adminModal.addEventListener('click', (e) => { if (e.target === adminModal) closeAdmin(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && adminModal.classList.contains('active')) closeAdmin(); });
+
+  function maybeOpenAdminFromHash() { if (location.hash === '#admin') openAdmin(); }
+  window.addEventListener('hashchange', maybeOpenAdminFromHash);
+  maybeOpenAdminFromHash();
 </script>
 </body>
 </html>
