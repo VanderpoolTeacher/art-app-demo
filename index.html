@@ -770,6 +770,29 @@
     border-color: var(--coral);
     color: #fff;
   }
+  /* Exhibits chip carries a green dot and a green active state to match the map badge */
+  .type-filter-btn[data-type-filter="exhibits"]::before {
+    content: '';
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #22C55E;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .type-filter-btn[data-type-filter="exhibits"].active {
+    background: #16A34A;
+    border-color: #16A34A;
+  }
+  .type-filter-btn[data-type-filter="exhibits"].active::before { background: #fff; }
+
+  /* Green "has exhibits" badge overlaid on a gallery's map pin */
+  .exhibit-badge {
+    background: #22C55E;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+  }
   .discovery-empty {
     padding: 24px 12px;
     text-align: center;
@@ -2119,7 +2142,7 @@
 <section class="art-hero">
   <h1><span class="gradient-text">Greater Toledo Art Experience</span></h1>
   <p class="tagline">Connecting you to art in and around Toledo.</p>
-  <p class="site-version">v0.6</p>
+  <p class="site-version">v0.7</p>
   <p class="site-notice">🚧 <strong>Under construction</strong> — we're actively adding artwork and assets, and existing data still needs to be verified.</p>
 </section>
 
@@ -2136,6 +2159,7 @@
       <button class="type-filter-btn" data-type-filter="gallery" type="button" role="radio" aria-checked="false">Galleries</button>
       <button class="type-filter-btn" data-type-filter="sculpture" type="button" role="radio" aria-checked="false">Sculptures</button>
       <button class="type-filter-btn" data-type-filter="studio" type="button" role="radio" aria-checked="false">Studios</button>
+      <button class="type-filter-btn" data-type-filter="exhibits" type="button" role="radio" aria-checked="false">Exhibits</button>
     </div>
   </div>
   <div id="artMap"></div>
@@ -2889,7 +2913,7 @@
         }).filter(e => !usedSrcs.has(e.src));
         const gallery = [...curatorImgs, ...submissionImgs, ...exhibitImgs];
         return `
-        <div class="artwork-card" data-type="${art.type || 'unknown'}">
+        <div class="artwork-card" data-type="${art.type || 'unknown'}"${(art.exhibits || []).length ? ' data-has-exhibits="true"' : ''}>
           <img src="${art.image}" alt="${art.title}" loading="lazy"
                data-title="${escapeAttr(art.title)}"
                data-artist="${escapeAttr(art.artist || '')}"
@@ -2946,6 +2970,7 @@
 
     var markersById = {};
     var markersByType = { mural: [], gallery: [], sculpture: [], studio: [], textile: [] };
+    var exhibitMarkers = [];
     artworks.forEach(function(art) {
       if (typeof art.latitude !== 'number' || typeof art.longitude !== 'number') return;
       var color = typeColors[art.type] || '#999';
@@ -2957,6 +2982,15 @@
         fillOpacity: 0.9
       }).addTo(map);
       if (markersByType[art.type]) markersByType[art.type].push(marker);
+
+      // Green "has exhibits" badge overlaid on the pin (exhibits inherit the gallery pin)
+      if ((art.exhibits || []).length) {
+        marker._exhibitBadge = L.marker([art.latitude, art.longitude], {
+          icon: L.divIcon({ className: 'exhibit-badge', html: '', iconSize: [12, 12], iconAnchor: [-2, 14] }),
+          interactive: false
+        }).addTo(map);
+        exhibitMarkers.push(marker);
+      }
 
       var popupHtml = '<div class="map-popup">' +
         '<img src="' + art.image + '" alt="' + escapeAttr(art.title) + '">' +
@@ -2984,19 +3018,28 @@
       // 2. Filter grid cards
       var visibleCount = 0;
       categories.querySelectorAll('.artwork-card').forEach(function(card) {
-        var show = selected === 'all' || card.dataset.type === selected;
+        var show = selected === 'all' || card.dataset.type === selected
+          || (selected === 'exhibits' && card.dataset.hasExhibits === 'true');
         card.style.display = show ? '' : 'none';
         if (show) visibleCount++;
       });
 
-      // 3. Filter map markers
+      // 3. Filter map markers (+ keep each marker's exhibit badge in sync)
       Object.keys(markersByType).forEach(function(t) {
-        var shouldShow = selected === 'all' || t === selected;
+        var shouldShowType = selected === 'all' || t === selected;
         markersByType[t].forEach(function(m) {
-          if (shouldShow) {
+          var show = shouldShowType || (selected === 'exhibits' && !!m._exhibitBadge);
+          if (show) {
             if (!map.hasLayer(m)) m.addTo(map);
           } else {
             if (map.hasLayer(m)) map.removeLayer(m);
+          }
+          if (m._exhibitBadge) {
+            if (show) {
+              if (!map.hasLayer(m._exhibitBadge)) m._exhibitBadge.addTo(map);
+            } else {
+              if (map.hasLayer(m._exhibitBadge)) map.removeLayer(m._exhibitBadge);
+            }
           }
         });
       });
