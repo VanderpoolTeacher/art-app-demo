@@ -1443,6 +1443,39 @@
     margin-bottom: 0.5rem;
   }
 
+  .lightbox-caption .lb-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 0.85rem;
+  }
+  .lightbox-caption .lb-takeme {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #E63946;
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Reddit Sans', sans-serif;
+    transition: background 0.2s;
+  }
+  .lightbox-caption .lb-takeme:hover { background: #C92F3C; }
+  .lightbox-caption .lb-directions {
+    color: #fff;
+    opacity: 0.75;
+    text-decoration: underline;
+    font-size: 0.8rem;
+    transition: opacity 0.2s;
+  }
+  .lightbox-caption .lb-directions:hover { opacity: 1; }
+
   .lightbox-caption .lb-source-tag {
     display: inline-block;
     background: rgba(124, 58, 237, 0.25);
@@ -3003,6 +3036,8 @@
                data-title="${escapeAttr(art.title)}"
                data-artist="${escapeAttr(art.artist || '')}"
                data-credit="${escapeAttr(credit)}"
+               data-artwork-id="${art.id}"
+               ${hasCoords ? `data-lat="${art.latitude}" data-lng="${art.longitude}"` : ''}
                data-images="${escapeAttr(JSON.stringify(gallery))}">
           ${recentFlag ? `<div class="artwork-new-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1l2.5 7.5L22 11l-7.5 2.5L12 21l-2.5-7.5L2 11l7.5-2.5L12 1z"/></svg>NEW</div>` : ''}
           ${gallery.length > 1 ? `<div class="artwork-photo-count">📷 ${gallery.length}</div>` : ''}
@@ -3239,6 +3274,7 @@
         <div class="lb-title"></div>
         <div class="lb-artist"></div>
         <div class="lb-credit"></div>
+        <div class="lb-actions"></div>
       </figcaption>
     </figure>
     <div class="lb-divider">
@@ -3255,6 +3291,7 @@
   const lbTitle = lightbox.querySelector('.lb-title');
   const lbArtist = lightbox.querySelector('.lb-artist');
   const lbCredit = lightbox.querySelector('.lb-credit');
+  const lbActions = lightbox.querySelector('.lb-actions');
   const lbDivider = lightbox.querySelector('.lb-divider');
   const lbDividerLabel = lightbox.querySelector('.lb-divider-label');
   const lbDividerName = lightbox.querySelector('.lb-divider-name');
@@ -3275,6 +3312,9 @@
       try { entries = JSON.parse(img.dataset.images || '[]'); } catch(e) { entries = []; }
       if (!entries.length) entries = [{ src: img.getAttribute('src'), source: 'curator' }];
       var locationName = img.dataset.title || '';
+      var artworkId = img.dataset.artworkId || '';
+      var lat = img.dataset.lat || '';
+      var lng = img.dataset.lng || '';
       var group = entries.map(entry => {
         var src = typeof entry === 'string' ? entry : entry.src;
         var source = typeof entry === 'string' ? 'curator' : (entry.source || 'curator');
@@ -3289,7 +3329,10 @@
           source: source,
           submittedAt: submittedAt,
           dateRange: isExhibit ? (entry.dateRange || '') : '',
-          locationName: locationName
+          locationName: locationName,
+          artworkId: artworkId,
+          lat: lat,
+          lng: lng
         };
       });
       if (group.length) groups.push(group);
@@ -3334,6 +3377,7 @@
     lbIndex = ((idx % lbItems.length) + lbItems.length) % lbItems.length;
     var item = lbItems[lbIndex];
     if (item.divider) {
+      lbActions.style.display = 'none';
       lightboxFigure.style.display = 'none';
       lbDivider.style.display = 'flex';
       var heading = lbLastDir >= 0;
@@ -3352,7 +3396,39 @@
     lbArtist.style.display = item.artist ? '' : 'none';
     lbCredit.innerHTML = item.credit ? `Photo: ${item.credit}` : '';
     lbCredit.style.display = item.credit ? '' : 'none';
+    renderLightboxActions(item);
   }
+
+  // "Take me there" + directions in the lightbox — mirrors the discovery card,
+  // shown only when the location has coordinates.
+  function renderLightboxActions(item) {
+    if (item && item.lat && item.lng) {
+      lbActions.dataset.artworkId = item.artworkId || '';
+      lbActions.innerHTML =
+        '<button class="lb-takeme" type="button">'
+        + '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'
+        + 'Take me there!</button>'
+        + '<a class="lb-directions" href="https://www.google.com/maps?q=' + item.lat + ',' + item.lng + '" target="_blank" rel="noopener">Get directions →</a>';
+      lbActions.style.display = '';
+    } else {
+      lbActions.innerHTML = '';
+      lbActions.style.display = 'none';
+    }
+  }
+
+  // "Take me there" inside the lightbox: close it, then reuse the card's handler.
+  lbActions.addEventListener('click', function(e) {
+    var directions = e.target.closest('.lb-directions');
+    if (directions) { lightbox.classList.remove('active'); return; }
+    var takeme = e.target.closest('.lb-takeme');
+    if (!takeme) return;
+    e.preventDefault();
+    e.stopPropagation();
+    var id = lbActions.dataset.artworkId;
+    lightbox.classList.remove('active');
+    var cardBtn = id && document.querySelector('.artwork-location[data-artwork-id="' + id + '"]');
+    if (cardBtn) cardBtn.click();
+  });
 
   function openLightbox(imgSrc, title, artist, credit) {
     buildLightboxList();
@@ -3374,6 +3450,7 @@
       lbArtist.style.display = artist ? '' : 'none';
       lbCredit.innerHTML = credit ? `Photo: ${credit}` : '';
       lbCredit.style.display = credit ? '' : 'none';
+      renderLightboxActions(null);
     }
     requestAnimationFrame(() => lightbox.classList.add('active'));
   }
