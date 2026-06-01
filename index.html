@@ -850,29 +850,6 @@
     z-index: 1;
   }
 
-  /* Green "exhibit" pill on the card thumbnail; muted when the exhibit is past */
-  .artwork-exhibit-badge {
-    position: absolute;
-    bottom: 0.5rem;
-    left: 0.5rem;
-    display: inline-flex;
-    align-items: center;
-    background: #16A34A;
-    color: #fff;
-    font-size: 0.7rem;
-    font-weight: 700;
-    padding: 0.25rem 0.6rem;
-    border-radius: 999px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.35);
-    pointer-events: none;
-    z-index: 1;
-  }
-  .artwork-exhibit-badge.is-past {
-    background: rgba(31,41,55,0.82);
-  }
-
   /* Exhibit name + status pill in the card body */
   .artwork-card .artwork-exhibits {
     display: flex;
@@ -2981,10 +2958,6 @@
           status: exhibitStatus(ex),
           label: exhibitDateRange(ex)
         }));
-        const allPast = exhibitList.length > 0 && exhibitList.every(e => e.status === 'past');
-        const exhibitBadge = exhibitList.length
-          ? (exhibitList.length === 1 ? exhibitList[0].label.split(' · ')[0] : `${exhibitList.length} exhibits`)
-          : '';
         // When a gallery hosts exhibits, front the card with the exhibit's own
         // first photo rather than the gallery's primary image.
         const exhibitCover = (art.exhibits || []).map(ex => (ex.images || [])[0]).find(Boolean);
@@ -2998,7 +2971,6 @@
                data-images="${escapeAttr(JSON.stringify(gallery))}">
           ${recentFlag ? `<div class="artwork-new-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1l2.5 7.5L22 11l-7.5 2.5L12 21l-2.5-7.5L2 11l7.5-2.5L12 1z"/></svg>NEW</div>` : ''}
           ${gallery.length > 1 ? `<div class="artwork-photo-count">📷 ${gallery.length}</div>` : ''}
-          ${exhibitBadge ? `<div class="artwork-exhibit-badge${allPast ? ' is-past' : ''}">${exhibitBadge}</div>` : ''}
           <div class="artwork-info">
             ${art.logo ? `<a href="https://theartscommission.org/public-art/collection" target="_blank" rel="noopener"><img class="artwork-logo" src="${art.logo}" alt="The Arts Commission"></a>` : ''}
             <h3>${art.title}</h3>
