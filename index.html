@@ -1471,6 +1471,40 @@
     opacity: 1;
   }
 
+  /* Transition slide shown when paging from one location into the next */
+  .lb-divider {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    font-family: 'Reddit Sans', sans-serif;
+    gap: 0.5rem;
+    padding: 2rem;
+    max-width: 90vw;
+  }
+  .lb-divider .lb-divider-icon {
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 0.5rem;
+  }
+  .lb-divider .lb-divider-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.55);
+  }
+  .lb-divider .lb-divider-name {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .lb-divider .lb-divider-hint {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 0.75rem;
+  }
+
   .artwork-card img {
     cursor: zoom-in;
   }
@@ -3205,41 +3239,76 @@
         <div class="lb-artist"></div>
         <div class="lb-credit"></div>
       </figcaption>
-    </figure>`;
+    </figure>
+    <div class="lb-divider">
+      <div class="lb-divider-icon"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <div class="lb-divider-label"></div>
+      <div class="lb-divider-name"></div>
+      <div class="lb-divider-hint"></div>
+    </div>`;
   document.body.appendChild(lightbox);
 
+  const lightboxFigure = lightbox.querySelector('.lightbox-figure');
   const lightboxImg = lightbox.querySelector('img');
   const lbSource = lightbox.querySelector('.lb-source');
   const lbTitle = lightbox.querySelector('.lb-title');
   const lbArtist = lightbox.querySelector('.lb-artist');
   const lbCredit = lightbox.querySelector('.lb-credit');
+  const lbDivider = lightbox.querySelector('.lb-divider');
+  const lbDividerLabel = lightbox.querySelector('.lb-divider-label');
+  const lbDividerName = lightbox.querySelector('.lb-divider-name');
+  const lbDividerHint = lightbox.querySelector('.lb-divider-hint');
+  var lbLastDir = 1;
 
   var lbItems = [];
   var lbIndex = -1;
 
   function buildLightboxList() {
     lbItems = [];
+    // One card = one location. Collect each location's images as a group, then
+    // splice a divider slide between groups so paging never silently crosses
+    // from one location into another.
+    var groups = [];
     document.querySelectorAll('.artwork-card img:not(.artwork-logo)').forEach(img => {
       var entries;
       try { entries = JSON.parse(img.dataset.images || '[]'); } catch(e) { entries = []; }
       if (!entries.length) entries = [{ src: img.getAttribute('src'), source: 'curator' }];
-      entries.forEach(entry => {
+      var locationName = img.dataset.title || '';
+      var group = entries.map(entry => {
         var src = typeof entry === 'string' ? entry : entry.src;
         var source = typeof entry === 'string' ? 'curator' : (entry.source || 'curator');
         var submittedAt = typeof entry === 'string' ? '' : (entry.submittedAt || '');
         var absSrc = new URL(src, window.location.href).href;
         var isExhibit = source === 'exhibit';
-        lbItems.push({
+        return {
           src: absSrc,
           title: isExhibit && entry.exhibitTitle ? entry.exhibitTitle : (img.dataset.title || ''),
           artist: isExhibit ? (entry.exhibitArtist || '') : (img.dataset.artist || ''),
           credit: isExhibit ? '' : (img.dataset.credit || ''),
           source: source,
           submittedAt: submittedAt,
-          dateRange: isExhibit ? (entry.dateRange || '') : ''
-        });
+          dateRange: isExhibit ? (entry.dateRange || '') : '',
+          locationName: locationName
+        };
       });
+      if (group.length) groups.push(group);
     });
+    groups.forEach((group, gi) => {
+      if (gi > 0) lbItems.push({ divider: true });
+      group.forEach(it => lbItems.push(it));
+    });
+    // Wrap boundary: mark the last-image → first-image jump too.
+    if (groups.length > 1) lbItems.push({ divider: true });
+  }
+
+  // Name of the nearest real (non-divider) item in a given direction, cyclically.
+  function lbNeighborName(idx, step) {
+    var n = lbItems.length;
+    for (var k = 1; k <= n; k++) {
+      var it = lbItems[((idx + step * k) % n + n) % n];
+      if (it && !it.divider) return it.locationName || '';
+    }
+    return '';
   }
 
   function renderLightboxSource(item) {
@@ -3258,10 +3327,22 @@
     }
   }
 
-  function showLightboxItem(idx) {
+  function showLightboxItem(idx, dir) {
     if (!lbItems.length) return;
+    if (dir) lbLastDir = dir;
     lbIndex = ((idx % lbItems.length) + lbItems.length) % lbItems.length;
     var item = lbItems[lbIndex];
+    if (item.divider) {
+      lightboxFigure.style.display = 'none';
+      lbDivider.style.display = 'flex';
+      var heading = lbLastDir >= 0;
+      lbDividerLabel.textContent = heading ? 'Next location' : 'Previous location';
+      lbDividerName.textContent = lbNeighborName(lbIndex, heading ? 1 : -1);
+      lbDividerHint.textContent = heading ? 'Keep going to see its photos →' : '← Keep going to see its photos';
+      return;
+    }
+    lbDivider.style.display = 'none';
+    lightboxFigure.style.display = 'flex';
     lightboxImg.src = item.src;
     lightboxImg.alt = item.title;
     renderLightboxSource(item);
@@ -3274,13 +3355,16 @@
 
   function openLightbox(imgSrc, title, artist, credit) {
     buildLightboxList();
+    lbLastDir = 1;
     var absSrc = new URL(imgSrc, window.location.href).href;
-    lbIndex = lbItems.findIndex(it => it.src === absSrc);
+    lbIndex = lbItems.findIndex(it => !it.divider && it.src === absSrc);
     if (lbIndex !== -1) {
       showLightboxItem(lbIndex);
     } else {
       // Fallback: image not found in the card list — render from passed args.
       lbIndex = 0;
+      lbDivider.style.display = 'none';
+      lightboxFigure.style.display = 'flex';
       lightboxImg.src = imgSrc;
       lightboxImg.alt = title;
       renderLightboxSource({ source: 'curator' });
@@ -3316,8 +3400,8 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') { lightbox.classList.remove('active'); return; }
     if (isLightboxOpen() && lbItems.length) {
-      if (e.key === 'ArrowLeft') { e.preventDefault(); showLightboxItem(lbIndex - 1); }
-      if (e.key === 'ArrowRight') { e.preventDefault(); showLightboxItem(lbIndex + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); showLightboxItem(lbIndex - 1, -1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); showLightboxItem(lbIndex + 1, 1); }
     }
   });
 
