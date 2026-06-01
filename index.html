@@ -1468,13 +1468,22 @@
   }
   .lightbox-caption .lb-takeme:hover { background: #C92F3C; }
   .lightbox-caption .lb-directions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #16A34A;
     color: #fff;
-    opacity: 0.75;
-    text-decoration: underline;
-    font-size: 0.8rem;
-    transition: opacity 0.2s;
+    border: none;
+    border-radius: 999px;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: 'Reddit Sans', sans-serif;
+    transition: background 0.2s;
   }
-  .lightbox-caption .lb-directions:hover { opacity: 1; }
+  .lightbox-caption .lb-directions:hover { background: #15803D; }
 
   .lightbox-caption .lb-source-tag {
     display: inline-block;
@@ -3407,8 +3416,10 @@
       lbActions.innerHTML =
         '<button class="lb-takeme" type="button">'
         + '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'
-        + 'Take me there!</button>'
-        + '<a class="lb-directions" href="https://www.google.com/maps?q=' + item.lat + ',' + item.lng + '" target="_blank" rel="noopener">Get directions →</a>';
+        + 'Locate on map</button>'
+        + '<a class="lb-directions" href="https://www.google.com/maps?q=' + item.lat + ',' + item.lng + '" target="_blank" rel="noopener">'
+        + '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>'
+        + 'Get directions</a>';
       lbActions.style.display = '';
     } else {
       lbActions.innerHTML = '';
