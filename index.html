@@ -2985,9 +2985,13 @@
         const exhibitBadge = exhibitList.length
           ? (exhibitList.length === 1 ? exhibitList[0].label.split(' · ')[0] : `${exhibitList.length} exhibits`)
           : '';
+        // When a gallery hosts exhibits, front the card with the exhibit's own
+        // first photo rather than the gallery's primary image.
+        const exhibitCover = (art.exhibits || []).map(ex => (ex.images || [])[0]).find(Boolean);
+        const cardImage = exhibitCover || art.image;
         return `
         <div class="artwork-card" data-type="${art.type || 'unknown'}"${(art.exhibits || []).length ? ' data-has-exhibits="true"' : ''}>
-          <img src="${art.image}" alt="${art.title}" loading="lazy"
+          <img src="${cardImage}" alt="${art.title}" loading="lazy"
                data-title="${escapeAttr(art.title)}"
                data-artist="${escapeAttr(art.artist || '')}"
                data-credit="${escapeAttr(credit)}"
