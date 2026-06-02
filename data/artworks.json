@@ -7,7 +7,7 @@
     "description": "A vibrant, large-scale mural featuring colorful blue and green tree frogs painted on the side of a building in downtown Toledo.",
     "latitude": 41.651832,
     "longitude": -83.534791,
-    "image": "images/toledo-frog-mural.jpg"
+    "image": "images/toledo-frog-mural.webp"
   },
   {
     "id": 2,
@@ -17,10 +17,10 @@
     "description": "A colorful mural located at Peace Love Happiness World Headquarters in downtown Toledo.",
     "latitude": 41.65233,
     "longitude": -83.535482,
-    "image": "images/all-you-need-is-love-mural.jpg",
+    "image": "images/all-you-need-is-love-mural.webp",
     "submissions": [
       {
-        "image": "images/all-you-need-is-love-submission-01.jpg",
+        "image": "images/all-you-need-is-love-submission-01.webp",
         "submitted_at": "2026-05-17",
         "submitted_by": "public"
       }
@@ -34,7 +34,7 @@
     "description": "500 Madison Avenue, Toledo, OH 43604",
     "latitude": 41.652,
     "longitude": -83.5358,
-    "image": "images/river-gallery-studio.jpg"
+    "image": "images/river-gallery-studio.webp"
   },
   {
     "id": 4,
@@ -44,7 +44,7 @@
     "description": "The largest mural in North America, spanning 28 ADM grain silos across 170,000 sq ft along the Maumee River. Features sunflowers and portraits of Native American women and children honoring the region's first agriculturalists. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
     "latitude": 41.6261,
     "longitude": -83.5306,
-    "image": "images/glass-city-river-wall-mural.png"
+    "image": "images/glass-city-river-wall-mural.webp"
   },
   {
     "id": 5,
@@ -54,7 +54,7 @@
     "description": "A colorful postcard-style mural at 120 Main St in East Toledo, featuring iconic Toledo landmarks like Tony Packo's, the Skyway Bridge, and the Toledo Mud Hens. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
     "latitude": 41.647756,
     "longitude": -83.522784,
-    "image": "images/greetings-from-toledo-mural.png"
+    "image": "images/greetings-from-toledo-mural.webp"
   },
   {
     "id": 6,
@@ -64,7 +64,7 @@
     "description": "World-class art museum with free admission, housed in a stunning Greek Revival building. Home to the renowned Glass Pavilion. 2445 Monroe St, Toledo, OH 43620. Photo: <a href=\"https://www.instagram.com/thedougiefresh\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">Doug Hinebaugh</a>.",
     "latitude": 41.6585,
     "longitude": -83.5595,
-    "image": "images/toledo-museum-of-art.png"
+    "image": "images/toledo-museum-of-art.webp"
   },
   {
     "id": 7,
@@ -84,7 +84,7 @@
     "description": "A historic arts hub since 1905 offering artist studios, live performances, classes, and workshops. 2413 Collingwood Blvd, Toledo, OH 43620. Photo: Smithr1981, <a href=\"https://creativecommons.org/licenses/by/3.0\" target=\"_blank\" rel=\"noopener\" class=\"photo-credit\">CC BY 3.0</a>.",
     "latitude": 41.6687,
     "longitude": -83.5563,
-    "image": "images/collingwood-art-center.jpg"
+    "image": "images/collingwood-art-center.webp"
   },
   {
     "id": 9,
@@ -94,7 +94,7 @@
     "description": "A full-service gallery in the historic Secor Building downtown, with free, ever-changing exhibitions.",
     "latitude": 41.650138,
     "longitude": -83.536265,
-    "image": "images/river-house-arts.jpg"
+    "image": "images/river-house-arts.webp"
   },
   {
     "id": 10,
@@ -105,7 +105,7 @@
     "logo": "images/the-art-commission.svg",
     "latitude": 41.6503453,
     "longitude": -83.5332719,
-    "image": "images/echo-sculpture.png"
+    "image": "images/echo-sculpture.webp"
   },
   {
     "id": 11,
@@ -116,15 +116,15 @@
     "logo": "images/the-art-commission.svg",
     "latitude": 41.65211099847761,
     "longitude": -83.53267515857658,
-    "image": "images/the-oval-upon-reflection-sculpture.png",
+    "image": "images/the-oval-upon-reflection-sculpture.webp",
     "submissions": [
       {
-        "image": "images/upon-reflection-submission-01.jpg",
+        "image": "images/upon-reflection-submission-01.webp",
         "submitted_at": "2026-05-22",
         "submitted_by": "public"
       },
       {
-        "image": "images/upon-reflection-submission-02.jpg",
+        "image": "images/upon-reflection-submission-02.webp",
         "submitted_at": "2026-05-22",
         "submitted_by": "public"
       }
@@ -138,7 +138,7 @@
     "description": "A rotating collection of mixed-media paintings and works by Toledo muralist Dean Davis, displayed at The Loft 419. 336 N Superior St, Toledo, OH.",
     "latitude": 41.652266,
     "longitude": -83.535278,
-    "image": "images/various-paintings-dean-davis.png"
+    "image": "images/various-paintings-dean-davis.webp"
   },
   {
     "id": 13,
@@ -148,7 +148,7 @@
     "description": "Hand-painted pub mural at Ye Olde Cock & Bull, 9 N Huron St, Toledo, OH 43604.",
     "latitude": 41.648617,
     "longitude": -83.540203,
-    "image": "images/yo-olde-cock-bull-mural.jpg"
+    "image": "images/yo-olde-cock-bull-mural.webp"
   },
   {
     "id": 14,
@@ -158,7 +158,7 @@
     "description": "A striking mural featuring a purple lion, a robed empress with flowing energy, monarch butterflies, and a misty landscape — a celebration of nature's power and grace.",
     "latitude": 41.647611,
     "longitude": -83.540472,
-    "image": "images/ageless-empress-mural.jpg"
+    "image": "images/ageless-empress-mural.webp"
   },
   {
     "id": 15,
@@ -168,7 +168,7 @@
     "description": "A vibrant mural wrapping the entrance of a parking garage at 201 N St Clair St, featuring two figures flanking a central totem, a cityscape, rainbow, and abstract patterns across the columns and ceiling.",
     "latitude": 41.6504,
     "longitude": -83.5357,
-    "image": "images/st-clair-garage-mural.jpg"
+    "image": "images/st-clair-garage-mural.webp"
   },
   {
     "id": 16,
@@ -179,10 +179,10 @@
     "logo": "images/the-art-commission.svg",
     "latitude": 41.652792,
     "longitude": -83.533902,
-    "image": "images/tragic-mask.jpg",
+    "image": "images/tragic-mask.webp",
     "images": [
-      "images/tragic-mask.jpg",
-      "images/tragic-mask-01.jpg"
+      "images/tragic-mask.webp",
+      "images/tragic-mask-01.webp"
     ]
   },
   {
@@ -193,15 +193,15 @@
     "description": "A rotating display of works from the Mark J. Bevington Collection, on view at Tolhouse. 1447 N Summit St, Toledo, OH 43604.",
     "latitude": 41.661098,
     "longitude": -83.518486,
-    "image": "images/mark-j-bevington-collection-tolhouse.jpg",
+    "image": "images/mark-j-bevington-collection-tolhouse.webp",
     "images": [
-      "images/mark-j-bevington-collection-tolhouse.jpg",
-      "images/cloud-backup.jpg",
-      "images/cloud-backup-details.jpg"
+      "images/mark-j-bevington-collection-tolhouse.webp",
+      "images/cloud-backup.webp",
+      "images/cloud-backup-details.webp"
     ],
     "submissions": [
       {
-        "image": "images/mark-j-bevington-collection-tolhouse-submission-01.jpg",
+        "image": "images/mark-j-bevington-collection-tolhouse-submission-01.webp",
         "submitted_at": "2026-04-14",
         "submitted_by": "public"
       }
@@ -215,10 +215,10 @@
     "description": "Need info",
     "latitude": 41.646242,
     "longitude": -83.541533,
-    "image": "images/artwork-18-submission-01.jpg",
+    "image": "images/artwork-18-submission-01.webp",
     "submissions": [
       {
-        "image": "images/artwork-18-submission-01.jpg",
+        "image": "images/artwork-18-submission-01.webp",
         "submitted_at": "2026-05-14",
         "submitted_by": "public"
       }
@@ -232,10 +232,10 @@
     "description": "1222 Broadway, Toledo, OH 43609",
     "latitude": 41.6342218,
     "longitude": -83.5518475,
-    "image": "images/jose-martinez-memorial-galeria-submission-01.jpg",
+    "image": "images/jose-martinez-memorial-galeria-submission-01.webp",
     "submissions": [
       {
-        "image": "images/jose-martinez-memorial-galeria-submission-01.jpg",
+        "image": "images/jose-martinez-memorial-galeria-submission-01.webp",
         "submitted_at": "2026-04-30",
         "submitted_by": "public"
       }
@@ -249,10 +249,10 @@
     "description": "Need info",
     "latitude": 41.647317,
     "longitude": -83.538242,
-    "image": "images/artwork-21-submission-01.jpg",
+    "image": "images/artwork-21-submission-01.webp",
     "submissions": [
       {
-        "image": "images/artwork-21-submission-01.jpg",
+        "image": "images/artwork-21-submission-01.webp",
         "submitted_at": "2026-05-02",
         "submitted_by": "public"
       }
@@ -266,10 +266,10 @@
     "description": "Large outdoor mural featuring an acoustic guitar and a black-and-white portrait of a jazz musician, with the quote \"There is no such thing as a wrong note.\" in handwritten white text.",
     "latitude": 41.651953,
     "longitude": -83.535533,
-    "image": "images/there-is-no-such-thing-as-a-wrong-note-submission-01.jpg",
+    "image": "images/there-is-no-such-thing-as-a-wrong-note-submission-01.webp",
     "submissions": [
       {
-        "image": "images/there-is-no-such-thing-as-a-wrong-note-submission-01.jpg",
+        "image": "images/there-is-no-such-thing-as-a-wrong-note-submission-01.webp",
         "submitted_at": "2026-05-17",
         "submitted_by": "public"
       }
@@ -283,10 +283,10 @@
     "description": "A wall-mounted sculpture of a skeletal flightless bird with stylized teal-and-blue ribs, displayed on the dark paneled exterior of the Ostrich Towne building.",
     "latitude": 41.65695,
     "longitude": -83.5274111,
-    "image": "images/ostrich-skeleton-submission-01.jpg",
+    "image": "images/ostrich-skeleton-submission-01.webp",
     "submissions": [
       {
-        "image": "images/ostrich-skeleton-submission-01.jpg",
+        "image": "images/ostrich-skeleton-submission-01.webp",
         "submitted_at": "2026-05-21",
         "submitted_by": "public"
       }
@@ -300,10 +300,10 @@
     "description": "A large mural of three life-sized brown ostriches striding across the brick side of the Ostrich Towne building, set against a swirling blue and orange sky.",
     "latitude": 41.65695,
     "longitude": -83.5274111,
-    "image": "images/ostrich-towne-mural-submission-01.jpg",
+    "image": "images/ostrich-towne-mural-submission-01.webp",
     "submissions": [
       {
-        "image": "images/ostrich-towne-mural-submission-01.jpg",
+        "image": "images/ostrich-towne-mural-submission-01.webp",
         "submitted_at": "2026-05-21",
         "submitted_by": "public"
       }
@@ -317,10 +317,10 @@
     "description": "A mural of a piano keyboard arching like a suspension bridge, painted in blues and purples across a teal-and-blue brick wall.",
     "latitude": 41.649637777805324,
     "longitude": -83.53551215127861,
-    "image": "images/piano-bridge-mural-submission-01.jpg",
+    "image": "images/piano-bridge-mural-submission-01.webp",
     "submissions": [
       {
-        "image": "images/piano-bridge-mural-submission-01.jpg",
+        "image": "images/piano-bridge-mural-submission-01.webp",
         "submitted_at": "2026-05-21",
         "submitted_by": "public"
       }
@@ -334,10 +334,10 @@
     "description": "Tall blue steel arches resembling trees, topped with luminous white and silver leaf-like forms, installed on the plaza outside the Glass City Center.",
     "latitude": 41.64973,
     "longitude": -83.5353083,
-    "image": "images/glass-city-center-trees-submission-01.jpg",
+    "image": "images/glass-city-center-trees-submission-01.webp",
     "submissions": [
       {
-        "image": "images/glass-city-center-trees-submission-01.jpg",
+        "image": "images/glass-city-center-trees-submission-01.webp",
         "submitted_at": "2026-05-21",
         "submitted_by": "public"
       }
@@ -351,30 +351,30 @@
     "description": "Need info",
     "latitude": 41.64796666666667,
     "longitude": -83.53742222222222,
-    "image": "images/cattails-glass-mosaic-mural-submission-01.jpg",
+    "image": "images/cattails-glass-mosaic-mural-submission-01.webp",
     "submissions": [
       {
-        "image": "images/cattails-glass-mosaic-mural-submission-01.jpg",
+        "image": "images/cattails-glass-mosaic-mural-submission-01.webp",
         "submitted_at": "2026-05-22",
         "submitted_by": "public"
       },
       {
-        "image": "images/cattails-glass-mosaic-mural-submission-02.jpg",
+        "image": "images/cattails-glass-mosaic-mural-submission-02.webp",
         "submitted_at": "2026-05-22",
         "submitted_by": "public"
       },
       {
-        "image": "images/artwork-20-submission-01.jpg",
+        "image": "images/artwork-20-submission-01.webp",
         "submitted_at": "2026-05-02",
         "submitted_by": "public"
       },
       {
-        "image": "images/cattails-glass-mosaic-mural-submission-03.jpg",
+        "image": "images/cattails-glass-mosaic-mural-submission-03.webp",
         "submitted_at": "2026-05-31",
         "submitted_by": "public"
       },
       {
-        "image": "images/cattails-glass-mosaic-mural-submission-04.jpg",
+        "image": "images/cattails-glass-mosaic-mural-submission-04.webp",
         "submitted_at": "2026-05-31",
         "submitted_by": "public"
       }
@@ -388,30 +388,30 @@
     "description": "Need info",
     "latitude": 41.645802777777774,
     "longitude": -83.54106944444445,
-    "image": "images/warehouse-district-mural-wall-submission-01.jpg",
+    "image": "images/warehouse-district-mural-wall-submission-01.webp",
     "submissions": [
       {
-        "image": "images/warehouse-district-mural-wall-submission-01.jpg",
+        "image": "images/warehouse-district-mural-wall-submission-01.webp",
         "submitted_at": "2026-05-22",
         "submitted_by": "public"
       },
       {
-        "image": "images/warehouse-district-mural-wall-submission-02.jpg",
+        "image": "images/warehouse-district-mural-wall-submission-02.webp",
         "submitted_at": "2026-05-22",
         "submitted_by": "public"
       },
       {
-        "image": "images/warehouse-district-mural-wall-submission-03.jpg",
+        "image": "images/warehouse-district-mural-wall-submission-03.webp",
         "submitted_at": "2026-05-22",
         "submitted_by": "public"
       },
       {
-        "image": "images/warehouse-district-mural-wall-submission-04.jpg",
+        "image": "images/warehouse-district-mural-wall-submission-04.webp",
         "submitted_at": "2026-05-22",
         "submitted_by": "public"
       },
       {
-        "image": "images/warehouse-district-mural-wall-submission-05.jpg",
+        "image": "images/warehouse-district-mural-wall-submission-05.webp",
         "submitted_at": "2026-05-22",
         "submitted_by": "public"
       }
@@ -425,10 +425,10 @@
     "description": "Need info",
     "latitude": 41.64926388888889,
     "longitude": -83.53945833333333,
-    "image": "images/blue-frog-bike-rack-submission-01.jpg",
+    "image": "images/blue-frog-bike-rack-submission-01.webp",
     "submissions": [
       {
-        "image": "images/blue-frog-bike-rack-submission-01.jpg",
+        "image": "images/blue-frog-bike-rack-submission-01.webp",
         "submitted_at": "2026-05-22",
         "submitted_by": "public"
       }
@@ -442,15 +442,15 @@
     "description": "A large-scale floral mural wrapping a downtown plaza wall in oversized daisies, coneflowers and wildflowers, paired with a black granite reflecting trough holding a single white orb.",
     "latitude": 41.6507,
     "longitude": -83.53340555555555,
-    "image": "images/floral-garden-mural-submission-01.jpg",
+    "image": "images/floral-garden-mural-submission-01.webp",
     "submissions": [
       {
-        "image": "images/floral-garden-mural-submission-01.jpg",
+        "image": "images/floral-garden-mural-submission-01.webp",
         "submitted_at": "2026-05-31",
         "submitted_by": "public"
       },
       {
-        "image": "images/floral-garden-mural-submission-02.jpg",
+        "image": "images/floral-garden-mural-submission-02.webp",
         "submitted_at": "2026-05-31",
         "submitted_by": "public"
       }
@@ -464,10 +464,10 @@
     "description": "A bold black-and-white typographic mural reading \"NEVER A WRONG NOTE\" across a downtown plaza wall.",
     "latitude": 41.6507,
     "longitude": -83.53340555555555,
-    "image": "images/never-a-wrong-note-mural-submission-01.jpg",
+    "image": "images/never-a-wrong-note-mural-submission-01.webp",
     "submissions": [
       {
-        "image": "images/never-a-wrong-note-mural-submission-01.jpg",
+        "image": "images/never-a-wrong-note-mural-submission-01.webp",
         "submitted_at": "2026-05-31",
         "submitted_by": "public"
       }
@@ -481,10 +481,10 @@
     "description": "A bold geometric mural of overlapping angular bands and diagonal stripes in red, blue, yellow, pink and teal on a downtown parking-structure wall.",
     "latitude": 41.6507,
     "longitude": -83.53340555555555,
-    "image": "images/geometric-x-parking-mural-submission-01.jpg",
+    "image": "images/geometric-x-parking-mural-submission-01.webp",
     "submissions": [
       {
-        "image": "images/geometric-x-parking-mural-submission-01.jpg",
+        "image": "images/geometric-x-parking-mural-submission-01.webp",
         "submitted_at": "2026-05-31",
         "submitted_by": "public"
       }
@@ -498,10 +498,10 @@
     "description": "A painted Toledo skyline set within a brick archway, with \"TOLEDO\" lettering and a small \"Pride\" script across the base.",
     "latitude": 41.646775,
     "longitude": -83.54081944444444,
-    "image": "images/toledo-skyline-arch-mural-submission-01.jpg",
+    "image": "images/toledo-skyline-arch-mural-submission-01.webp",
     "submissions": [
       {
-        "image": "images/toledo-skyline-arch-mural-submission-01.jpg",
+        "image": "images/toledo-skyline-arch-mural-submission-01.webp",
         "submitted_at": "2026-05-31",
         "submitted_by": "public"
       }
@@ -515,10 +515,10 @@
     "description": "A vivid mural of four stylized ostrich heads in saturated purples, pinks and oranges along the side of the Ostrich Towne building — a third ostrich-themed piece near the skeleton sculpture and the striding-ostriches mural.",
     "latitude": 41.656391666666664,
     "longitude": -83.52765833333333,
-    "image": "images/ostrich-heads-mural-submission-01.jpg",
+    "image": "images/ostrich-heads-mural-submission-01.webp",
     "submissions": [
       {
-        "image": "images/ostrich-heads-mural-submission-01.jpg",
+        "image": "images/ostrich-heads-mural-submission-01.webp",
         "submitted_at": "2026-05-31",
         "submitted_by": "public"
       }
@@ -532,10 +532,10 @@
     "description": "A rainbow-hued mural reading \"TOLEDO LOVES LOVE\" with abstract floral and linework forms across a brick wall.",
     "latitude": 41.65626111111111,
     "longitude": -83.5416,
-    "image": "images/toledo-loves-love-mural-submission-01.jpg",
+    "image": "images/toledo-loves-love-mural-submission-01.webp",
     "submissions": [
       {
-        "image": "images/toledo-loves-love-mural-submission-01.jpg",
+        "image": "images/toledo-loves-love-mural-submission-01.webp",
         "submitted_at": "2026-05-31",
         "submitted_by": "public"
       }
@@ -549,10 +549,10 @@
     "description": "A long multi-panel mural of abstract geometric and figurative motifs — harlequin diamonds, a portrait in an oval, and bold maze-like patterns — along a building wall.",
     "latitude": 41.65626111111111,
     "longitude": -83.5416,
-    "image": "images/abstract-panel-mural-submission-01.jpg",
+    "image": "images/abstract-panel-mural-submission-01.webp",
     "submissions": [
       {
-        "image": "images/abstract-panel-mural-submission-01.jpg",
+        "image": "images/abstract-panel-mural-submission-01.webp",
         "submitted_at": "2026-05-31",
         "submitted_by": "public"
       }
@@ -566,10 +566,10 @@
     "description": "A portrait mural of a smiling woman with golden hair and pink heart-shaped sunglasses painted across a garage door. A signature reading \"Scherer\" is visible, but the artist is unconfirmed.",
     "latitude": 41.65626111111111,
     "longitude": -83.5416,
-    "image": "images/heart-sunglasses-portrait-mural-submission-01.jpg",
+    "image": "images/heart-sunglasses-portrait-mural-submission-01.webp",
     "submissions": [
       {
-        "image": "images/heart-sunglasses-portrait-mural-submission-01.jpg",
+        "image": "images/heart-sunglasses-portrait-mural-submission-01.webp",
         "submitted_at": "2026-05-31",
         "submitted_by": "public"
       }
@@ -583,10 +583,10 @@
     "description": "A large mural of an iridescent cicada with stained-glass-like wings on a coral ground, above a band of marbled blue-and-orange floral forms.",
     "latitude": 41.651475,
     "longitude": -83.53212222222223,
-    "image": "images/cicada-mural-submission-01.jpg",
+    "image": "images/cicada-mural-submission-01.webp",
     "submissions": [
       {
-        "image": "images/cicada-mural-submission-01.jpg",
+        "image": "images/cicada-mural-submission-01.webp",
         "submitted_at": "2026-05-31",
         "submitted_by": "public"
       }
@@ -600,10 +600,10 @@
     "description": "A giant continuous-line drawing of a woman's face on a white wall, with tiny figures climbing ladders across it.",
     "latitude": 41.65564722222222,
     "longitude": -83.54027777777777,
-    "image": "images/single-line-face-mural-submission-01.jpg",
+    "image": "images/single-line-face-mural-submission-01.webp",
     "submissions": [
       {
-        "image": "images/single-line-face-mural-submission-01.jpg",
+        "image": "images/single-line-face-mural-submission-01.webp",
         "submitted_at": "2026-05-31",
         "submitted_by": "public"
       }
@@ -617,7 +617,7 @@
     "description": "Arts high school and community gallery (Maxine and Stuart Frankel Family Foundation Annex), home to rotating exhibits, a permanent lobby sculpture, and a donor wall.",
     "latitude": 41.65697,
     "longitude": -83.5432,
-    "image": "images/tsa-unity-sculpture-01.jpg",
+    "image": "images/tsa-unity-sculpture-01.webp",
     "exhibits": [
       {
         "id": "tsa-one-city-many-moments",
@@ -629,16 +629,16 @@
         "note": "Need info: exact run dates",
         "description": "A photography exhibition by Doug Hinebaugh of Toledo skyline, riverfront and portrait work, including a backlit skyline print captioned \"you will do better...\" in neon.",
         "images": [
-          "images/tsa-one-city-many-moments-01.jpg",
-          "images/tsa-one-city-many-moments-02.jpg",
-          "images/tsa-one-city-many-moments-03.jpg"
+          "images/tsa-one-city-many-moments-01.webp",
+          "images/tsa-one-city-many-moments-02.webp",
+          "images/tsa-one-city-many-moments-03.webp"
         ]
       }
     ],
     "images": [
-      "images/tsa-unity-sculpture-01.jpg",
-      "images/tsa-one-city-many-moments-01.jpg",
-      "images/tsa-the-next-big-thing-01.jpg"
+      "images/tsa-unity-sculpture-01.webp",
+      "images/tsa-one-city-many-moments-01.webp",
+      "images/tsa-the-next-big-thing-01.webp"
     ]
   }
 ]

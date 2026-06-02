@@ -2925,7 +2925,7 @@
            data-artist="${escapeAttr(art.artist || '')}"
            data-credit="${escapeAttr(credit)}"
            data-image="${escapeAttr(art.image)}">
-        <img src="${art.image}" alt="${art.title}">
+        <img src="${art.image}" alt="${art.title}" decoding="async">
         <div class="hero-overlay"></div>
         <div class="hero-content">
           <div class="hero-tag">Featured</div>
@@ -2938,7 +2938,7 @@
       <div class="hero-nav">
         <button class="hero-arrow" id="heroPrev" type="button"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
         <div class="hero-thumbs">
-          ${heroItems.map((art, i) => `<button class="hero-thumb${i === 0 ? ' active' : ''}" data-index="${i}"><img src="${art.image}" alt="${escapeAttr(art.title)}"></button>`).join('')}
+          ${heroItems.map((art, i) => `<button class="hero-thumb${i === 0 ? ' active' : ''}" data-index="${i}"><img src="${art.image}" alt="${escapeAttr(art.title)}" loading="lazy" decoding="async"></button>`).join('')}
         </div>
         <button class="hero-arrow" id="heroNext" type="button"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
       </div>`;
@@ -3041,7 +3041,7 @@
         const cardImage = exhibitCover || art.image;
         return `
         <div class="artwork-card" data-type="${art.type || 'unknown'}"${(art.exhibits || []).length ? ' data-has-exhibits="true"' : ''}>
-          <img src="${cardImage}" alt="${art.title}" loading="lazy"
+          <img src="${cardImage}" alt="${art.title}" loading="lazy" decoding="async"
                data-title="${escapeAttr(art.title)}"
                data-artist="${escapeAttr(art.artist || '')}"
                data-credit="${escapeAttr(credit)}"
@@ -3051,7 +3051,7 @@
           ${recentFlag ? `<div class="artwork-new-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1l2.5 7.5L22 11l-7.5 2.5L12 21l-2.5-7.5L2 11l7.5-2.5L12 1z"/></svg>NEW</div>` : ''}
           ${gallery.length > 1 ? `<div class="artwork-photo-count">📷 ${gallery.length}</div>` : ''}
           <div class="artwork-info">
-            ${art.logo ? `<a href="https://theartscommission.org/public-art/collection" target="_blank" rel="noopener"><img class="artwork-logo" src="${art.logo}" alt="The Arts Commission"></a>` : ''}
+            ${art.logo ? `<a href="https://theartscommission.org/public-art/collection" target="_blank" rel="noopener"><img class="artwork-logo" src="${art.logo}" alt="The Arts Commission" loading="lazy" decoding="async"></a>` : ''}
             <h3>${art.title}</h3>
             ${art.artist ? `<div class="artwork-artist">by ${art.artist}</div>` : ''}
             ${exhibitList.length ? `<div class="artwork-exhibits">${exhibitList.map(e => `
@@ -3128,7 +3128,7 @@
       }
 
       var popupHtml = '<div class="map-popup">' +
-        '<img src="' + art.image + '" alt="' + escapeAttr(art.title) + '">' +
+        '<img src="' + art.image + '" alt="' + escapeAttr(art.title) + '" loading="lazy" decoding="async">' +
         '<h4>' + art.title + '</h4>' +
         (art.artist ? '<div class="map-popup-artist">by ' + art.artist + '</div>' : '') +
         '<a href="https://www.google.com/maps?q=' + art.latitude + ',' + art.longitude + '" target="_blank" rel="noopener">Get directions →</a>' +
@@ -3243,7 +3243,7 @@
             }
             return '<div class="tour-stop">' +
               '<div class="tour-stop-number' + numClass + (stop.icon === 'lunch' ? ' lunch' : '') + '">' + (stop.icon === 'lunch' ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3"/><path d="M18 15v7"/></svg>' : (i + 1)) + '</div>' +
-              '<img class="tour-stop-img" src="' + art.image + '" alt="' + escapeAttr(art.title) + '">' +
+              '<img class="tour-stop-img" src="' + art.image + '" alt="' + escapeAttr(art.title) + '" loading="lazy" decoding="async">' +
               '<div class="tour-stop-content">' +
                 '<div class="tour-stop-title">' + art.title + '</div>' +
                 (art.artist ? '<div class="tour-stop-artist">by ' + art.artist + '</div>' : '') +
@@ -3277,7 +3277,7 @@
   lightbox.className = 'lightbox';
   lightbox.innerHTML = `
     <figure class="lightbox-figure">
-      <img src="" alt="">
+      <img src="" alt="" decoding="async">
       <figcaption class="lightbox-caption">
         <div class="lb-source"></div>
         <div class="lb-title"></div>
